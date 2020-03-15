@@ -8,15 +8,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableDiscoveryClient
-@RestController
-@MapperScan({"com.sparkplatform.adminbiz.dao"})
-@EnableFeignClients(basePackages = "com.sparkplatform.adminapi.feign.client")
-@ComponentScan(basePackages = {"com.sparkplatform"})
+@MapperScan({"com.spark.platform.adminbiz.dao"})
+@EnableFeignClients(basePackages = "com.spark.platform.adminapi.feign.client")
+@ComponentScan(basePackages = {"com.spark.platform"})
 @EnableSwagger2Doc
 public class SparkAdminBizApplication {
 
