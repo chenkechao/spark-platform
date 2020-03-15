@@ -1,0 +1,67 @@
+server:
+  port: 8002
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: sophia-gateway
+  cloud:
+    gateway:
+      locator:
+        enabled: true
+      routes:
+        - id: sophia-auth
+          uri: lb://sophia-auth
+          predicates:
+            - Path=/api/auth/**
+          filters:
+#            - SwaggerHeaderFilter
+            - StripPrefix=2
+            - name: Hystrix
+              args:
+                name: oauth-hystrix
+                fallbackUri: forward:/common/fallback #设置熔断器
+        - id: sophia-admin
+          uri: lb://sophia-admin
+          predicates:
+            - Path=/api/admin/**
+          filters:
+#            - SwaggerHeaderFilter
+            - StripPrefix=2
+            - name: Hystrix
+              args:
+                name: admin-hystrix
+                fallbackUri: forward:/common/fallback #设置熔断器
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:8761/eureka/
+  instance:
+    prefer‐ip‐address: true
+    status-page-url-path: /actuator/info
+    health-check-url-path: /actuator/health
+eurekaUserName: sophia
+eurekaPassWord: sophia
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    bus-refresh:
+      enabled: true
