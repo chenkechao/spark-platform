@@ -75,7 +75,7 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
         //数据库密码是加密了的
         if (passwordEncoder.matches(password, user.getPassword())) {
             s = "?client_id=" + securityOAuth2ClientProperties.getClientId() + "&client_secret=" + securityOAuth2ClientProperties.getClientSecret() + "&grant_type=password&scope=all&username=" + userName + "&password=" + password;
-            String sr = HttpCallOtherInterfaceUtils.callOtherInterface(url, "/spark/auth/oauth/token" + s);
+            String sr = HttpCallOtherInterfaceUtils.callOtherInterface(url, "/auth/oauth/token" + s);
             Map srmap = JSON.parseObject(sr);
             if (null == srmap ) {
                 throw new CommonException("认证失败:"+sr);
