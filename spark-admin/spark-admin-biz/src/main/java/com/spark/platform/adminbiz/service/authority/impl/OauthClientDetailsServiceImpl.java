@@ -25,7 +25,7 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
     private OauthClientDetailsDao oauthClientDetailsDao;
 
     @Override
-    @Cacheable(value= GlobalsConstants.REDIS_CLIENT_CACHE,unless = "#result == null", key="T(com.scaffolding.sophia.common.base.constants.GlobalsConstants).CLIENT_DETAILS_KEY.concat(T(String).valueOf(#clientId))")
+    @Cacheable(value= GlobalsConstants.REDIS_CLIENT_CACHE,unless = "#result == null", key="T(com.spark.platform.common.base.constants.GlobalsConstants).CLIENT_DETAILS_KEY.concat(T(String).valueOf(#clientId))")
     public OauthClientDetails findOauthClientDetailsByClientId(String clientId) {
         return oauthClientDetailsDao.getOauthClientDetailsByClientId(clientId);
     }

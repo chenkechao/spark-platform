@@ -33,8 +33,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@ComponentScan("com.sparkplatform.common.security")
-public class SophiaResourceServerConfig extends ResourceServerConfigurerAdapter {
+@ComponentScan("com.spark.platform.common.security")
+public class SparkResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
     private FilterIgnoreProperties ignorePropertiesConfig;

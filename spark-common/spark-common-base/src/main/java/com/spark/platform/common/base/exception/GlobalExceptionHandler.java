@@ -1,6 +1,6 @@
 package com.spark.platform.common.base.exception;
 
-import com.spark.platform.common.base.enums.SophiaHttpStatus;
+import com.spark.platform.common.base.enums.SparkHttpStatus;
 import com.spark.platform.common.base.support.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +23,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = CommonException.class)
     public ApiResponse defaultErrorHandler(CommonException e) {
         e.printStackTrace();
-        return new ApiResponse(SophiaHttpStatus.COMMON_FAIL.getCode(),new CommonException().getMessage());
+        return new ApiResponse(SparkHttpStatus.COMMON_FAIL.getCode(),new CommonException().getMessage());
     }
 
     @ExceptionHandler(value = RuntimeException.class)
     public ApiResponse defaultErrorHandler(RuntimeException e) {
         e.printStackTrace();
         createLogger(e);
-        return  new ApiResponse(SophiaHttpStatus.SERVER_FUGUE.getCode(),SophiaHttpStatus.SERVER_FUGUE.getMessage());
+        return  new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(), SparkHttpStatus.SERVER_FUGUE.getMessage());
     }
 
     /**

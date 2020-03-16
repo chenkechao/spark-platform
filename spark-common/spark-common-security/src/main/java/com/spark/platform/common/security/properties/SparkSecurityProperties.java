@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = GlobalsConstants.SOPHIA_OAUTH_PREFIX)
-public class SophiaSecurityProperties {
+@ConfigurationProperties(prefix = GlobalsConstants.SPARK_OAUTH_PREFIX)
+public class SparkSecurityProperties {
 
     WebProperties web = new WebProperties();
 

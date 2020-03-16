@@ -1,4 +1,4 @@
-package com.spark.platform.common.base.bo;
+package com.spark.platform.common.base.entity;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * @Version: 1.0
  */
 @Data
-public class BaseBo {
+public class BaseEntity {
 
     /**
      * 创建时间

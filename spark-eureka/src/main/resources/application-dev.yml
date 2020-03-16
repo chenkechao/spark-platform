@@ -6,7 +6,7 @@ spring:
       name: sophia
       password: sophia
   application:
-    name: sophia-eureka
+    name: spark-eureka
 eureka:
   instance:
     hostname: localhost

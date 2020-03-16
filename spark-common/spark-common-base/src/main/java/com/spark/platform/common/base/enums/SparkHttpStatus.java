@@ -11,7 +11,7 @@ import lombok.Getter;
  * @Version: 1.0
  */
 @Getter
-public enum SophiaHttpStatus {
+public enum SparkHttpStatus {
     /**
      * Gl 000500 error code enum.
      */
@@ -72,7 +72,7 @@ public enum SophiaHttpStatus {
      * */
     private String message;
 
-    SophiaHttpStatus(Integer code, String message) {
+    SparkHttpStatus(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -82,8 +82,8 @@ public enum SophiaHttpStatus {
      * @param code the code
      * @return the enum
      */
-    public static SophiaHttpStatus getEnum(int code) {
-        for (SophiaHttpStatus ele : SophiaHttpStatus.values()) {
+    public static SparkHttpStatus getEnum(int code) {
+        for (SparkHttpStatus ele : SparkHttpStatus.values()) {
             if (ele.getCode() == code) {
                 return ele;
             }

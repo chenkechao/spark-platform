@@ -1,7 +1,7 @@
 package com.spark.platform.common.security.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spark.platform.common.base.enums.SophiaHttpStatus;
+import com.spark.platform.common.base.enums.SparkHttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -23,7 +23,7 @@ public class MyAuthExceptionEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws ServletException {
-        SophiaHttpStatus resultEnum = SophiaHttpStatus.INVALID_TOKEN;
+        SparkHttpStatus resultEnum = SparkHttpStatus.INVALID_TOKEN;
         Map map = new HashMap();
         map.put("code", resultEnum.getCode());
         map.put("msg", resultEnum.getMessage());

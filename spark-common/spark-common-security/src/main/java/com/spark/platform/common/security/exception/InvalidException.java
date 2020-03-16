@@ -1,7 +1,7 @@
 package com.spark.platform.common.security.exception;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.spark.platform.common.security.component.SophiaAuth2ExceptionSerializer;
+import com.spark.platform.common.security.component.SparkAuth2ExceptionSerializer;
 
 /**
  * @author: LHL
@@ -11,8 +11,8 @@ import com.spark.platform.common.security.component.SophiaAuth2ExceptionSerializ
  * @Description:
  * @Version: 1.0
  */
-@JsonSerialize(using = SophiaAuth2ExceptionSerializer.class)
-public class InvalidException extends SophiaAuth2Exception {
+@JsonSerialize(using = SparkAuth2ExceptionSerializer.class)
+public class InvalidException extends SparkAuth2Exception {
 
 	public InvalidException(String msg, Throwable t) {
 		super(msg);

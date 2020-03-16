@@ -1,11 +1,11 @@
 package com.spark.platform.auth.config;
 
 import com.spark.platform.common.base.constants.GlobalsConstants;
-import com.spark.platform.common.security.component.SophiaWebResponseExceptionTranslator;
+import com.spark.platform.common.security.component.SparkWebResponseExceptionTranslator;
 import com.spark.platform.common.security.config.JwtTokenEnhancer;
-import com.spark.platform.common.security.properties.SophiaSecurityProperties;
-import com.spark.platform.common.security.service.SophiaClientDetailsService;
-import com.spark.platform.common.security.service.SophiaUserDetailService;
+import com.spark.platform.common.security.properties.SparkSecurityProperties;
+import com.spark.platform.common.security.service.SparkClientDetailsService;
+import com.spark.platform.common.security.service.SparkUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,12 +38,10 @@ import java.util.Arrays;
  */
 @Configuration
 @EnableAuthorizationServer
-public class SophiaAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class SparkAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private SophiaUserDetailService sophiaUserDetailService;
-    @Autowired
-    private SophiaSecurityProperties securityProperties;
+    private SparkUserDetailService sophiaUserDetailService;
     @Autowired
     private RedisConnectionFactory connectionFactory;
     @Autowired
@@ -51,32 +49,7 @@ public class SophiaAuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private  PasswordEncoder passwordEncoder;
     @Autowired
-    private SophiaClientDetailsService sophiaClientDetailsService;
-
-
-    // /**
-    //  * 配置客户端详情信息，客户端详情信息在这里进行初始化，通过数据库来存储调取详情信息
-    //  */
-    // @Override
-    // public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    //     InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
-    //     if (ArrayUtils.isNotEmpty(securityProperties.getOauth2().getClients())) {
-    //         for (OAuth2ClientProperties client : securityProperties.getOauth2().getClients()) {
-    //             builder
-    //                     .withClient(client.getClientId())
-    //                     .secret(new BCryptPasswordEncoder().encode(client.getClientSecret()))
-    //                     // .resourceIds("admin","auth")
-    //                     //设置token的有效期，不设置默认12小时
-    //                     .accessTokenValiditySeconds(client.getAccessTokenValidatySeconds())
-    //                     //设置刷新token的有效期，不设置默认30天
-    //                     .refreshTokenValiditySeconds(client.getRefreshTokenValiditySeconds())
-    //                     .redirectUris("http://www.baidu.com")
-    //                     .authorizedGrantTypes("authorization_code","client_credentials", "refresh_token", "password")
-    //                     .scopes("all", "read", "write")
-    //                     .autoApprove(true);
-    //         }
-    //     }
-    // }
+    private SparkClientDetailsService sophiaClientDetailsService;
 
     /**
      *  配置客户端详情信息，客户端详情信息在这里进行初始化，通过数据库来存储调取详情信息
@@ -108,7 +81,7 @@ public class SophiaAuthorizationServerConfig extends AuthorizationServerConfigur
                 .tokenServices(defaultTokenServices())
                 .reuseRefreshTokens(false)
         // ;  //自定义异常处理
-                .exceptionTranslator(new SophiaWebResponseExceptionTranslator());
+                .exceptionTranslator(new SparkWebResponseExceptionTranslator());
     }
 
 

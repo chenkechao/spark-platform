@@ -1,7 +1,7 @@
 package com.spark.platform.common.base.support;
 
 import com.spark.platform.common.base.constants.GlobalsConstants;
-import com.spark.platform.common.base.enums.SophiaHttpStatus;
+import com.spark.platform.common.base.enums.SparkHttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -68,26 +68,26 @@ public class BaseController {
     }
 
     public ApiResponse success(){
-        return  new ApiResponse(SophiaHttpStatus.SUCCESS);
+        return  new ApiResponse(SparkHttpStatus.SUCCESS);
     }
 
     public ApiResponse success(String msg){
-        ApiResponse re = new ApiResponse(SophiaHttpStatus.SUCCESS);
+        ApiResponse re = new ApiResponse(SparkHttpStatus.SUCCESS);
         re.setMessage(msg);
         return  re;
     }
     public ApiResponse success(Object data){
-        ApiResponse re = new ApiResponse(SophiaHttpStatus.SUCCESS);
+        ApiResponse re = new ApiResponse(SparkHttpStatus.SUCCESS);
         re.setData(data);
         return  re;
     }
 
     public ApiResponse fail(){
-        return  new ApiResponse(SophiaHttpStatus.COMMON_FAIL);
+        return  new ApiResponse(SparkHttpStatus.COMMON_FAIL);
     }
 
     public ApiResponse fail(String msg){
-        ApiResponse re = new ApiResponse(SophiaHttpStatus.COMMON_FAIL);
+        ApiResponse re = new ApiResponse(SparkHttpStatus.COMMON_FAIL);
         re.setMessage(msg);
         return  re;
     }

@@ -1,6 +1,8 @@
 package com.spark.platform.adminbiz.controller;
 
+import com.google.common.collect.Lists;
 import com.spark.platform.adminbiz.service.authority.AuthorityService;
+import com.spark.platform.adminbiz.service.menu.MenuService;
 import com.spark.platform.common.base.support.BaseController;
 import com.spark.platform.adminapi.dto.UserDto;
 import com.spark.platform.adminapi.entity.authority.Authority;
@@ -19,7 +21,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: LHL
@@ -42,6 +46,9 @@ public class APIController extends BaseController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MenuService menuService;
 
 
     @GetMapping("/principal")
@@ -66,13 +73,18 @@ public class APIController extends BaseController {
         userDto.setPermissions(authCodeList);
         userDto.setRoles(roleCodeList);
         userDto.setMenus(menuCodeList);
-        return success(userDto);
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",userVo.getUsername());
+        map.put("roles",roleCodeList);
+        map.put("avatar",userVo.getHeadImage());
+        map.put("routers",menuService.findMenuTree(loginUser.getUsername()));
+        return success(map);
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ApiOperation(value = "登录接口")
-    public ApiResponse webLogin(@RequestParam String userName, @RequestParam String password){
-        UserVo result = userService.loginByPassword(userName, password);
+    public ApiResponse webLogin(@RequestBody UserVo userVo){
+        UserVo result = userService.loginByPassword(userVo.getUsername(), userVo.getPassword());
         if(null != result){
             return success(result);
         }

@@ -4,10 +4,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: sophia-admin
+    name: spark-admin
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:  jdbc:mysql://106.13.179.172:3306/sophia?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    url:  jdbc:mysql://106.13.179.172:3306/spark?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: Wang_123
     name: sophia
@@ -41,7 +41,7 @@ spring:
       shutdown-timeout: 10000
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: com.scaffolding.sophia.admin.api.entity
+  type-aliases-package: com.spark.platform.adminapi.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: false
@@ -84,10 +84,10 @@ management:
     enabled: false
 
 swagger:
-  base-package: com.scaffolding.sophia.admin.biz
+  base-package: com.spark.platform.adminbiz
   enabled: true
-  description: sophia用户服务
-  version: V2.0
+  description: spark用户服务
+  version: V1.0
   license: Apache License, Version 2.0
   license-url: https://www.apache.org/licenses/LICENSE-2.0.html
   authorization:
@@ -96,8 +96,8 @@ swagger:
 security:
   oauth2:
     client:
-      client-id: sophia-admin
-      client-secret: sophia-admin-secret
+      client-id: spark-admin
+      client-secret: spark-admin-secret
     resource:
       jwt:
         key-value: sophia_oauth_key

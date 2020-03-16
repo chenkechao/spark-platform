@@ -53,7 +53,7 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
     }
 
     @Override
-    @Cacheable(value= GlobalsConstants.REDIS_USER_CACHE,unless = "#result == null", key="T(com.scaffolding.sophia.common.base.constants.GlobalsConstants).USER_KEY_PREFIX.concat(T(String).valueOf(#userId))")
+    @Cacheable(value= GlobalsConstants.REDIS_USER_CACHE,unless = "#result == null", key="T(com.spark.platform.common.base.constants.GlobalsConstants).USER_KEY_PREFIX.concat(T(String).valueOf(#userId))")
     public User loadUserByUserId(Long userId){
         return userDao.findByUserId(userId);
     }
@@ -75,10 +75,10 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
         //数据库密码是加密了的
         if (passwordEncoder.matches(password, user.getPassword())) {
             s = "?client_id=" + securityOAuth2ClientProperties.getClientId() + "&client_secret=" + securityOAuth2ClientProperties.getClientSecret() + "&grant_type=password&scope=all&username=" + userName + "&password=" + password;
-            String sr = HttpCallOtherInterfaceUtils.callOtherInterface(url, "/api/auth/oauth/token" + s);
+            String sr = HttpCallOtherInterfaceUtils.callOtherInterface(url, "/spark/auth/oauth/token" + s);
             Map srmap = JSON.parseObject(sr);
             if (null == srmap ) {
-                throw new CommonException("认证失败");
+                throw new CommonException("认证失败:"+sr);
             }
             String access_token;
             if(StringUtils.isEmpty((String) srmap.get("access_token"))){
@@ -88,7 +88,7 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
             }
             UserVo vo = new UserVo();
             BeanUtils.copyProperties(user,vo);
-            vo.setAccessToken(access_token);
+            vo.setToken(access_token);
             return vo;
         }
         return null;

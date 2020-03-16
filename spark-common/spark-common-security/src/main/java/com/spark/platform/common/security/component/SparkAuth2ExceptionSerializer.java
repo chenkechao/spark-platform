@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.spark.platform.common.base.constants.GlobalsConstants;
-import com.spark.platform.common.security.exception.SophiaAuth2Exception;
+import com.spark.platform.common.security.exception.SparkAuth2Exception;
 import lombok.SneakyThrows;
 
 /**
@@ -15,16 +15,16 @@ import lombok.SneakyThrows;
  * @Description: OAuth2 异常格式化
  * @Version: 1.0
  */
-public class SophiaAuth2ExceptionSerializer extends StdSerializer<SophiaAuth2Exception> {
+public class SparkAuth2ExceptionSerializer extends StdSerializer<SparkAuth2Exception> {
 
 
-	public SophiaAuth2ExceptionSerializer() {
-		super(SophiaAuth2Exception.class);
+	public SparkAuth2ExceptionSerializer() {
+		super(SparkAuth2Exception.class);
 	}
 
 	@Override
 	@SneakyThrows
-	public void serialize(SophiaAuth2Exception value, JsonGenerator gen, SerializerProvider provider) {
+	public void serialize(SparkAuth2Exception value, JsonGenerator gen, SerializerProvider provider) {
 		gen.writeStartObject();
 		gen.writeObjectField("code", GlobalsConstants.FAIL);
 		gen.writeStringField("msg", value.getMessage());

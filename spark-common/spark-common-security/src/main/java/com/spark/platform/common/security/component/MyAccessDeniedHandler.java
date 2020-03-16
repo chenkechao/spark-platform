@@ -1,7 +1,7 @@
 package com.spark.platform.common.security.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spark.platform.common.base.enums.SophiaHttpStatus;
+import com.spark.platform.common.base.enums.SparkHttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -25,7 +25,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         response.setContentType("application/json;charset=UTF-8");
-        SophiaHttpStatus resultEnum = SophiaHttpStatus.UNAUTHORIZED;
+        SparkHttpStatus resultEnum = SparkHttpStatus.UNAUTHORIZED;
         Map map = new HashMap();
         map.put("code", resultEnum.getCode());
         map.put("msg", resultEnum.getMessage());

@@ -1,7 +1,7 @@
 package com.spark.platform.common.security.exception;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.spark.platform.common.security.component.SophiaAuth2ExceptionSerializer;
+import com.spark.platform.common.security.component.SparkAuth2ExceptionSerializer;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -12,8 +12,8 @@ import org.springframework.http.HttpStatus;
  * @Description:
  * @Version: 1.0
  */
-@JsonSerialize(using = SophiaAuth2ExceptionSerializer.class)
-public class ForbiddenException extends SophiaAuth2Exception {
+@JsonSerialize(using = SparkAuth2ExceptionSerializer.class)
+public class ForbiddenException extends SparkAuth2Exception {
 
 	public ForbiddenException(String msg, Throwable t) {
 		super(msg);

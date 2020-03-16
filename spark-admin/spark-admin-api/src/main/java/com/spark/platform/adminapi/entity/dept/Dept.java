@@ -3,7 +3,7 @@ package com.spark.platform.adminapi.entity.dept;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.spark.platform.common.base.bo.BaseBo;
+import com.spark.platform.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("sys_dept")
 @ApiModel(value = "Dept",description = "部门设置")
-public class Dept extends BaseBo implements Serializable {
+public class Dept extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

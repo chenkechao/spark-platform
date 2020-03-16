@@ -30,7 +30,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Component
-public class SophiaUserDetailService implements UserDetailsService {
+public class SparkUserDetailService implements UserDetailsService {
 
     @Autowired
     private UserClient userClient;

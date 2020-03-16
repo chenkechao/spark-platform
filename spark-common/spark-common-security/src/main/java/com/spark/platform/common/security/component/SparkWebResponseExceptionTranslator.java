@@ -27,7 +27,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
  * @Version: 1.0
  */
 @Slf4j
-public class SophiaWebResponseExceptionTranslator implements WebResponseExceptionTranslator {
+public class SparkWebResponseExceptionTranslator implements WebResponseExceptionTranslator {
 
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
@@ -89,7 +89,7 @@ public class SophiaWebResponseExceptionTranslator implements WebResponseExceptio
             return new ResponseEntity<>(e, headers,
                     HttpStatus.valueOf(status));
         }
-        return new ResponseEntity<>(new SophiaAuth2Exception(e.getMessage(), e.getOAuth2ErrorCode()), headers,
+        return new ResponseEntity<>(new SparkAuth2Exception(e.getMessage(), e.getOAuth2ErrorCode()), headers,
                 HttpStatus.valueOf(status));
 
     }

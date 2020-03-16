@@ -1,7 +1,7 @@
 package com.spark.platform.adminapi.entity.dict;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.spark.platform.common.base.bo.BaseBo;
+import com.spark.platform.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("sys_dict")
 @ApiModel(value = "Dict",description = "字典设置")
-public class Dict extends BaseBo implements Serializable {
+public class Dict extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

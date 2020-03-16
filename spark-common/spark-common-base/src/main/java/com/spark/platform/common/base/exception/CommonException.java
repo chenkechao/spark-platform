@@ -1,7 +1,7 @@
 package com.spark.platform.common.base.exception;
 
 
-import com.spark.platform.common.base.enums.SophiaHttpStatus;
+import com.spark.platform.common.base.enums.SparkHttpStatus;
 
 /**
  * @author: LHL
@@ -25,16 +25,16 @@ public class CommonException extends RuntimeException {
 
     public CommonException(String msg) {
         super(msg);
-        this.code = SophiaHttpStatus.COMMON_FAIL.getCode();
+        this.code = SparkHttpStatus.COMMON_FAIL.getCode();
         this.msg = msg;
     }
 
     public CommonException() {
-        super(SophiaHttpStatus.COMMON_FAIL.getMessage());
-        this.code = SophiaHttpStatus.COMMON_FAIL.getCode();
-        this.msg = SophiaHttpStatus.COMMON_FAIL.getMessage();
+        super(SparkHttpStatus.COMMON_FAIL.getMessage());
+        this.code = SparkHttpStatus.COMMON_FAIL.getCode();
+        this.msg = SparkHttpStatus.COMMON_FAIL.getMessage();
     }
-    public CommonException(SophiaHttpStatus status) {
+    public CommonException(SparkHttpStatus status) {
         super(status.getMessage());
         this.code = status.getCode();
         this.msg = status.getMessage();

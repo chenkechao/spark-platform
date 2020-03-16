@@ -3,7 +3,7 @@ package com.spark.platform.common.security.service;
 import com.alibaba.fastjson.JSON;
 import com.spark.platform.adminapi.entity.authority.OauthClientDetails;
 import com.spark.platform.adminapi.feign.client.AuthorityClient;
-import com.spark.platform.common.base.enums.SophiaHttpStatus;
+import com.spark.platform.common.base.enums.SparkHttpStatus;
 import com.spark.platform.common.base.exception.CommonException;
 import com.spark.platform.common.base.support.ApiResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -32,9 +32,9 @@ import java.util.Arrays;
  * @Version: 1.0
  */
 @Service
-public class SophiaClientDetailsService implements ClientDetailsService {
+public class SparkClientDetailsService implements ClientDetailsService {
 
-    private  static  final Logger log = LoggerFactory.getLogger(SophiaClientDetailsService.class);
+    private  static  final Logger log = LoggerFactory.getLogger(SparkClientDetailsService.class);
 
     @Autowired
     private AuthorityClient authorityClient;
@@ -44,7 +44,7 @@ public class SophiaClientDetailsService implements ClientDetailsService {
         ApiResponse apiResponse = authorityClient.getOauthClientDetailsByClientId(clientId);
         OauthClientDetails model  = JSON.parseObject(JSON.toJSONString( apiResponse.getData(), true),OauthClientDetails.class);
         if (model == null) {
-            throw new CommonException(SophiaHttpStatus.CLIENT_ERROR);
+            throw new CommonException(SparkHttpStatus.CLIENT_ERROR);
         }
         BaseClientDetails clientDetails = new BaseClientDetails();
         //客户端(client)id

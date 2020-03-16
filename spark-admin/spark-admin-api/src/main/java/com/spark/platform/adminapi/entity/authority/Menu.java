@@ -3,12 +3,14 @@ package com.spark.platform.adminapi.entity.authority;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.spark.platform.common.base.bo.BaseBo;
+import com.spark.platform.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author: LHL
@@ -23,7 +25,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("sys_menu")
 @ApiModel(value = "Menu",description = "菜单设置")
-public class Menu extends BaseBo implements Serializable {
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,23 +36,78 @@ public class Menu extends BaseBo implements Serializable {
     private Long id;
 
     /**
+     * 菜单名称
+     */
+    private String name;
+
+    /**
      * 父级菜单主键
      */
     private Long pid;
 
     /**
-     * 菜单名称
+     * 类型 0 菜单 1 按钮
      */
-    private String menuName;
+    private String type;
+    /**
+     * 是否外链
+     */
+    private boolean iFrame;
 
     /**
-     * 菜单路径
+     * 路径
      */
-    private String menuPath;
+    private String path;
+    /**
+     * 组件路径
+     */
+    private String component;
+    /**
+     * 权限
+     */
+    private String permission;
+    /**
+     * 是否隐藏
+     */
+    private boolean hidden;
+    /**
+     * 图标
+     */
+    private String icon;
+    /**
+     * 排序
+     */
+    private Integer sort;
 
     /**
-     * 菜单编号
+     * 创建时间
      */
-    private String menuCode;
+    private LocalDateTime createDate;
+
+    /**
+     * 创建人
+     */
+    private String creator;
+
+    /**
+     * 修改时间
+     */
+    private LocalDateTime modifyDate;
+
+    /**
+     * 修改人
+     */
+    private String modifier;
+
+    /**
+     * 备注
+     */
+    private String remarks;
+    /**
+     * 删除状态
+     */
+    private String delFlag;
+
+    private List<Menu> children;
 
 }

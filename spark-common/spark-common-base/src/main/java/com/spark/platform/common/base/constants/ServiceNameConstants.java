@@ -11,6 +11,6 @@ package com.spark.platform.common.base.constants;
  */
 public class ServiceNameConstants {
 
-    public static final String  SOPHIA_ADMIN= "SOPHIA-ADMIN";
+    public static final String  SOPHIA_ADMIN= "SPARK-ADMIN";
 
 }

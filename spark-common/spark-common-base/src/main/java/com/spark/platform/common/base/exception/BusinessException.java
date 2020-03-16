@@ -1,6 +1,6 @@
 package com.spark.platform.common.base.exception;
 
-import com.spark.platform.common.base.enums.SophiaHttpStatus;
+import com.spark.platform.common.base.enums.SparkHttpStatus;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -46,7 +46,7 @@ public class BusinessException extends RuntimeException {
         this.code = code;
     }
 
-    public BusinessException(SophiaHttpStatus codeEnum, Object... args) {
+    public BusinessException(SparkHttpStatus codeEnum, Object... args) {
         super(String.format(codeEnum.getMessage(), args));
         this.code = codeEnum.getCode();
     }

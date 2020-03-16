@@ -58,7 +58,7 @@
         WHERE id = #{userId}
     </select>
 
-    <select id="findUserVoList" parameterType="com.scaffolding.sophia.admin.api.vo.UserVo"
+    <select id="findUserVoList" parameterType="com.spark.platform.adminapi.vo.UserVo"
             resultMap="BaseResultMapVO">
         select ID, USERNAME, NICKNAME, HEAD_IMAGE, PHONE, EMAIL, CREATE_TIME, DEPT_ID, STATUS, CREATE_TIME
         from sys_user

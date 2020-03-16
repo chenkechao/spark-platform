@@ -13,16 +13,11 @@ public class GlobalsConstants {
     /**
      * jwt对称加密
      * */
-    public static final String OAUTH_SIGNING_KEY = "sophia_oauth_key";
+    public static final String OAUTH_SIGNING_KEY = "spark_oauth_key";
 
     public static final String OAUTH_AUTH_FORM_URI = "/authentication/form";
 
     public static final String OAUTH_AUTH_REQUIRE_URI = "/authentication/require";
-
-    /**
-     * 登录页面
-     */
-    public static final String LOGIN_PAGE_URI = "/index.html";
 
 
     /**
@@ -38,12 +33,12 @@ public class GlobalsConstants {
     /**
      * 缓存中user的key
      */
-    public static final String USER_KEY_PREFIX = "SophiaUser_";
+    public static final String USER_KEY_PREFIX = "SparkUser_";
 
     /**
      * oauth 客户端信息
      */
-    public static final String CLIENT_DETAILS_KEY =  "SophiaClient_";
+    public static final String CLIENT_DETAILS_KEY =  "SparkClient_";
 
     /**
      * Redis默认过期时长，单位：秒  5分钟
@@ -78,7 +73,7 @@ public class GlobalsConstants {
     /**
      *  sophia security配置
      */
-    public static final String SOPHIA_OAUTH_PREFIX = "sophia.security";
+    public static final String SPARK_OAUTH_PREFIX = "spark.security";
     /**
      * oauth security配置
      */
@@ -90,11 +85,6 @@ public class GlobalsConstants {
     public static final String FILTER_IGNORE = "ignore";
 
     /**
-     * security  过滤url 配置
-     */
-    public static final String SOPHIA_RESOURCE_IDS = "sophia.resource";
-
-    /**
      * 成功标记
      */
     public static final Integer SUCCESS = 0;
@@ -102,11 +92,6 @@ public class GlobalsConstants {
      * 失败标记
      */
     public static final Integer FAIL = 1;
-
-    /**
-     * 前缀
-     */
-    public static final String PROJECT_PREFIX = "sophia_";
 
     /**
      * oauth 相关前缀
