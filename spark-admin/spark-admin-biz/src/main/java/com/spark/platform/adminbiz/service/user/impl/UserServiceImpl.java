@@ -2,6 +2,8 @@ package com.spark.platform.adminbiz.service.user.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.spark.platform.common.base.constants.GlobalsConstants;
 import com.spark.platform.common.utils.HttpCallOtherInterfaceUtils;
@@ -92,5 +94,14 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
             return vo;
         }
         return null;
+    }
+
+    @Override
+    public IPage findPage(User user, Page page) {
+        QueryWrapper wrapper = new QueryWrapper<User>();
+        if(null !=user && StringUtils.isNotBlank(user.getUsername())){
+            wrapper.eq("username",user.getUsername());
+        }
+        return super.page(page,wrapper);
     }
 }

@@ -1,3 +1,4 @@
+/*
 package com.spark.platform.common.base.exception;
 
 import com.spark.platform.common.base.enums.SparkHttpStatus;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+*/
 /**
  * @author: LHL
  * @ProjectName: sophia_scaffolding
@@ -14,7 +16,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @ClassName: GlobalExceptionHandler
  * @Description: 全局异常处理类
  * @Version: 1.0
- */
+ *//*
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -30,13 +33,15 @@ public class GlobalExceptionHandler {
     public ApiResponse defaultErrorHandler(RuntimeException e) {
         e.printStackTrace();
         createLogger(e);
-        return  new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(), SparkHttpStatus.SERVER_FUGUE.getMessage());
+        return  new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(), SparkHttpStatus.SERVER_FUGUE.getMessage()+e.getMessage());
     }
 
-    /**
+    */
+/**
      * 打印关键log信息
      * @param e
-     */
+     *//*
+
     private void createLogger(Exception e) {
         logger.info(e.getMessage());
         logger.info(e.getStackTrace()[0].toString());
@@ -46,3 +51,4 @@ public class GlobalExceptionHandler {
         }
     }
 }
+*/

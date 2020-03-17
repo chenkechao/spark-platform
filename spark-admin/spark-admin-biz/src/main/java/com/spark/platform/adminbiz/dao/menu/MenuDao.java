@@ -34,4 +34,11 @@ public interface MenuDao extends BaseMapper<Menu> {
      * @return
      */
     List<MenuVue> findMenuVueByUserName(@Param("userName")String userName);
+
+    /**
+     * 根据账号查询菜单 vue
+     * @param userId
+     * @return
+     */
+    List<Menu> findAuthByUserId(@Param("userId")Long userId);
 }

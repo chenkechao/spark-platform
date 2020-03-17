@@ -1,7 +1,9 @@
 package com.spark.platform.common.security.service;
 
 import com.alibaba.fastjson.JSON;
+import com.spark.platform.adminapi.entity.authority.Menu;
 import com.spark.platform.adminapi.feign.client.AuthorityClient;
+import com.spark.platform.adminapi.feign.client.MenuClient;
 import com.spark.platform.adminapi.feign.client.UserClient;
 import com.spark.platform.common.base.constants.BizConstants;
 import com.spark.platform.adminapi.entity.authority.Authority;
@@ -35,7 +37,7 @@ public class SparkUserDetailService implements UserDetailsService {
     @Autowired
     private UserClient userClient;
     @Autowired
-    private AuthorityClient authorityClient;
+    private MenuClient menuClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,12 +55,13 @@ public class SparkUserDetailService implements UserDetailsService {
         } else if (BizConstants.USER_STATUS_UNUSED.equals(user.getStatus())) {
             throw new CommonException("用户已禁用");
         }
-        ApiResponse response = authorityClient.getAuthorityByUserId(user.getId());
-        List<Authority> authList = JSON.parseArray(JSON.toJSONString(response.getData(), true),Authority.class);
+        //查询用户具有的权限
+        ApiResponse response = menuClient.findAuthByUserId(user.getId());
+        List<Menu> authList = JSON.parseArray(JSON.toJSONString(response.getData(), true), Menu.class);
         List<GrantedAuthority> lists = new ArrayList<>();
         if(authList != null && authList.size()>0){
-            for (Authority auth : authList) {
-                lists.add(new SimpleGrantedAuthority(auth.getAuthCode()));
+            for (Menu auth : authList) {
+                lists.add(new SimpleGrantedAuthority(auth.getPermission()));
             }
         }
         LoginUser loginUser = new LoginUser(username,user.getPassword(),user.getNickname(),user.getStatus(), lists);

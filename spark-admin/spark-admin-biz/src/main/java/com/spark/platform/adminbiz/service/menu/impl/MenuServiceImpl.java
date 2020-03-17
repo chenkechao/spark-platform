@@ -32,4 +32,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
         List<MenuVue> menuTree = this.baseMapper.findMenuVueByUserName(userName);
         return (List<MenuVue>) TreeUtils.toTree(menuTree,MenuVue.class);
     }
+
+    @Override
+    public List<Menu> findAuthByUserId(Long userId) {
+        return super.baseMapper.findAuthByUserId(userId);
+    }
 }

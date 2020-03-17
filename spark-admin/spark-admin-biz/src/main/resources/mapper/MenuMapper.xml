@@ -48,5 +48,20 @@
         AND m.type != '1'
     </select>
 
+    <!--查询当前用户权限-->
+    <select id="findAuthByUserId" resultType="Menu">
+        SELECT
+            m.*
+        FROM
+            sys_menu m
+            JOIN (
+                SELECT DISTINCT ra.AUTH_ID
+                FROM sys_user_role ur JOIN sys_role_auth ra ON ur.ROLE_ID = ra.ROLE_ID
+                WHERE ur.USER_ID = #{userId}
+            ) AS um ON m.id = um.AUTH_ID
+        WHERE
+            m.permission is not null AND m.permission !=''
+    </select>
+
 
 </mapper>

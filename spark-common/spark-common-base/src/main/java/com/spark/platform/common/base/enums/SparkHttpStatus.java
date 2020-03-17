@@ -51,7 +51,7 @@ public enum SparkHttpStatus {
     /**
      * 服务器神游中
      */
-    SERVER_FUGUE(666, "服务器神游中"),
+    SERVER_FUGUE(666, "服务器出错，请联系管路员处理错误信息"),
 
     /**
      * 请求超时，请稍后再试！

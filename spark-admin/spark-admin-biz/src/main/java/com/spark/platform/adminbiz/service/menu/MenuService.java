@@ -32,4 +32,10 @@ public interface MenuService extends IService<Menu> {
      */
     List<MenuVue> findMenuTree(String userName);
 
+    /**
+     * 构建菜单树
+     * @param userId
+     * @return
+     */
+    List<Menu> findAuthByUserId(Long userId);
 }

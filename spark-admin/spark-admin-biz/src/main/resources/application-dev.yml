@@ -133,6 +133,7 @@ ignore:
     - /actuator/**
     - /user/api/**
     - /authority/api/**
+    - /menu/api/**
     - /v2/api-docs
     - /swagger-ui.html
     - /swagger-resources/**

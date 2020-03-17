@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -36,6 +37,12 @@ public class MenuController extends BaseController {
     public ApiResponse build(Principal principal){
         List<MenuVue> menuVues = menuService.findMenuTree(principal.getName());
         return success(menuVues);
+    }
+
+    @GetMapping("/api/findAuthByUserId")
+    @ApiOperation(value = "根据用户获取菜单信息")
+    public ApiResponse findAuthByUserId(@RequestParam Long userId){
+        return success(menuService.findAuthByUserId(userId));
     }
 
 }

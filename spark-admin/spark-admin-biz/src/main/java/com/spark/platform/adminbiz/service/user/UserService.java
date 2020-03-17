@@ -1,6 +1,7 @@
 package com.spark.platform.adminbiz.service.user;
 
-
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminapi.vo.UserVo;
 
@@ -47,4 +48,12 @@ public interface UserService {
      * @return UserVo
      * */
     UserVo loginByPassword(String userName, String password);
+
+    /**
+     * 分页查询数据
+     * @param user
+     * @param page
+     * @return
+     */
+    IPage findPage(User user, Page page);
 }
