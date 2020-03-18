@@ -8,9 +8,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.vo
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.vo
  * @ClassName: UserVo
  * @Description:
  * @Version: 1.0

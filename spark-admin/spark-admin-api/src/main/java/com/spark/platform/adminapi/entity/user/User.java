@@ -13,9 +13,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.entity.user.entity
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.entity.user
  * @ClassName: User
  * @Description:
  * @Version: 1.0

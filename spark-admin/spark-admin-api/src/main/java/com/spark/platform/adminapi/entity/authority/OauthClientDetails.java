@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.entity.authority
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.entity.authority
  * @ClassName: OauthClientDetails
  * @Description:
  * @Version: 1.0

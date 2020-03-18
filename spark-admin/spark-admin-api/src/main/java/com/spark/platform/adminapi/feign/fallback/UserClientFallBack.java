@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.feign.fallback
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.feign.fallback
  * @ClassName: UserClientFallBack
  * @Description:
  * @Version: 1.0
@@ -23,13 +23,13 @@ public class UserClientFallBack implements UserClient {
 
     @Override
     public ApiResponse getUserByUserName(String username) {
-        logger.error("调用sophia-admin服务getUserByUserName方法失败!");
+        logger.error("spark-admin服务getUserByUserName方法失败!");
         return ApiResponse.hystrixError(ServiceNameConstants.SOPHIA_ADMIN, "getUserByUserName");
     }
 
     @Override
     public ApiResponse getUserByUserId(Long id) {
-        logger.error("调用sophia-admin服务getUserByUserId方法失败!");
+        logger.error("调用spark-admin服务getUserByUserId方法失败!");
         return ApiResponse.hystrixError(ServiceNameConstants.SOPHIA_ADMIN, "getUserByUserId");
     }
 }

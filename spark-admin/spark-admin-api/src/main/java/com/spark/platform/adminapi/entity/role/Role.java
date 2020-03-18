@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.entity.role.entity
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.entity.role
  * @ClassName: Role
  * @Description:
  * @Version: 1.0

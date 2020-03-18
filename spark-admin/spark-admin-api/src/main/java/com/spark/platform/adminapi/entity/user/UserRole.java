@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.entity.user.entity
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.entity.user
  * @ClassName: UserRole
  * @Description:
  * @Version: 1.0

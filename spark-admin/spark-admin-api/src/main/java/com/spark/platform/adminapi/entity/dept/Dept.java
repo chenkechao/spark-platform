@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.entity.dept
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.entity.dept
  * @ClassName: Dept
- * @Date: 2019/11/5 10:00
  * @Description:
  * @Version: 1.0
  */

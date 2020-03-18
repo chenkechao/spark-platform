@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.feign.fallback
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.feign.fallback
  * @ClassName: ApiClientFallBack
  * @Description:
  * @Version: 1.0
@@ -22,7 +22,7 @@ public class ApiClientFallBack implements ApiClient {
 
     @Override
     public ApiResponse getUserInfo() {
-        logger.error("调用sophia-admin服务getUserInfo方法失败!");
+        logger.error("调用spark-admin服务getUserInfo方法失败!");
         return ApiResponse.hystrixError(ServiceNameConstants.SOPHIA_ADMIN , "getUserInfo");
     }
 
