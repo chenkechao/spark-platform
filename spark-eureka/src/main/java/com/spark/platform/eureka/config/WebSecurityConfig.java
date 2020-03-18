@@ -7,11 +7,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffplding.sophia.eureka.config
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.eureka.config
  * @ClassName: WebSecurityConfig
- * @Description: security配置
+ * @Description:  注册中心 security配置
  * @Version: 1.0
  */
 @Configuration
