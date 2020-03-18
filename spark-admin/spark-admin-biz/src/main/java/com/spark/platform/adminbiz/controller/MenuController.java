@@ -1,5 +1,6 @@
 package com.spark.platform.adminbiz.controller;
 
+import com.spark.platform.adminapi.entity.authority.Menu;
 import com.spark.platform.adminapi.vo.MenuVue;
 import com.spark.platform.adminbiz.service.menu.MenuService;
 import com.spark.platform.common.base.support.ApiResponse;
@@ -43,6 +44,18 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "根据用户获取菜单信息")
     public ApiResponse findAuthByUserId(@RequestParam Long userId){
         return success(menuService.findAuthByUserId(userId));
+    }
+
+    /**
+     * 获取菜单list
+     * @param name
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation(value = "获取菜单列表")
+    public ApiResponse list(@RequestParam String name){
+        List<Menu> menus = menuService.treeList(name);
+        return success(menus);
     }
 
 }

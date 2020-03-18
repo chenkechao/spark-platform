@@ -5,10 +5,12 @@ import com.spark.platform.adminapi.entity.role.Role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.dao.role
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.dao.role
  * @ClassName: RoleDao
  * @Description:
  * @Version: 1.0
@@ -22,5 +24,5 @@ public interface RoleDao extends BaseMapper<Role> {
      * @param userId 用户id
      * @return Role
      */
-    Role getRoleByUserId(@Param(value = "userId") Long userId);
+    List<Role> getRoleByUserId(@Param(value = "userId") Long userId);
 }

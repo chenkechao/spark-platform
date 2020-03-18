@@ -11,7 +11,7 @@
     <artifactId>spark-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spark-admin</name>
-    <description>Demo project for Spring Boot</description>
+    <description>用户资源服务</description>
     <packaging>pom</packaging>
 
     <modules>
@@ -20,31 +20,11 @@
     </modules>
 
     <dependencies>
+        <!--web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

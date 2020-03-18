@@ -1,11 +1,10 @@
 package com.spark.platform.adminbiz.controller;
 
-import com.google.common.collect.Lists;
-import com.spark.platform.adminbiz.service.authority.AuthorityService;
+import com.spark.platform.adminapi.entity.authority.Menu;
+import com.spark.platform.adminapi.vo.MenuVue;
 import com.spark.platform.adminbiz.service.menu.MenuService;
 import com.spark.platform.common.base.support.BaseController;
 import com.spark.platform.adminapi.dto.UserDto;
-import com.spark.platform.adminapi.entity.authority.Authority;
 import com.spark.platform.adminapi.entity.role.Role;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminapi.vo.UserVo;
@@ -20,17 +19,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 /**
- * @author: LHL
+ * @author: wangdingfeng
  * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.controller
+ * @Package: com.spark.platform.adminbiz.controller
  * @ClassName: APIController
- * @Description:
+ * @Description: 用户登录
  * @Version: 1.0
  */
 @RestController
@@ -40,9 +38,6 @@ public class APIController extends BaseController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private AuthorityService authorityService;
 
     @Autowired
     private RoleService roleService;
@@ -58,27 +53,18 @@ public class APIController extends BaseController {
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.loadUserByUserId(loginUser.getId());
         UserVo userVo = new UserVo();
-        Role role = roleService.getRoleByUserId(loginUser.getId());
-        List<Authority> authList = authorityService.findAuthorityByUserId(loginUser.getId());
-        List<String> authCodeList = new ArrayList<>();
-        List<String> roleCodeList = new ArrayList<>();
-        List<String> menuCodeList = new ArrayList<>();
-        for (Authority authority : authList) {
-            authCodeList.add(authority.getAuthCode());
-            menuCodeList.add(authority.getAuthCode());
-        }
-        roleCodeList.add(role.getRoleCode());
+        //查询角色信息
+        List<String> roles = roleService.getRoleByUserId(loginUser.getId()).stream().map(Role::getRoleCode).collect(toList());
+        //查询权限信息
+        List<String> authList = menuService.findAuthByUserId(loginUser.getId()).stream().map(Menu::getPermission).collect(toList());
+        //查询路由菜案信息
+        List<MenuVue> menuList = menuService.findMenuTree(loginUser.getUsername());
         BeanUtils.copyProperties(user, userVo);
         userDto.setSysUser(userVo);
-        userDto.setPermissions(authCodeList);
-        userDto.setRoles(roleCodeList);
-        userDto.setMenus(menuCodeList);
-        Map<String,Object> map = new HashMap<>();
-        map.put("name",userVo.getUsername());
-        map.put("roles",roleCodeList);
-        map.put("avatar",userVo.getHeadImage());
-        map.put("routers",menuService.findMenuTree(loginUser.getUsername()));
-        return success(map);
+        userDto.setPermissions(authList);
+        userDto.setRoles(roles);
+        userDto.setMenus(menuList);
+        return success(userDto);
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
@@ -88,7 +74,7 @@ public class APIController extends BaseController {
         if(null != result){
             return success(result);
         }
-        return fail("登陆失败");
+        return fail("账户名或密码错误");
     }
 
 

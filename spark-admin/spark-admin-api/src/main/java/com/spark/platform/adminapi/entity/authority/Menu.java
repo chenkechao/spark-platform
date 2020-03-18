@@ -1,6 +1,7 @@
 package com.spark.platform.adminapi.entity.authority;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.spark.platform.common.base.entity.BaseEntity;
@@ -13,12 +14,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.entity.authority
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.entity.authority
  * @ClassName: Menu
- * @Date: 2019/11/5 09:58
- * @Description:
+ * @Description: 菜单
  * @Version: 1.0
  */
 @Data
@@ -108,6 +108,7 @@ public class Menu implements Serializable {
      */
     private String delFlag;
 
+    @TableField(exist = false)
     private List<Menu> children;
 
 }

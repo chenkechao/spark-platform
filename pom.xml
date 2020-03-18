@@ -19,10 +19,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>spark-eureka</module>
         <module>spark-common</module>
         <module>spark-auth</module>
         <module>spark-admin</module>
-        <module>spark-eureka</module>
         <module>spark-gateway</module>
     </modules>
 

@@ -1,5 +1,6 @@
 package com.spark.platform.adminapi.dto;
 
+import com.spark.platform.adminapi.vo.MenuVue;
 import com.spark.platform.adminapi.vo.UserVo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.api.dto
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminapi.dto
  * @ClassName: UserDto
  * @Description:
  * @Version: 1.0
@@ -35,5 +36,5 @@ public class UserDto implements Serializable {
     /**
      * 菜单
      * */
-    private List<String> menus;
+    private List<MenuVue> menus;
 }

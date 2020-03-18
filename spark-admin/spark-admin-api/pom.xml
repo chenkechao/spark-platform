@@ -11,24 +11,20 @@
     <artifactId>spark-admin-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spark-admin-api</name>
-    <description>Demo project for Spring Boot</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <description>admin 暴露接口</description>
 
     <dependencies>
         <!--公共基礎包-->
         <dependency>
             <groupId>com.spark.platform</groupId>
             <artifactId>spark-common-base</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${spark-common.version}</version>
         </dependency>
         <!--feign 包含oauth-->
         <dependency>
             <groupId>com.spark.platform</groupId>
             <artifactId>spark-common-feign</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${spark-common.version}</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -42,14 +38,5 @@
             <version>${swagger.version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

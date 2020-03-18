@@ -18,6 +18,13 @@ import java.util.List;
 public interface MenuService extends IService<Menu> {
 
     /**
+     * 查询菜单树
+     * @param name
+     * @return
+     */
+    List<Menu> treeList(String name);
+
+    /**
      * 根据账号查询菜单
      * @param userName 用户账号
      * @param filterType  过滤菜单类型

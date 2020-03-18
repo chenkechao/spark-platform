@@ -3,10 +3,12 @@ package com.spark.platform.adminbiz.service.role;
 
 import com.spark.platform.adminapi.entity.role.Role;
 
+import java.util.List;
+
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.service.role
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.service.role
  * @ClassName: RoleService
  * @Description:
  * @Version: 1.0
@@ -20,5 +22,5 @@ public interface RoleService {
      * @param userId 用户id
      * @return Role
      */
-    Role getRoleByUserId(Long userId);
+    List<Role> getRoleByUserId(Long userId);
 }
