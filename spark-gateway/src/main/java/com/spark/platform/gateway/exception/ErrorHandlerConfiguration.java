@@ -18,10 +18,12 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 覆盖默认的异常处理
- *
- * @author LHL
- *
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.gateway.exception
+ * @ClassName: ErrorHandlerConfiguration
+ * @Description: 覆盖默认的异常处理
+ * @Version: 1.0
  */
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})

@@ -11,8 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author LHL
- * */
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.gateway.exception
+ * @ClassName: JsonExceptionHandler
+ * @Description: 覆盖默认的异常处理
+ * @Version: 1.0
+ */
 public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     public JsonExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
@@ -41,17 +46,6 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
         return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
     }
-
-    ///**
-    // * 根据code获取对应的HttpStatus
-    // * @param errorAttributes
-    // */
-    //@Override
-    //protected HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
-    //    int statusCode = (int) errorAttributes.get("code");
-    //    return HttpStatus.valueOf(statusCode);
-    //}
-
     /**
      * 构建异常信息
      * @param request

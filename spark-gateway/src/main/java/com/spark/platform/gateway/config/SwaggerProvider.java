@@ -13,7 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author LHL
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.gateway.config
+ * @ClassName: SwaggerProvider
+ * @Description:  网关Swagger 配置
+ * @Version: 1.0
  */
 @Component
 @Primary

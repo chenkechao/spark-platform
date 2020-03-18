@@ -11,6 +11,14 @@ import springfox.documentation.swagger.web.*;
 
 import java.util.Optional;
 
+/**
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.gateway.handle
+ * @ClassName: SwaggerHandler
+ * @Description:  swagger 请求 详细请搜索 gateway结合swagger
+ * @Version: 1.0
+ */
 @RestController
 @RequestMapping("/swagger-resources")
 public class SwaggerHandler {

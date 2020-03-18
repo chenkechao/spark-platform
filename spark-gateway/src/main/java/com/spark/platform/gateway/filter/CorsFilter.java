@@ -13,7 +13,12 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 /**
- * @author LHL
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.gateway.filter
+ * @ClassName: CorsFilter
+ * @Description:  Cors跨域问题
+ * @Version: 1.0
  */
 @Component
 public class CorsFilter implements GlobalFilter, Ordered {

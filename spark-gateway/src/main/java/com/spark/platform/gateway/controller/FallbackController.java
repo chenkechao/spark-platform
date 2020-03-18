@@ -9,7 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通用熔断器
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.gateway.controller
+ * @ClassName: FallbackController
+ * @Description:  通用熔断器
+ * @Version: 1.0
  */
 @RestController
 @RequestMapping("common")
@@ -19,6 +24,7 @@ public class FallbackController {
 
     @RequestMapping("fallback")
     public Map fallback() {
+        logger.error("Hystrix请求超时");
         Map map = new HashMap<>();
         map.put("code", 504);
         map.put("msg", "请求超时，请稍后再试");

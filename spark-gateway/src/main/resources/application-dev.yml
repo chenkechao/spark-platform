@@ -50,8 +50,8 @@ eureka:
     prefer‐ip‐address: true
     status-page-url-path: /actuator/info
     health-check-url-path: /actuator/health
-eurekaUserName: sophia
-eurekaPassWord: sophia
+eurekaUserName: spark
+eurekaPassWord: spark
 
 hystrix:
   command:
