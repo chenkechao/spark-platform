@@ -15,7 +15,8 @@ import java.util.Map;
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.gateway.exception
  * @ClassName: JsonExceptionHandler
- * @Description: 覆盖默认的异常处理
+ * @Description: 自定义异常处理
+ * <p>Gateway默认异常信息时用JSON代替HTML异常信息<p>
  * @Version: 1.0
  */
 public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
