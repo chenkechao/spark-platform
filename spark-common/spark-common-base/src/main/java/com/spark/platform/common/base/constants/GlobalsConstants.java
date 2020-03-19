@@ -1,9 +1,9 @@
 package com.spark.platform.common.base.constants;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.base.constants
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.base.constants
  * @ClassName: GlobalsConstants
  * @Description: 系统常量
  * @Version: 1.0
