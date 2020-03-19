@@ -27,8 +27,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     @Override
     public List<Menu> treeList(String name) {
         QueryWrapper<Menu> menuWrapper = new QueryWrapper<>();
+        //如果有查询条件 不拼接树
         if(StringUtils.isNotBlank(name)){
             menuWrapper.like("name",name);
+            return super.list(menuWrapper);
         }
         List<Menu> menus = super.list(menuWrapper);
         return (List<Menu>) TreeUtils.toTree(menus,Menu.class);

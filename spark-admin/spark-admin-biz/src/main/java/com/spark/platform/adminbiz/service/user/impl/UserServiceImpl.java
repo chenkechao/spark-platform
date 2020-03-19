@@ -21,15 +21,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.service.user.impl
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.service.user.impl
  * @ClassName: UserServiceImpl
- * @Date: 2019/11/5 09:19
  * @Description:
  * @Version: 1.0
  */
@@ -62,22 +60,16 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
 
 
     @Override
-    public List<UserVo> findUserVoList(String username) {
-        return userDao.findUserVoList(username);
-    }
-
-
-    @Override
     public UserVo loginByPassword(String userName, String password) {
         User user = baseMapper.selectOne(new QueryWrapper<User>().eq("username",userName));
         if (null == user) {
             return null;
         }
-        String s;
-        //数据库密码是加密了的
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            s = "?client_id=" + securityOAuth2ClientProperties.getClientId() + "&client_secret=" + securityOAuth2ClientProperties.getClientSecret() + "&grant_type=password&scope=all&username=" + userName + "&password=" + password;
-            String sr = HttpCallOtherInterfaceUtils.callOtherInterface(url, "/auth/oauth/token" + s);
+        if(passwordEncoder.matches(password,user.getPassword())){
+            StringBuilder authUrl = new StringBuilder(GlobalsConstants.OAUTH_TOKEN_URL);
+            authUrl.append("?client_id=").append(securityOAuth2ClientProperties.getClientId()).append("&client_secret=").append(securityOAuth2ClientProperties.getClientSecret())
+                    .append("&grant_type=password&scope=all&username=").append(userName).append("&password=").append(password);
+            String sr = HttpCallOtherInterfaceUtils.callOtherInterface(url, authUrl.toString());
             Map srmap = JSON.parseObject(sr);
             if (null == srmap ) {
                 throw new CommonException("认证失败:"+sr);

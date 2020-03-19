@@ -1,8 +1,6 @@
 package com.spark.platform.auth.controller;
 
 import com.spark.platform.common.base.support.BaseController;
-import com.spark.platform.adminapi.feign.client.ApiClient;
-import com.spark.platform.adminapi.feign.client.UserClient;
 import com.spark.platform.common.base.support.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.auth.controller
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.auth.controller
  * @ClassName: ApiController
  * @Description:
  * @Version: 1.0
@@ -30,33 +28,13 @@ import java.security.Principal;
 public class HomeController extends BaseController {
 
     @Autowired
-    private UserClient userClient;
-
-    @Autowired
-    private ApiClient apiClient;
-
-    @Autowired
     private TokenStore tokenStore;
-
-
 
     @GetMapping("/principal")
     @ApiOperation(value = "获取当前用户信息Principal")
     public Principal user(Principal member) {
         //获取当前用户信息
         return member;
-    }
-
-
-    @GetMapping("/test")
-    public ApiResponse getUserInfo() {
-        return apiClient.getUserInfo();
-    }
-
-
-    @GetMapping("/test/{userId}")
-    public ApiResponse getUserByUserId(@PathVariable Long userId) {
-        return userClient.getUserByUserId(userId);
     }
 
     /**

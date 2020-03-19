@@ -10,12 +10,11 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.service.authority.impl
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.service.authority.impl
  * @ClassName: OauthClientDetailsServiceImpl
- * @Date: 2019/11/5 09:34
- * @Description:
+ * @Description: Oauth 授权管理
  * @Version: 1.0
  */
 @Service("oauthClientDetailsService")

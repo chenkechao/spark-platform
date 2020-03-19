@@ -3,7 +3,6 @@ package com.spark.platform.auth.config;
 import com.spark.platform.common.base.constants.GlobalsConstants;
 import com.spark.platform.common.security.component.SparkWebResponseExceptionTranslator;
 import com.spark.platform.common.security.config.JwtTokenEnhancer;
-import com.spark.platform.common.security.properties.SparkSecurityProperties;
 import com.spark.platform.common.security.service.SparkClientDetailsService;
 import com.spark.platform.common.security.service.SparkUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,9 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import java.util.Arrays;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.auth.config
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.auth.config
  * @ClassName: SophiaAuthorizationServerConfig
  * @Description: 认证服务
  * @Version: 1.0
@@ -80,7 +79,7 @@ public class SparkAuthorizationServerConfig extends AuthorizationServerConfigure
                 //.tokenServices(defaultTokenServices())
                 .tokenServices(defaultTokenServices())
                 .reuseRefreshTokens(false)
-        // ;  //自定义异常处理
+                 //自定义异常处理
                 .exceptionTranslator(new SparkWebResponseExceptionTranslator());
     }
 

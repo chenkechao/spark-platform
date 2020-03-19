@@ -96,6 +96,8 @@ public class GlobalsConstants {
     /**
      * oauth 相关前缀
      */
+    public static final String OAUTH_TOKEN_URL = "/auth/oauth/token";
+
     public static final String  OAUTH_PREFIX = "oauth:";
 
     public static final String CURRENT = "current";

@@ -16,9 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.auth.config
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.auth.config
  * @ClassName: SophiaWebSecurityConfig
  * @Description: web security 访问安全配置
  * @Version: 1.0
@@ -64,12 +64,4 @@ public class SparkWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(sparkUserDetailService).passwordEncoder(new BCryptPasswordEncoder());
     }
-
-    // @Autowired
-    // public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    //     auth
-    //             .inMemoryAuthentication()
-    //             .passwordEncoder(new BCryptPasswordEncoder())
-    //             .withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("ADMIN");
-    // }
 }

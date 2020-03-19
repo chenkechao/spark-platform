@@ -4,11 +4,11 @@ package com.spark.platform.adminbiz.service.authority;
 import com.spark.platform.adminapi.entity.authority.OauthClientDetails;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.service.authority
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.service.authority
  * @ClassName: oauthClientDetailsService
- * @Description:
+ * @Description: Oauth 授权管理
  * @Version: 1.0
  */
 public interface OauthClientDetailsService{

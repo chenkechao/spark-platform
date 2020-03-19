@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.dao.user
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.dao.user
  * @ClassName: UserDao
  * @Description:
  * @Version: 1.0
@@ -32,12 +32,4 @@ public interface UserDao extends BaseMapper<User> {
      * @return User
      */
     User findByUserId(@Param(value = "userId") Long userId);
-
-    /**
-     * 根据用户名称查询所有相同用户名的用户
-     *
-     * @param username 用户名
-     * @return List<UserVo>
-     */
-    List<UserVo> findUserVoList(String username);
 }

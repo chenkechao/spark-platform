@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @author: wangdingfeng
- * @ProjectName: sophia_scaffolding
+ * @ProjectName: spark-platform
  * @Package: com.spark.platform.adminbiz.controller
  * @ClassName: APIController
  * @Description: 用户登录
@@ -45,7 +45,10 @@ public class APIController extends BaseController {
     @Autowired
     private MenuService menuService;
 
-
+    /**
+     * 获取用户信息
+     * @return
+     */
     @GetMapping("/principal")
     @ApiOperation(value = "获取用户信息")
     public ApiResponse getUserInfo() {
@@ -67,6 +70,11 @@ public class APIController extends BaseController {
         return success(userDto);
     }
 
+    /**
+     * 开放登录接口
+     * @param userVo
+     * @return
+     */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ApiOperation(value = "登录接口")
     public ApiResponse webLogin(@RequestBody UserVo userVo){

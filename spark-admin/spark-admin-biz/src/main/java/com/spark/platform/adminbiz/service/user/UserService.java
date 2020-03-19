@@ -5,14 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminapi.vo.UserVo;
 
-import java.util.List;
-
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.service.user
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.service.user
  * @ClassName: UserService
- * @Description:
+ * @Description: 用户管理
  * @Version: 1.0
  */
 public interface UserService {
@@ -32,14 +30,6 @@ public interface UserService {
      * @return User
      */
     User loadUserByUserId(Long userId);
-
-    /**
-     * 根据用户名称查询所有相同用户名的用户
-     *
-     * @param username 用户名
-     * @return List<UserVo>
-     */
-    List<UserVo> findUserVoList(String username);
     /**
      * 用户 用户名和密码登录
      *

@@ -2,11 +2,9 @@ package com.spark.platform.common.security.service;
 
 import com.alibaba.fastjson.JSON;
 import com.spark.platform.adminapi.entity.authority.Menu;
-import com.spark.platform.adminapi.feign.client.AuthorityClient;
 import com.spark.platform.adminapi.feign.client.MenuClient;
 import com.spark.platform.adminapi.feign.client.UserClient;
 import com.spark.platform.common.base.constants.BizConstants;
-import com.spark.platform.adminapi.entity.authority.Authority;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.common.base.exception.CommonException;
 import com.spark.platform.common.base.support.ApiResponse;
@@ -24,9 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.service
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.service
  * @ClassName: SophiaUserDetailService
  * @Description: 用户登录 查询登录用户
  * @Version: 1.0
@@ -65,7 +63,6 @@ public class SparkUserDetailService implements UserDetailsService {
             }
         }
         LoginUser loginUser = new LoginUser(username,user.getPassword(),user.getNickname(),user.getStatus(), lists);
-        // LoginUser loginUser = new LoginUser(username,passwordEncoder.encode(user.getPassword()),user.getNickname(),user.getStatus(), lists);
         loginUser.setId(user.getId());
         loginUser.setDeptId(user.getDeptId());
         return loginUser;

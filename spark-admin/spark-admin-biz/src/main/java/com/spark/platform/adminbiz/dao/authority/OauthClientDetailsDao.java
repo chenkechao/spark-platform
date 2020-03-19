@@ -5,11 +5,11 @@ import com.spark.platform.adminapi.entity.authority.OauthClientDetails;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.dao.authority
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.dao.authority
  * @ClassName: OauthClientDetailsDao
- * @Description:
+ * @Description: Oauth2 授权管理 clientId
  * @Version: 1.0
  */
 @Repository

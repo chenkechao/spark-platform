@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.admin.biz.controller
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.adminbiz.controller
  * @ClassName: UserController
  * @Description:
  * @Version: 1.0
