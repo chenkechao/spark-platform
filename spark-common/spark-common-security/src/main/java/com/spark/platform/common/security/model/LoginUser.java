@@ -22,7 +22,6 @@ public class LoginUser implements UserDetails {
     private String password;
     private String username;
     private Long deptId;
-    private Long compId;
     private List<GrantedAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
@@ -41,14 +40,13 @@ public class LoginUser implements UserDetails {
         this.status = status;
     }
 
-    public LoginUser(Long id, Integer status, String nickname, String password, String username, Long deptId, Long compId, List<GrantedAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+    public LoginUser(Long id, Integer status, String nickname, String password, String username, Long deptId, List<GrantedAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.id = id;
         this.status = status;
         this.nickname = nickname;
         this.password = password;
         this.username = username;
         this.deptId = deptId;
-        this.compId = compId;
         this.authorities = authorities;
         this.accountNonExpired = accountNonExpired;
         this.accountNonLocked = accountNonLocked;
@@ -116,14 +114,6 @@ public class LoginUser implements UserDetails {
 
     public void setDeptId(Long deptId) {
         this.deptId = deptId;
-    }
-
-    public Long getCompId() {
-        return compId;
-    }
-
-    public void setCompId(Long compId) {
-        this.compId = compId;
     }
 
     public List<GrantedAuthority> getAuthorities() {

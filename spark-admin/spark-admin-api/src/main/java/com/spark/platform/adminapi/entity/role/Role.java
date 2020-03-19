@@ -52,4 +52,9 @@ public class Role extends BaseEntity implements Serializable {
      */
     private Long deptId;
 
+    /**
+     * 状态
+     */
+    private String status;
+
 }

@@ -56,11 +56,6 @@ public class UserVo implements Serializable {
      * 邮箱
      */
     private String email;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
     /**
      * 状态
      */
@@ -68,17 +63,12 @@ public class UserVo implements Serializable {
     /**
      * 头像
      */
-    private String headImage;
+    private String avatar;
 
     /**
      * 部门id 一个用户只有 一个部门
      */
     private Long deptId;
-
-    /**
-     * 公司id
-     */
-    private Long compId;
 
 
     private String token;

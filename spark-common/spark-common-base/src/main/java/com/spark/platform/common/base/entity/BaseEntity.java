@@ -5,34 +5,38 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.base.bo
- * @ClassName: BaseBo
- * @Date: 2019/11/5 10:27
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.base.entity
+ * @ClassName: BaseEntity
  * @Description:
  * @Version: 1.0
  */
 @Data
-public class BaseEntity {
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
+public abstract class BaseEntity {
 
     /**
      * 创建人
      */
-    private Long createUser;
-
-    /**
-     * 修改时间
-     */
-    private LocalDateTime updateTime;
-
+    private String creator;
     /**
      * 修改人
      */
-    private Long updateUser;
+    private String modifier;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createDate;
+    /**
+     * 修改时间
+     */
+    private LocalDateTime modifyDate;
+    /**
+     * 系统状态
+     */
+    private Integer delFlag;
+    /**
+     * 备注
+     */
+    private String remarks;
 }

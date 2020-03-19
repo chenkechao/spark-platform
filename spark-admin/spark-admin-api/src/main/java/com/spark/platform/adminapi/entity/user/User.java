@@ -76,28 +76,17 @@ public class User extends BaseEntity implements Serializable {
     private LocalDateTime lastLoginTime;
 
     /**
-     * 是否删除 (0 是  1否)
-     */
-    private Integer isDeleted;
-
-    /**
-     * 状态 0无效 1有效
-     */
-    private Integer status;
-
-    /**
      * 头像
      */
-    private String headImage;
+    private String avatar;
 
     /**
      * 部门id 一个用户只有 一个部门
      */
     private Long deptId;
-
     /**
-     * 公司id
+     * 状态
      */
-    private Long compId;
+    private Integer status;
 
 }

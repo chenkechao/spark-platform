@@ -25,7 +25,7 @@ import java.util.List;
 @NoArgsConstructor
 @TableName("sys_menu")
 @ApiModel(value = "Menu",description = "菜单设置")
-public class Menu implements Serializable {
+public class Menu extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -78,35 +78,6 @@ public class Menu implements Serializable {
      * 排序
      */
     private Integer sort;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createDate;
-
-    /**
-     * 创建人
-     */
-    private String creator;
-
-    /**
-     * 修改时间
-     */
-    private LocalDateTime modifyDate;
-
-    /**
-     * 修改人
-     */
-    private String modifier;
-
-    /**
-     * 备注
-     */
-    private String remarks;
-    /**
-     * 删除状态
-     */
-    private String delFlag;
 
     @TableField(exist = false)
     private List<Menu> children;
