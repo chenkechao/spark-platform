@@ -53,8 +53,9 @@ mybatis-plus:
     call-setters-on-nulls: true
   global-config:
     db-config:
-      logic-not-delete-value: 1
-      logic-delete-value: 0
+      logic-delete-field: delFlag
+      logic-not-delete-value: 0
+      logic-delete-value: 1
 eureka:
   client:
     register-with-eureka: true

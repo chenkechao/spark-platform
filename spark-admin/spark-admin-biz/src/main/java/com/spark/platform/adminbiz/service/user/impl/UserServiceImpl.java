@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -92,8 +93,25 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
     public IPage findPage(User user, Page page) {
         QueryWrapper wrapper = new QueryWrapper<User>();
         if(null !=user && StringUtils.isNotBlank(user.getUsername())){
-            wrapper.eq("username",user.getUsername());
+            wrapper.like("username",user.getUsername());
         }
         return super.page(page,wrapper);
+    }
+
+    @Override
+    public void updatePassword(Long userId,String password) {
+        User user = this.loadUserByUserId(userId);
+        if(passwordEncoder.matches(password,user.getPassword())){
+            throw new CommonException("新密码与旧密码重复，请修改新密码");
+        }
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
+        super.updateById(user);
+    }
+
+    @Override
+    public boolean save(User entity) {
+        //保存密码
+        entity.setPassword(new BCryptPasswordEncoder().encode(GlobalsConstants.DEFAULT_USER_PASSWORD));
+        return super.save(entity);
     }
 }

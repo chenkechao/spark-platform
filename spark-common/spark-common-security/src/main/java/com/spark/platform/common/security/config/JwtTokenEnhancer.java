@@ -1,5 +1,7 @@
 package com.spark.platform.common.security.config;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -14,9 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.config
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.config
  * @ClassName: JwtTokenEnhancer
  * @Description: 自定义token生成携带的信息
  * @Version: 1.0
@@ -32,15 +34,14 @@ public class JwtTokenEnhancer implements TokenEnhancer {
         // 给/oauth/token接口加属性roles,author
         JSONObject jsonObject = new JSONObject(authentication.getPrincipal());
         List<Object> authorities = jsonObject.getJSONArray("authorities").toList();
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> roleList = Lists.newArrayList();
         for (Object authority : authorities) {
             Map map = (Map) authority;
-            stringBuilder.append(map.get("authority"));
-            stringBuilder.append(",");
+            roleList.add((String)map.get("authority"));
         }
-        String roles = stringBuilder.toString();
-        additionalInfo.put("roles", roles.substring(0, roles.length() - 1));
-        additionalInfo.put("author", "sophia");
+        String roles = StringUtils.join(roleList,",");
+        additionalInfo.put("roles", roles);
+        additionalInfo.put("author", "spark");
         additionalInfo.put("createTime", df.format(LocalDateTime.now()));
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
         return accessToken;

@@ -1,4 +1,4 @@
-package com.spark.platform.adminservice;
+package com.spark.platform.adminbiz;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

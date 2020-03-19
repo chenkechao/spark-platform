@@ -2,6 +2,7 @@ package com.spark.platform.adminbiz.service.user;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminapi.vo.UserVo;
 
@@ -13,7 +14,7 @@ import com.spark.platform.adminapi.vo.UserVo;
  * @Description: 用户管理
  * @Version: 1.0
  */
-public interface UserService {
+public interface UserService extends IService<User> {
 
     /**
      * 根据用户名称查询用户
@@ -46,4 +47,10 @@ public interface UserService {
      * @return
      */
     IPage findPage(User user, Page page);
+
+    /**
+     * 修改密码
+     * @param password 新密码
+     */
+    void updatePassword(Long userId,String password);
 }

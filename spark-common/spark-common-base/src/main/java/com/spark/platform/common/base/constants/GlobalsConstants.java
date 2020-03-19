@@ -104,4 +104,13 @@ public class GlobalsConstants {
 
     public static final String SIZE = "size";
 
+    /**
+     * 默认用户名
+     */
+    public static final String DEFAULT_USER_SYSTEM = "system";
+    /**
+     * 默认密码
+     */
+    public static final String DEFAULT_USER_PASSWORD  = "123456";
+
 }
