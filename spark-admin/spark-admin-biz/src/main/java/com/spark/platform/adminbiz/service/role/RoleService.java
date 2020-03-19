@@ -1,6 +1,9 @@
 package com.spark.platform.adminbiz.service.role;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.spark.platform.adminapi.entity.role.Role;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
  * @Description:
  * @Version: 1.0
  */
-public interface RoleService {
+public interface RoleService extends IService<Role> {
 
 
     /**
@@ -23,4 +26,12 @@ public interface RoleService {
      * @return Role
      */
     List<Role> getRoleByUserId(Long userId);
+
+    /**
+     * 分页数据
+     * @param role
+     * @param page
+     * @return
+     */
+    IPage findPage(Role role, Page page);
 }

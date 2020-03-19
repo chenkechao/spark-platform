@@ -52,7 +52,7 @@ public class UserController extends BaseController {
     @PostMapping("/save")
     @ApiOperation(value = "保存用户数据")
     @PreAuthorize("hasAnyAuthority('user:add')")
-    public ApiResponse save(User user){
+    public ApiResponse save(@RequestBody User user){
         return success(userService.save(user));
     }
 

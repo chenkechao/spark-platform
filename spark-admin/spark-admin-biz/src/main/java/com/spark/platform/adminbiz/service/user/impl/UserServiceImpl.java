@@ -92,8 +92,16 @@ public class UserServiceImpl  extends ServiceImpl<UserDao, User> implements User
     @Override
     public IPage findPage(User user, Page page) {
         QueryWrapper wrapper = new QueryWrapper<User>();
-        if(null !=user && StringUtils.isNotBlank(user.getUsername())){
-            wrapper.like("username",user.getUsername());
+        if(null !=user){
+            if(StringUtils.isNotBlank(user.getUsername())){
+                wrapper.like("username",user.getUsername());
+            }
+            if(null != user.getStatus()){
+                wrapper.eq("status",user.getStatus());
+            }
+            if(null != user.getNickname()){
+                wrapper.like("nickname",user.getNickname());
+            }
         }
         return super.page(page,wrapper);
     }
