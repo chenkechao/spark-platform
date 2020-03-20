@@ -18,7 +18,6 @@ import java.util.List;
  */
 public interface RoleService extends IService<Role> {
 
-
     /**
      * 根据用户id查询用户的角色
      *
@@ -34,4 +33,10 @@ public interface RoleService extends IService<Role> {
      * @return
      */
     IPage findPage(Role role, Page page);
+
+    /**
+     * 保存角色权限
+     * @param role
+     */
+    void saveRoleAuth(Role role);
 }

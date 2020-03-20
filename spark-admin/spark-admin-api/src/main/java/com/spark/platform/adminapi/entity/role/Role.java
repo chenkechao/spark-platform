@@ -1,6 +1,7 @@
 package com.spark.platform.adminapi.entity.role;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.spark.platform.common.base.entity.BaseEntity;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author: wangdingfeng
@@ -56,5 +58,10 @@ public class Role extends BaseEntity implements Serializable {
      * 状态
      */
     private String status;
+    /**
+     * 角色对应的菜单
+     */
+    @TableField(exist = false)
+    private List<Long> menuIds;
 
 }

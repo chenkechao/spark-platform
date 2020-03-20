@@ -8,7 +8,11 @@ import com.spark.platform.common.base.support.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,8 +58,31 @@ public class MenuController extends BaseController {
     @GetMapping("/list")
     @ApiOperation(value = "获取菜单列表")
     public ApiResponse list(@RequestParam String name){
-        List<Menu> menus = menuService.treeList(name);
-        return success(menus);
+        return success(menuService.treeList(name));
+    }
+
+    @PostMapping("/save")
+    @ApiOperation(value = "保存菜单")
+    public ApiResponse save(@RequestBody Menu menu){
+        return success(menuService.save(menu));
+    }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "更新菜单")
+    public ApiResponse update(@RequestBody Menu menu){
+        return success(menuService.updateById(menu));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "删除菜单")
+    public ApiResponse delete(@PathVariable Long id){
+        return success(menuService.removeById(id));
+    }
+
+    @GetMapping("/getTree")
+    @ApiOperation(value = "获取菜单树")
+    public ApiResponse getTree(){
+        return success(menuService.getMenuTree());
     }
 
 }

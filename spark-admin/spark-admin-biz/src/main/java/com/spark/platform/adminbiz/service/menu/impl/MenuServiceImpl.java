@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.spark.platform.adminapi.entity.authority.Menu;
 import com.spark.platform.adminapi.vo.MenuVue;
+import com.spark.platform.adminapi.vo.VueTree;
 import com.spark.platform.adminbiz.dao.menu.MenuDao;
 import com.spark.platform.adminbiz.service.menu.MenuService;
 import com.spark.platform.common.utils.TreeUtils;
@@ -50,5 +51,26 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     @Override
     public List<Menu> findAuthByUserId(Long userId) {
         return super.baseMapper.findAuthByUserId(userId);
+    }
+
+    @Override
+    public List<Menu> getMenuByRoleId(Long roleId) {
+        return super.baseMapper.getRoleMenu(roleId);
+    }
+
+    @Override
+    public List<Menu> getMenuTreeByRoleId(Long roleId) {
+        return (List<Menu>)TreeUtils.toTree(this.getMenuByRoleId(roleId),Menu.class);
+    }
+
+    @Override
+    public List<Long> getMenuIdsByRole(Long roleId) {
+        return super.baseMapper.getMenuIdsByRole(roleId);
+    }
+
+    @Override
+    public List<VueTree> getMenuTree() {
+        List<VueTree> vueTrees = super.baseMapper.getMenuTree();
+        return (List<VueTree>)TreeUtils.toTree(vueTrees,VueTree.class);
     }
 }

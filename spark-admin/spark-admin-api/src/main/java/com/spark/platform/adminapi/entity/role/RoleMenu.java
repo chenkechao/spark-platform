@@ -13,15 +13,15 @@ import java.io.Serializable;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.adminapi.entity.role
- * @ClassName: RoleAuth
+ * @ClassName: RoleMenu
  * @Description:
  * @Version: 1.0
  */
 @Data
 @NoArgsConstructor
-@TableName("sys_role_auth")
-@ApiModel(value = "RoleAuth",description = "角色权限设置")
-public class  RoleAuth implements Serializable {
+@TableName("sys_role_menu")
+@ApiModel(value = "RoleMenu",description = "角色权限设置")
+public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,7 @@ public class  RoleAuth implements Serializable {
     /**
      * 权限id
      */
-    private Long authId;
+    private Long menuId;
 
 
 }

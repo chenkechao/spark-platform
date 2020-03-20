@@ -25,4 +25,6 @@ public interface RoleDao extends BaseMapper<Role> {
      * @return Role
      */
     List<Role> getRoleByUserId(@Param(value = "userId") Long userId);
+
+
 }

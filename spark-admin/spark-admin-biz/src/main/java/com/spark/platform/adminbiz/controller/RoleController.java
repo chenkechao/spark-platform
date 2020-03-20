@@ -2,6 +2,7 @@ package com.spark.platform.adminbiz.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.adminapi.entity.role.Role;
+import com.spark.platform.adminbiz.service.menu.MenuService;
 import com.spark.platform.adminbiz.service.role.RoleService;
 import com.spark.platform.common.base.support.BaseController;
 import com.spark.platform.common.base.support.ApiResponse;
@@ -25,6 +26,9 @@ public class RoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MenuService menuService;
 
     @GetMapping("/info/{id}")
     @ApiOperation(value = "根据用户id获取用户角色信息")
@@ -54,6 +58,19 @@ public class RoleController extends BaseController {
     @ApiOperation(value = "更新角色信息")
     public ApiResponse delete(@PathVariable Long id){
         return success(roleService.removeById(id));
+    }
+
+    @GetMapping("/getRoleAuth")
+    @ApiOperation(value = "根据角色id获取权限")
+    public ApiResponse getRoleAuth(@RequestParam Long id){
+        return success(menuService.getMenuIdsByRole(id));
+    }
+
+    @PostMapping("/saveRoleAuth")
+    @ApiOperation(value = "更新角色权限信息")
+    public ApiResponse saveRoleAuth(@RequestBody Role role){
+        roleService.saveRoleAuth(role);
+        return success("更新成功");
     }
 
 
