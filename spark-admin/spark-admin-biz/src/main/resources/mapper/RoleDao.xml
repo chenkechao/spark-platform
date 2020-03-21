@@ -7,6 +7,7 @@
         <result column="role_code" jdbcType="VARCHAR" property="roleCode"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="creator" jdbcType="INTEGER" property="creator"/>
         <result column="modifier" jdbcType="INTEGER" property="modifier"/>
@@ -17,11 +18,11 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, role_name, role_code, create_date, description, dept_id
+        id, role_name, role_code, create_date, description, dept_id,dept_name
     </sql>
 
     <select id="getRoleByUserId" parameterType="long" resultMap="BaseResultMap">
-        SELECT su.id,role_name,role_code,create_date,description,dept_id
+        SELECT su.id,role_name,role_code,create_date,description,dept_id,dept_name
         FROM sys_role su
         LEFT JOIN sys_user_role sr ON sr.role_id = su.id
         WHERE sr.user_id = ${userId}

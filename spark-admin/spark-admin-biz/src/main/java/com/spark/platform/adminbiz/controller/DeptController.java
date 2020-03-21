@@ -22,9 +22,9 @@ public class DeptController extends BaseController {
     @Autowired
     private DeptService deptService;
 
-    @PostMapping("/list")
+    @GetMapping("/list")
     @ApiOperation(value = "部门列表")
-    public ApiResponse list(@RequestBody Dept dept){
+    public ApiResponse list(Dept dept){
         return success(deptService.list(dept));
     }
 
@@ -34,20 +34,26 @@ public class DeptController extends BaseController {
         return success(deptService.getById(id));
     }
 
+    @GetMapping("/getTree")
+    @ApiOperation(value = "获取部门树")
+    public ApiResponse getTree(boolean isRoot){
+        return success(deptService.getTree(isRoot));
+    }
+
     @PostMapping("/save")
     @ApiOperation(value = "保存部门信息")
     public ApiResponse save(@RequestBody Dept dept){
-        return success(deptService.list(dept));
+        return success(deptService.save(dept));
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新部门信息")
     public ApiResponse update(@RequestBody Dept dept){
-        return success(deptService.list(dept));
+        return success(deptService.updateById(dept));
     }
 
     @DeleteMapping("/delete/{id}")
-    @ApiOperation(value = "更新部门信息")
+    @ApiOperation(value = "删除部门信息")
     public ApiResponse update(@PathVariable Long id){
         return success(deptService.removeById(id));
     }

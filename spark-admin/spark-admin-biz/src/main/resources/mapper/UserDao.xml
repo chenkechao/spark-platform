@@ -13,6 +13,7 @@
         <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="creator" jdbcType="INTEGER" property="creator"/>
         <result column="modifier" jdbcType="INTEGER" property="modifier"/>
@@ -34,10 +35,11 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="dept_id" jdbcType="BIGINT" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, username, nickname, password, sex, phone, email, create_date, modify_date, last_login_ip, last_login_time, del_flag, status, avatar, dept_id
+        id, username, nickname, password, sex, phone, email, create_date, modify_date, last_login_ip, last_login_time, del_flag, status, avatar, dept_id,dept_name
     </sql>
 
     <select id="findByUserName" parameterType="string" resultMap="BaseResultMap">
@@ -50,7 +52,7 @@
     </select>
 
     <select id="findByUserId" parameterType="long" resultMap="BaseResultMap">
-        select  ID, username, nickname, avatar, phone, email, dept_id, status
+        select  ID, username, nickname, avatar, phone, email, dept_id, dept_name, status
         from sys_user
         WHERE id = #{userId}
     </select>

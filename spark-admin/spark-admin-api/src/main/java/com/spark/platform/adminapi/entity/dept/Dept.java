@@ -1,14 +1,16 @@
 package com.spark.platform.adminapi.entity.dept;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.spark.platform.adminapi.entity.authority.Menu;
 import com.spark.platform.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author: wangdingfeng
@@ -64,5 +66,8 @@ public class Dept extends BaseEntity {
      * 部门类型(0 公司1部门)
      */
     private Integer deptType;
+
+    @TableField(exist = false)
+    private List<Menu> children;
 
 }

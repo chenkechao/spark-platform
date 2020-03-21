@@ -73,7 +73,7 @@ public class BaseController {
 
     public ApiResponse success(String msg){
         ApiResponse re = new ApiResponse(SparkHttpStatus.SUCCESS);
-        re.setMessage(msg);
+        re.setMsg(msg);
         return  re;
     }
     public ApiResponse success(Object data){
@@ -88,7 +88,7 @@ public class BaseController {
 
     public ApiResponse fail(String msg){
         ApiResponse re = new ApiResponse(SparkHttpStatus.COMMON_FAIL);
-        re.setMessage(msg);
+        re.setMsg(msg);
         return  re;
     }
 

@@ -66,4 +66,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
         }
 
     }
+
+    @Override
+    public List<Role> findAllRole() {
+        return super.baseMapper.findAllRole();
+    }
 }

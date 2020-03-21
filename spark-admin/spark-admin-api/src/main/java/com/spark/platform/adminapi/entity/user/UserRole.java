@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * @author: wangdingfeng
  * @ProjectName: spark-platform
@@ -18,12 +16,9 @@ import java.io.Serializable;
  * @Version: 1.0
  */
 @Data
-@NoArgsConstructor
 @TableName("sys_user_role")
 @ApiModel(value = "UserRole",description = "用户角色设置")
-public class UserRole implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class UserRole{
 
     /**
      * id
@@ -40,4 +35,13 @@ public class UserRole implements Serializable {
      * 用户id
      */
     private Long userId;
+
+    public UserRole(){
+
+    }
+
+    public UserRole(Long roleId,Long userId){
+        this.roleId = roleId;
+        this.userId = userId;
+    }
 }

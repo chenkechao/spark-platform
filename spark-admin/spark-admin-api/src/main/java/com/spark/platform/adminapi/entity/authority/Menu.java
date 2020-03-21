@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -26,8 +24,6 @@ import java.util.List;
 @TableName("sys_menu")
 @ApiModel(value = "Menu",description = "菜单设置")
 public class Menu extends BaseEntity {
-
-    private static final long serialVersionUID = 1L;
 
     /**
      * id

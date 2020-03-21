@@ -1,6 +1,9 @@
 package com.spark.platform.adminbiz.service.authority;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.spark.platform.adminapi.entity.authority.OauthClientDetails;
 
 /**
@@ -11,7 +14,7 @@ import com.spark.platform.adminapi.entity.authority.OauthClientDetails;
  * @Description: Oauth 授权管理
  * @Version: 1.0
  */
-public interface OauthClientDetailsService{
+public interface OauthClientDetailsService extends IService<OauthClientDetails> {
 
     /**
      * 根据clientId查询OauthClientDetails
@@ -20,5 +23,13 @@ public interface OauthClientDetailsService{
      * @return OauthClientDetails
      */
     OauthClientDetails findOauthClientDetailsByClientId(String clientId);
+
+    /**
+     * 分页
+     * @param oauthClientDetails
+     * @param page
+     * @return
+     */
+    IPage findPage(OauthClientDetails oauthClientDetails, Page page);
 
 }

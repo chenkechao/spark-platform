@@ -11,13 +11,12 @@
         <result column="authorities" jdbcType="VARCHAR" property="authorities"/>
         <result column="access_token_validity" jdbcType="INTEGER" property="accessTokenValidity"/>
         <result column="refresh_token_validity" jdbcType="INTEGER" property="refreshTokenValidity"/>
-        <result column="additional_information" jdbcType="LONGVARCHAR" property="additionalInformation"/>
         <result column="autoapprove" jdbcType="VARCHAR" property="autoapprove"/>
     </resultMap>
 
     <sql id="Base_Column_List">
     client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, 
-    authorities, access_token_validity, refresh_token_validity,additional_information, autoapprove
+    authorities, access_token_validity, refresh_token_validity, autoapprove
   </sql>
 
 

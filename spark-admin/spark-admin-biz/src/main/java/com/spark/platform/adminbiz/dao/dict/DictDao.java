@@ -1,7 +1,7 @@
-package com.spark.platform.adminbiz.dao.dept;
+package com.spark.platform.adminbiz.dao.dict;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.spark.platform.adminapi.entity.dept.Dept;
+import com.spark.platform.adminapi.entity.dict.Dict;
 import com.spark.platform.adminapi.vo.VueTree;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
@@ -11,19 +11,18 @@ import java.util.List;
 
 /**
  * @author: wangdingfeng
- * @Date: 2020/3/20 22:32
- * @Description: 部门Dao
+ * @Date: 2020/3/21 13:34
+ * @Description: 字典 dao
  */
 @Repository
-public interface DeptDao extends BaseMapper<Dept> {
+public interface DictDao extends BaseMapper<Dict> {
 
     /**
-     * 获取菜单树
+     * 查询树节点
      * @return
      */
-    @Select("SELECT id,pid,simple_name AS 'label' FROM sys_dept WHERE del_flag = 0")
+    @Select("SELECT id,pid,name AS 'label' FROM sys_dict WHERE del_flag = 0")
     @ResultType(VueTree.class)
     List<VueTree> getTree();
-
 
 }

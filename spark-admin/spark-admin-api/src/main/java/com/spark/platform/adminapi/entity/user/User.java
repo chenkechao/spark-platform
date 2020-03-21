@@ -1,6 +1,7 @@
 package com.spark.platform.adminapi.entity.user;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,8 +10,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author: wangdingfeng
@@ -24,9 +25,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @TableName("sys_user")
 @ApiModel(value = "User",description = "用户设置")
-public class User extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class User extends BaseEntity {
 
     /**
      * id
@@ -81,12 +80,20 @@ public class User extends BaseEntity implements Serializable {
     private String avatar;
 
     /**
-     * 部门id 一个用户只有 一个部门
+     * 部门id
      */
     private Long deptId;
+    /**
+     * 部门名称
+     */
+    private String deptName;
     /**
      * 状态
      */
     private Integer status;
+
+    @TableField(exist = false)
+    private List<Long> roles;
+
 
 }

@@ -39,4 +39,10 @@ public interface RoleService extends IService<Role> {
      * @param role
      */
     void saveRoleAuth(Role role);
+
+    /**
+     * 获取所有的角色
+     * @return
+     */
+    List<Role> findAllRole();
 }

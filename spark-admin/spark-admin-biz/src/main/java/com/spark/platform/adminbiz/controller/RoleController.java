@@ -42,6 +42,12 @@ public class RoleController extends BaseController {
         return success(roleService.findPage(role,page));
     }
 
+    @GetMapping("/getRoleAll")
+    @ApiOperation(value = "获取所有角色")
+    public ApiResponse getRoleAll(){
+        return success(roleService.findAllRole());
+    }
+
     @PostMapping("/save")
     @ApiOperation(value = "保存角色信息")
     public ApiResponse save(@RequestBody Role role){

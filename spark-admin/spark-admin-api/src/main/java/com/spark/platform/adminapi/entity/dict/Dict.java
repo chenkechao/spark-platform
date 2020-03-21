@@ -1,12 +1,13 @@
 package com.spark.platform.adminapi.entity.dict;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.spark.platform.common.base.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 
 /**
  * @author: wangdingfeng
@@ -20,21 +21,19 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("sys_dict")
 @ApiModel(value = "Dict",description = "字典设置")
-public class Dict extends BaseEntity implements Serializable {
+public class Dict extends BaseEntity{
 
-    private static final long serialVersionUID = 1L;
-
+    @TableId(type = IdType.AUTO)
     private Long id;
+    /**
+     * 上级ID
+     */
+    private Long pid;
 
     /**
      * 字典值
      */
     private Integer value;
-
-    /**
-     * 上级ID
-     */
-    private Long pid;
 
     /**
      * 字典名称
@@ -47,9 +46,9 @@ public class Dict extends BaseEntity implements Serializable {
     private String type;
 
     /**
-     * 是否删除 (0 是  1否)
+     * 描述
      */
-    private Integer isDeleted;
+    private String description;
 
 
 }

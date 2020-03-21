@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminapi.vo.UserVo;
 
+import java.util.List;
+
 /**
  * @author: wangdingfeng
  * @ProjectName: spark-platform
@@ -41,6 +43,13 @@ public interface UserService extends IService<User> {
     UserVo loginByPassword(String userName, String password);
 
     /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    boolean updateUser(User user);
+
+    /**
      * 分页查询数据
      * @param user
      * @param page
@@ -53,4 +62,11 @@ public interface UserService extends IService<User> {
      * @param password 新密码
      */
     void updatePassword(Long userId,String password);
+
+    /**
+     * 查询用户角色ids
+     * @param userId 用户id
+     * @return
+     */
+    List<Long> findRolIdsByUserId(Long userId);
 }

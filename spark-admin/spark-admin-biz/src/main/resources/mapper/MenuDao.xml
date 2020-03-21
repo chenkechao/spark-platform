@@ -10,13 +10,13 @@
         sys_menu m
         JOIN (
         SELECT DISTINCT
-        ra.AUTH_ID
+        ra.menu_id
         FROM
         sys_user_role ur
-        JOIN sys_role_auth ra ON ur.ROLE_ID = ra.ROLE_ID
-        JOIN sys_user u ON ur.USER_ID = u.ID
+        JOIN sys_role_auth ra ON ur.role_id = ra.role_id
+        JOIN sys_user u ON ur.user_id = u.id
         WHERE
-        u.USERNAME = 'admin'
+        u.username = #{userName}
         ) AS um ON m.id = um.AUTH_ID
         WHERE
         m.del_flag = 0
@@ -41,7 +41,7 @@
         JOIN sys_role_menu ra ON ur.role_id = ra.role_id
         JOIN sys_user u ON ur.user_id = u.ID
         WHERE
-        u.USERNAME = 'admin'
+        u.username = #{userName}
         ) AS um ON m.id = um.menu_id
         WHERE
         m.del_flag = 0

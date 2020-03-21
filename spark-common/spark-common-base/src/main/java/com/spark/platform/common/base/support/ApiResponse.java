@@ -22,17 +22,17 @@ public class ApiResponse implements Serializable {
 
     private Integer code;
 
-    private String message;
+    private String msg;
 
     private Object data;
 
-    public ApiResponse(Integer code, String message) {
+    public ApiResponse(Integer code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
     public ApiResponse(SparkHttpStatus sophiaHttpStatus) {
         this.code = sophiaHttpStatus.getCode();
-        this.message = sophiaHttpStatus.getMessage();
+        this.msg = sophiaHttpStatus.getMessage();
     }
 
 

@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.auth.config
- * @ClassName: SophiaWebSecurityConfig
+ * @ClassName: SparkWebSecurityConfig
  * @Description: web security 访问安全配置
  * @Version: 1.0
  */

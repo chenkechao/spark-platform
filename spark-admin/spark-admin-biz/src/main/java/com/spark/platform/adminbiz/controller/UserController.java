@@ -62,11 +62,12 @@ public class UserController extends BaseController {
     public ApiResponse delete(@PathVariable Long id){
         return success(userService.removeById(id));
     }
+
     @PostMapping("/update")
     @ApiOperation(value = "更新用户数据")
     @PreAuthorize("hasAnyAuthority('user:edit')")
     public ApiResponse update(@RequestBody User user){
-        return success(userService.updateById(user));
+        return success(userService.updateUser(user));
     }
 
     @GetMapping("/restPassword")
@@ -83,5 +84,11 @@ public class UserController extends BaseController {
     public ApiResponse updatePassword(String password){
         userService.updatePassword(UserUtils.getLoginUser().getId(), password);
         return success("修改密码");
+    }
+
+    @GetMapping("/getRolIdsByUserId/{id}")
+    @ApiOperation(value = "根据用户id获取角色ids")
+    public ApiResponse getRolIdsByUserId(@PathVariable Long id){
+        return success(userService.findRolIdsByUserId(id));
     }
 }

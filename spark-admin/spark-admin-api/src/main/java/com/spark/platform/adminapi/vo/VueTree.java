@@ -1,6 +1,9 @@
 package com.spark.platform.adminapi.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -13,7 +16,10 @@ import java.util.List;
  * @Date: 2020/3/20 15:19
  * @Version: 1.0
  */
+@Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class VueTree {
 
     private Long id;

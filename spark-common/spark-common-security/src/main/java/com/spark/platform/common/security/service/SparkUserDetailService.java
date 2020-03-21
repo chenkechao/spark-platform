@@ -25,7 +25,7 @@ import java.util.List;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.common.security.service
- * @ClassName: SophiaUserDetailService
+ * @ClassName: SparkUserDetailService
  * @Description: 用户登录 查询登录用户
  * @Version: 1.0
  */

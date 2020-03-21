@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     public ApiResponse defaultErrorHandler(RuntimeException e) {
         e.printStackTrace();
         createLogger(e);
-        return new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(), SparkHttpStatus.SERVER_FUGUE.getMessage()+"，错误信息："+e.getMessage());
+        return new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(), SparkHttpStatus.SERVER_FUGUE.getMessage());
     }
 
 
@@ -66,6 +66,20 @@ public class GlobalExceptionHandler {
             });
         }
         return new ApiResponse(SparkHttpStatus.GL99990100.getCode(), SparkHttpStatus.GL99990100.getMessage());
+    }
+
+    /**
+     * 全部异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler( Exception.class)
+    public ApiResponse defaultErrorException(Exception e){
+        e.printStackTrace();
+        createLogger(e);
+        ApiResponse apiResponse = new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(), SparkHttpStatus.SERVER_FUGUE.getMessage());
+        apiResponse.setData(e.getMessage());
+        return apiResponse;
     }
 
     /**

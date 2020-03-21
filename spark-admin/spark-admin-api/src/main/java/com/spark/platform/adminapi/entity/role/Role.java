@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,9 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @TableName("sys_role")
 @ApiModel(value = "Role",description = "角色设置")
-public class Role extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Role extends BaseEntity {
 
     /**
      * id
@@ -53,6 +50,10 @@ public class Role extends BaseEntity implements Serializable {
      * 部门id
      */
     private Long deptId;
+    /**
+     * 部门名称
+     */
+    private String deptName;
 
     /**
      * 状态

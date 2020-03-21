@@ -101,7 +101,7 @@ security:
       client-secret: spark-admin-secret
     resource:
       jwt:
-        key-value: sophia_oauth_key
+        key-value: spark_oauth_key
 
 ribbon:
   ReadTimeout: 10000 #请求处理的超时时间

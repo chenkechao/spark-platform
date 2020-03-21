@@ -26,8 +26,8 @@ import java.util.Arrays;
  * @ClassName: SparkClientDetailsService
  * @Description: 客户端详情信息，客户端详情信息在这里进行初始化，通过数据库来存储调取详情信息
  * 用户登录时（即携带参数请求/oauth/token接口）会调用这两个service。
- * 1、SophiaClientDetailsService是根据client_id查出来的信息验证用户登录时携带的参数（即客户端详情表信息）是否正确。并且设置能访问的资源id集合。
- * 2、SophiaUserDetailService是根据用户名去查用户密码，用户所拥有的角色等信息，然后丢给security去验证用户登录时的用户名和密码是否正确。
+ * 1、SparkClientDetailsService是根据client_id查出来的信息验证用户登录时携带的参数（即客户端详情表信息）是否正确。并且设置能访问的资源id集合。
+ * 2、SparkUserDetailService是根据用户名去查用户密码，用户所拥有的角色等信息，然后丢给security去验证用户登录时的用户名和密码是否正确。
  * 以上都正确则返回token信息，并把token信息存到了redis里,然后就可以根据拿到的token去请求被security管理起来的接口地址。
  * @Version: 1.0
  */

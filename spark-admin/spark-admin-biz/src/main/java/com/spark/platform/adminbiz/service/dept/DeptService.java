@@ -2,6 +2,7 @@ package com.spark.platform.adminbiz.service.dept;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.spark.platform.adminapi.entity.dept.Dept;
+import com.spark.platform.adminapi.vo.VueTree;
 
 import java.util.List;
 
@@ -17,4 +18,10 @@ public interface DeptService extends IService<Dept> {
      * @return
      */
     List<Dept> list(Dept dept);
+
+    /**
+     * 获取树
+     * @return
+     */
+    List<VueTree> getTree(boolean isRoot);
 }
