@@ -2,7 +2,7 @@ package com.spark.platform.adminapi.feign.client;
 
 import com.spark.platform.adminapi.feign.fallback.RoleClientFallBack;
 import com.spark.platform.common.base.constants.ServiceNameConstants;
-import com.spark.platform.commonfeign.config.FeignRequestInterceptorConfig;
+import com.spark.platform.common.feign.config.FeignRequestInterceptorConfig;
 import com.spark.platform.common.base.support.ApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

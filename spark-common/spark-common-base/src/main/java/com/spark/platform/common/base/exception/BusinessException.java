@@ -4,9 +4,9 @@ import com.spark.platform.common.base.enums.SparkHttpStatus;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.base.exception
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.base.exception
  * @ClassName: BusinessException
  * @Description: 业务异常
  * @Version: 1.0

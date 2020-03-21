@@ -6,7 +6,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author LHL
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.properties
+ * @ClassName: FilterIgnoreProperties
+ * @Description: 授权码 信息
+ * @Version: 1.0
  */
 @Getter
 @Setter

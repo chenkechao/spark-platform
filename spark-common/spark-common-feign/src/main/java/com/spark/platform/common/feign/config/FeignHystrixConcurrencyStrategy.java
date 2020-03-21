@@ -1,4 +1,4 @@
-package com.spark.platform.commonfeign.config;
+package com.spark.platform.common.feign.config;
 
 import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.netflix.hystrix.HystrixThreadPoolProperties;

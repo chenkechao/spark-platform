@@ -22,9 +22,9 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.config
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.config
  * @ClassName: SophiaResourceServerConfig
  * @Description: 资源服务 资源访问权限配置: 给接口地址让security管理起来，如哪些不需要授权能访问;哪些需要登录授权后能访问，哪些需要用户拥有这些角色才能访问。
  * 优先级低于AuthorizationServerConfigurerAdapter

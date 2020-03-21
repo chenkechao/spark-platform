@@ -22,9 +22,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("sys_dept")
 @ApiModel(value = "Dept",description = "部门设置")
-public class Dept extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Dept extends BaseEntity {
 
     /**
      * id
@@ -35,7 +33,7 @@ public class Dept extends BaseEntity implements Serializable {
     /**
      * 排序
      */
-    private Integer num;
+    private Integer sort;
 
     /**
      * 父部门id
@@ -56,11 +54,6 @@ public class Dept extends BaseEntity implements Serializable {
      * 全称
      */
     private String fullName;
-
-    /**
-     * 提示
-     */
-    private String tips;
 
     /**
      * 地址

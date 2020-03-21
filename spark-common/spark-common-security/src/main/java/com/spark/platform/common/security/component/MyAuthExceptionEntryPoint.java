@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.component
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.component
  * @ClassName: MyAuthExceptionEntryPoint
  * @Description: 自定义Token异常信息, 用于tokan校验失败返回信息, 比如token过期/验证错误
  * @Version: 1.0

@@ -54,6 +54,9 @@ public class APIController extends BaseController {
     public ApiResponse getUserInfo() {
         UserDto userDto = new UserDto();
         LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(null == loginUser){
+            return fail("登录失效");
+        }
         User user = userService.loadUserByUserId(loginUser.getId());
         UserVo userVo = new UserVo();
         //查询角色信息

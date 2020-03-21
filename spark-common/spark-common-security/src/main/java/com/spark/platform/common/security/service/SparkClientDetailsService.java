@@ -20,10 +20,10 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.service
- * @ClassName: SophiaClientDetailsService
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.service
+ * @ClassName: SparkClientDetailsService
  * @Description: 客户端详情信息，客户端详情信息在这里进行初始化，通过数据库来存储调取详情信息
  * 用户登录时（即携带参数请求/oauth/token接口）会调用这两个service。
  * 1、SophiaClientDetailsService是根据client_id查出来的信息验证用户登录时携带的参数（即客户端详情表信息）是否正确。并且设置能访问的资源id集合。

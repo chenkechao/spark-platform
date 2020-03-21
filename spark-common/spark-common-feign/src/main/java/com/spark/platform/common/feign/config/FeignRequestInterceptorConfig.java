@@ -1,4 +1,4 @@
-package com.spark.platform.commonfeign.config;
+package com.spark.platform.common.feign.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

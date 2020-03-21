@@ -8,9 +8,9 @@ import com.spark.platform.common.security.exception.SparkAuth2Exception;
 import lombok.SneakyThrows;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.component
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.component
  * @ClassName: SophiaAuth2ExceptionSerializer
  * @Description: OAuth2 异常格式化
  * @Version: 1.0

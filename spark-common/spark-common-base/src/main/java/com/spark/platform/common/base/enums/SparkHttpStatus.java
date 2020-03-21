@@ -3,9 +3,9 @@ package com.spark.platform.common.base.enums;
 import lombok.Getter;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.base.enums
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.base.enums
  * @ClassName: SophiaHttpStatus
  * @Description: http状态枚举
  * @Version: 1.0
@@ -51,7 +51,7 @@ public enum SparkHttpStatus {
     /**
      * 服务器神游中
      */
-    SERVER_FUGUE(666, "服务器出错，请联系管路员处理错误信息"),
+    SERVER_FUGUE(5555, "服务器开小差中，请联系管理员"),
 
     /**
      * 请求超时，请稍后再试！

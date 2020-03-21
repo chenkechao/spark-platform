@@ -58,7 +58,7 @@ public class UserController extends BaseController {
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "删除用户")
-    @PreAuthorize("hasAnyAuthority('user:delete')")
+    @PreAuthorize("hasAnyAuthority('user:delete1')")
     public ApiResponse delete(@PathVariable Long id){
         return success(userService.removeById(id));
     }

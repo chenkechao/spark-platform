@@ -5,9 +5,9 @@ import com.spark.platform.common.security.component.SparkAuth2ExceptionSerialize
 import org.springframework.http.HttpStatus;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.exception
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.exception
  * @ClassName: ForbiddenException
  * @Description:
  * @Version: 1.0

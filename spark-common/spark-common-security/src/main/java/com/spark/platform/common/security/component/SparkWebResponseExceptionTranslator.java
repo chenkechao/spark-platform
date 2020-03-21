@@ -19,9 +19,9 @@ import org.springframework.security.web.util.ThrowableAnalyzer;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.component
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.component
  * @ClassName: SophiaWebResponseExceptionTranslator
  * @Description: 异常处理,重写oauth 默认实现
  * @Version: 1.0

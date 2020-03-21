@@ -4,12 +4,11 @@ import com.spark.platform.common.security.model.LoginUser;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.util
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.util
  * @ClassName: UserUtils
- * @Date: 2019/11/5 09:09
- * @Description:
+ * @Description: 用户工具类
  * @Version: 1.0
  */
 public class UserUtils {

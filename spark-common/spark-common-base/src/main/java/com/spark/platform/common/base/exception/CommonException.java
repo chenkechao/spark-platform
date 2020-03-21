@@ -4,9 +4,9 @@ package com.spark.platform.common.base.exception;
 import com.spark.platform.common.base.enums.SparkHttpStatus;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.base.exception
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.base.exception
  * @ClassName: CommonException
  * @Description: 自定义公共运行时异常
  * @Version: 1.0

@@ -10,16 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.config
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.properties
  * @ClassName: FilterIgnoreProperties
  * @Description: 放行参数配置
  * @Version: 1.0
  */
 @Data
 @Configuration
-// @RefreshScope
 @ConditionalOnExpression("!'${ignore}'.isEmpty()")
 @ConfigurationProperties(prefix = GlobalsConstants.FILTER_IGNORE)
 public class FilterIgnoreProperties {

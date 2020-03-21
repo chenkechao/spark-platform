@@ -6,9 +6,9 @@ import lombok.Getter;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.exception
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.exception
  * @ClassName: SophiaAuth2Exception
  * @Description: 自定义OAuth2Exception
  * @Version: 1.0

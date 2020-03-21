@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.spark.platform.common.security.component.SparkAuth2ExceptionSerializer;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.exception
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.security.exception
  * @ClassName: InvalidException
  * @Description:
  * @Version: 1.0
