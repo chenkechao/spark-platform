@@ -18,7 +18,7 @@ spark 平台
 admin | 123456 | 注册账户，拥有除删除权限外的所有权限
 
 #### 模块说明
-
+```lua
 spark-platform 
 ├── spark-auth -- 授权服务 oauth2
 └── spark-common -- 系统公共模块 
@@ -33,4 +33,4 @@ spark-platform
 └── spark-admin -- 通用用户权限管理模块
      └── spark-admin-api -- 通用用户权限管理系统公共api模块
      └── spark-admin-biz -- 通用用户权限管理系统业务处理模块
- 
+```
