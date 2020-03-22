@@ -10,7 +10,7 @@
     </parent>
     <artifactId>spark-control</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spark-visual</name>
+    <name>spark-control</name>
     <description>监控模块，基于 spring boot admin</description>
 
     <dependencies>
