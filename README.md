@@ -10,6 +10,7 @@ spark 平台
 - 字典管理
 - 工作流
 - 日志功能
+- 文件管理
 
 ### 项目地址
  平台  | spark-platform（后端）|spark-admin（前端）
