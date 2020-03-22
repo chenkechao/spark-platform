@@ -8,6 +8,7 @@ import com.spark.platform.common.base.support.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -35,25 +36,28 @@ public class AuthorityController extends BaseController {
     }
 
     @PostMapping("/page")
-    @ApiOperation(value = "获取角色列表分页")
+    @ApiOperation(value = "分页查询")
     public ApiResponse page(OauthClientDetails oauthClientDetails, Page page){
         return success(oauthClientDetailsService.findPage(oauthClientDetails,page));
     }
 
     @PostMapping("/save")
-    @ApiOperation(value = "保存角色信息")
+    @ApiOperation(value = "保存信息")
+    @PreAuthorize("hasAnyAuthority('oauth:add')")
     public ApiResponse save(@RequestBody OauthClientDetails oauthClientDetails){
         return success(oauthClientDetailsService.save(oauthClientDetails));
     }
 
     @PostMapping("/update")
-    @ApiOperation(value = "更新角色信息")
+    @ApiOperation(value = "更新信息")
+    @PreAuthorize("hasAnyAuthority('oauth:edit')")
     public ApiResponse update(@RequestBody OauthClientDetails oauthClientDetails){
         return success(oauthClientDetailsService.updateById(oauthClientDetails));
     }
 
     @DeleteMapping("/delete/{id}")
-    @ApiOperation(value = "更新角色信息")
+    @ApiOperation(value = "更新信息")
+    @PreAuthorize("hasAnyAuthority('oauth:delete1')")
     public ApiResponse delete(@PathVariable Long id){
         return success(oauthClientDetailsService.removeById(id));
     }

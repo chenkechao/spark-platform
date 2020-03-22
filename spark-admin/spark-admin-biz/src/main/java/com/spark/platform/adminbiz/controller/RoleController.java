@@ -9,6 +9,7 @@ import com.spark.platform.common.base.support.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -50,18 +51,21 @@ public class RoleController extends BaseController {
 
     @PostMapping("/save")
     @ApiOperation(value = "保存角色信息")
+    @PreAuthorize("hasAnyAuthority('role:add')")
     public ApiResponse save(@RequestBody Role role){
         return success(roleService.save(role));
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新角色信息")
+    @PreAuthorize("hasAnyAuthority('role:edit')")
     public ApiResponse update(@RequestBody Role role){
         return success(roleService.updateById(role));
     }
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "更新角色信息")
+    @PreAuthorize("hasAnyAuthority('role:delete1')")
     public ApiResponse delete(@PathVariable Long id){
         return success(roleService.removeById(id));
     }
@@ -74,6 +78,7 @@ public class RoleController extends BaseController {
 
     @PostMapping("/saveRoleAuth")
     @ApiOperation(value = "更新角色权限信息")
+    @PreAuthorize("hasAnyAuthority('role:edit')")
     public ApiResponse saveRoleAuth(@RequestBody Role role){
         roleService.saveRoleAuth(role);
         return success("更新成功");

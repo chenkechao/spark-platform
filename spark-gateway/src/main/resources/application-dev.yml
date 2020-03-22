@@ -40,6 +40,12 @@ spring:
               args:
                 name: admin-hystrix
                 fallbackUri: forward:/common/fallback #设置熔断器
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8980
+        instance:
+          prefer-ip: true
 eureka:
   client:
     register-with-eureka: true

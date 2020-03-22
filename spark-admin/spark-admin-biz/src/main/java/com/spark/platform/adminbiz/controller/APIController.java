@@ -12,6 +12,7 @@ import com.spark.platform.adminbiz.service.role.RoleService;
 import com.spark.platform.adminbiz.service.user.UserService;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.security.model.LoginUser;
+import com.spark.platform.common.security.util.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -53,14 +55,14 @@ public class APIController extends BaseController {
     @ApiOperation(value = "获取用户信息")
     public ApiResponse getUserInfo() {
         UserDto userDto = new UserDto();
-        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LoginUser loginUser = UserUtils.getLoginUser();
         if(null == loginUser){
             return fail("登录失效");
         }
         User user = userService.loadUserByUserId(loginUser.getId());
         UserVo userVo = new UserVo();
         //查询角色信息
-        List<String> roles = roleService.getRoleByUserId(loginUser.getId()).stream().map(Role::getRoleCode).collect(toList());
+        List<String> roles = roleService.getRoleByUserId(loginUser.getId()).stream().map(Role::getRoleName).collect(toList());
         //查询权限信息
         List<String> authList = menuService.findAuthByUserId(loginUser.getId()).stream().map(Menu::getPermission).collect(toList());
         //查询路由菜案信息
@@ -75,13 +77,12 @@ public class APIController extends BaseController {
 
     /**
      * 开放登录接口
-     * @param userVo
      * @return
      */
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
     @ApiOperation(value = "登录接口")
-    public ApiResponse webLogin(@RequestBody UserVo userVo){
-        UserVo result = userService.loginByPassword(userVo.getUsername(), userVo.getPassword());
+    public ApiResponse webLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+        UserVo result = userService.loginByPassword(username, password,getIpAddr(request));
         if(null != result){
             return success(result);
         }

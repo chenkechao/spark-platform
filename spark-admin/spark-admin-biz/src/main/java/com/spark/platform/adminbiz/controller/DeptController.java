@@ -7,6 +7,7 @@ import com.spark.platform.common.base.support.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,18 +43,21 @@ public class DeptController extends BaseController {
 
     @PostMapping("/save")
     @ApiOperation(value = "保存部门信息")
+    @PreAuthorize("hasAnyAuthority('dept:add')")
     public ApiResponse save(@RequestBody Dept dept){
         return success(deptService.save(dept));
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新部门信息")
+    @PreAuthorize("hasAnyAuthority('dept:edit')")
     public ApiResponse update(@RequestBody Dept dept){
         return success(deptService.updateById(dept));
     }
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "删除部门信息")
+    @PreAuthorize("hasAnyAuthority('dept:delete1')")
     public ApiResponse update(@PathVariable Long id){
         return success(deptService.removeById(id));
     }

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.spark.platform.adminapi.entity.user.UserRole;
 import com.spark.platform.adminbiz.dao.user.UserRoleDao;
 import com.spark.platform.common.base.constants.GlobalsConstants;
+import com.spark.platform.common.base.exception.BusinessException;
 import com.spark.platform.common.utils.HttpCallOtherInterfaceUtils;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminapi.vo.UserVo;
@@ -22,9 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -64,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
 
     @Override
-    public UserVo loginByPassword(String userName, String password) {
+    public UserVo loginByPassword(String userName, String password,String ip) {
         User user = baseMapper.selectOne(new QueryWrapper<User>().eq("username", userName));
         if (null == user) {
             return null;
@@ -88,6 +89,12 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             UserVo vo = new UserVo();
             BeanUtils.copyProperties(user, vo);
             vo.setToken(access_token);
+            //更新用户最后登录信息
+            User upU = new User();
+            upU.setId(user.getId());
+            upU.setLastLoginIp(ip);
+            upU.setLastLoginTime(LocalDateTime.now());
+            super.updateById(upU);
             return vo;
         }
         return null;
@@ -95,6 +102,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public boolean updateUser(User user) {
+        //只允许小写
+        user.setUsername(user.getUsername().toLowerCase());
+        //校验用户名
+        validateUserName(user.getUsername(),user.getId());
         //修改用户角色
         for (Long roleId : user.getRoles()) {
             int i = userRoleDao.deleteByUserId(user.getId());
@@ -120,15 +131,15 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         }
         return super.page(page, wrapper);
     }
-
     @Override
-    public void updatePassword(Long userId, String password) {
-        User user = this.loadUserByUserId(userId);
+    public void updateUserInfo(User user) {
+        User userInfo = super.getById(user.getId());
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            throw new CommonException("新密码与旧密码重复，请修改新密码");
+        String password = user.getPassword();
+        if (passwordEncoder.matches(password, userInfo.getPassword())) {
+            throw new BusinessException("新密码与旧密码重复，请重新修改新密码");
         }
-        user.setPassword(new BCryptPasswordEncoder().encode(password));
+        user.setPassword(passwordEncoder.encode(password));
         super.updateById(user);
     }
 
@@ -139,7 +150,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public boolean save(User entity) {
-        //保存密码
+        //只允许小写
+        entity.setUsername(entity.getUsername().toLowerCase());
+        //校验用户名
+        validateUserName(entity.getUsername(),null);
+        //保存密码 默认密码
         entity.setPassword(new BCryptPasswordEncoder().encode(GlobalsConstants.DEFAULT_USER_PASSWORD));
         //修改用户角色
         for (Long roleId : entity.getRoles()) {
@@ -148,5 +163,21 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             userRoleDao.insert(new UserRole(roleId, entity.getId()));
         }
         return super.save(entity);
+    }
+
+    /**
+     * 校验用户名是否重复
+     * @return
+     */
+    @Override
+    public void validateUserName(String username,Long id){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        if(null != id){
+            queryWrapper.ne("id",id);
+        }
+        queryWrapper.eq("username",username);
+        if(0 != super.count(queryWrapper)){
+            throw new BusinessException("账号重复");
+        }
     }
 }

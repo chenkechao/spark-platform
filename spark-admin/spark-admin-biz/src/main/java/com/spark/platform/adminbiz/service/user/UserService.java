@@ -40,7 +40,7 @@ public interface UserService extends IService<User> {
      * @param password 密码
      * @return UserVo
      * */
-    UserVo loginByPassword(String userName, String password);
+    UserVo loginByPassword(String userName, String password,String ip);
 
     /**
      * 更新用户信息
@@ -58,10 +58,9 @@ public interface UserService extends IService<User> {
     IPage findPage(User user, Page page);
 
     /**
-     * 修改密码
-     * @param password 新密码
+     * 修改用户信息
      */
-    void updatePassword(Long userId,String password);
+    void updateUserInfo(User user);
 
     /**
      * 查询用户角色ids
@@ -69,4 +68,11 @@ public interface UserService extends IService<User> {
      * @return
      */
     List<Long> findRolIdsByUserId(Long userId);
+
+    /**
+     * 校验用户名
+     * @param username
+     * @param id
+     */
+    void validateUserName(String username,Long id);
 }

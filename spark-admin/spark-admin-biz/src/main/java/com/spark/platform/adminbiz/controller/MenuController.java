@@ -8,6 +8,7 @@ import com.spark.platform.common.base.support.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,18 +64,21 @@ public class MenuController extends BaseController {
 
     @PostMapping("/save")
     @ApiOperation(value = "保存菜单")
+    @PreAuthorize("hasAnyAuthority('menu:add')")
     public ApiResponse save(@RequestBody Menu menu){
         return success(menuService.save(menu));
     }
 
     @PostMapping("/update")
     @ApiOperation(value = "更新菜单")
+    @PreAuthorize("hasAnyAuthority('menu:edit')")
     public ApiResponse update(@RequestBody Menu menu){
         return success(menuService.updateById(menu));
     }
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "删除菜单")
+    @PreAuthorize("hasAnyAuthority('menu:delete1')")
     public ApiResponse delete(@PathVariable Long id){
         return success(menuService.removeById(id));
     }

@@ -28,17 +28,38 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    /**
+     * 业务校验出错
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = BusinessException.class)
+    public ApiResponse defaultErrorHandler(BusinessException e) {
+        e.printStackTrace();
+        return new ApiResponse(SparkHttpStatus.COMMON_FAIL.getCode(),e.getMessage());
+    }
+
+    /**
+     * 公共运行异常
+     * @param e
+     * @return
+     */
     @ExceptionHandler(value = CommonException.class)
     public ApiResponse defaultErrorHandler(CommonException e) {
         e.printStackTrace();
         return new ApiResponse(SparkHttpStatus.COMMON_FAIL.getCode(),new CommonException().getMessage());
     }
 
+    /**
+     * 全局异常
+     * @param e
+     * @return
+     */
     @ExceptionHandler(value = RuntimeException.class)
     public ApiResponse defaultErrorHandler(RuntimeException e) {
         e.printStackTrace();
         createLogger(e);
-        return new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(), SparkHttpStatus.SERVER_FUGUE.getMessage());
+        return new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(),"不允许访问".equals(e.getMessage()) ? e.getMessage():SparkHttpStatus.SERVER_FUGUE.getMessage());
     }
 
 

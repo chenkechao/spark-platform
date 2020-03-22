@@ -74,16 +74,19 @@ public class UserController extends BaseController {
     @ApiOperation(value = "重置密码")
     @PreAuthorize("hasAnyAuthority('user:edit')")
     public ApiResponse restPassword(@RequestParam Long id){
-        userService.updatePassword(id, GlobalsConstants.DEFAULT_USER_PASSWORD);
+        User user = new User();
+        user.setId(id);
+        user.setPassword(GlobalsConstants.DEFAULT_USER_PASSWORD);
+        userService.updateUserInfo(user);
         return success("重置成功");
     }
 
     @PostMapping("/updatePassword")
-    @ApiOperation(value = "修改密码")
-    @PreAuthorize("hasAnyAuthority('user:edit')")
-    public ApiResponse updatePassword(String password){
-        userService.updatePassword(UserUtils.getLoginUser().getId(), password);
-        return success("修改密码");
+    @ApiOperation(value = "修改用户信息")
+    public ApiResponse updatePassword(@RequestBody User user){
+        user.setId(UserUtils.getLoginUser().getId());
+        userService.updateUserInfo(user);
+        return success("修改用户信息");
     }
 
     @GetMapping("/getRolIdsByUserId/{id}")

@@ -3,10 +3,9 @@ package com.spark.platform.adminbiz.config;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.spark.platform.common.base.constants.GlobalsConstants;
 import com.spark.platform.common.security.model.LoginUser;
+import com.spark.platform.common.security.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,14 +13,14 @@ import java.time.LocalDateTime;
 /**
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.adminbiz.config
- * @ClassName: MybatisPlusDefaultMetaObjectHandler
+ * @ClassName: MybatisPlusMetaHandler
  * @Author: wangdingfeng
  * @Description: mybatis plus 插入更新监听
  * @Version: 1.0
  */
 @Slf4j
 @Component
-public class MybatisPlusDefaultMetaObjectHandler implements MetaObjectHandler {
+public class MybatisPlusMetaHandler implements MetaObjectHandler {
 
     /**
      * 插入操作
@@ -56,12 +55,10 @@ public class MybatisPlusDefaultMetaObjectHandler implements MetaObjectHandler {
      * @return
      */
     private String getAccount(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(null == authentication || null == authentication.getPrincipal()){
-            log.info("============当前无登录信息，请注意================");
+        LoginUser user = UserUtils.getLoginUser();
+        if(null == user){
            return GlobalsConstants.DEFAULT_USER_SYSTEM;
         }
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        return loginUser.getUsername();
+        return user.getUsername();
     }
 }
