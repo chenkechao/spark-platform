@@ -23,7 +23,7 @@ public class ApiClientFallBack implements ApiClient {
     @Override
     public ApiResponse getUserInfo() {
         logger.error("调用spark-admin服务getUserInfo方法失败!");
-        return ApiResponse.hystrixError(ServiceNameConstants.SOPHIA_ADMIN , "getUserInfo");
+        return ApiResponse.hystrixError(ServiceNameConstants.SPARK_ADMIN , "getUserInfo");
     }
 
 }

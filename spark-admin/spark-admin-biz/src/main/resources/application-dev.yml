@@ -7,9 +7,9 @@ spring:
     name: spark-admin
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:  jdbc:mysql://127.0.0.1:3306/spark?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    url:  jdbc:mysql://106.13.179.172:3306/spark?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
-    password:
+    password: Wang_123
     name: spark
     type: com.alibaba.druid.pool.DruidDataSource
     initial-size: 5
@@ -33,11 +33,11 @@ spring:
           prefer-ip: true
   #    filters: stat,wall,log4j
   redis:
-    host: 127.0.0.1
+    host: 106.13.179.172
     port: 6379
     timeout: 10000
     database: 0
-    password:
+    password: Wang_123
     lettuce:
       pool:
         max-active: 300

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.common.security.properties
- * @ClassName: SophiaSecurityProperties
+ * @ClassName: SparkSecurityProperties
  * @Description:
  * @Version: 1.0
  */

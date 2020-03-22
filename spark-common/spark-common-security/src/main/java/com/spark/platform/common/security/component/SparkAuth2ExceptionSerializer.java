@@ -11,7 +11,7 @@ import lombok.SneakyThrows;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.common.security.component
- * @ClassName: SophiaAuth2ExceptionSerializer
+ * @ClassName: SparkAuth2ExceptionSerializer
  * @Description: OAuth2 异常格式化
  * @Version: 1.0
  */

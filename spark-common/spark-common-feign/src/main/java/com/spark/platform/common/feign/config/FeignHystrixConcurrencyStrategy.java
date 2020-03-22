@@ -23,9 +23,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.security.config
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.feign.config
  * @ClassName: FeignHystrixConcurrencyStrategy
  * @Description: 自定义Feign的隔离策略:
  * *   在转发Feign的请求头的时候, 如果开启了Hystrix,

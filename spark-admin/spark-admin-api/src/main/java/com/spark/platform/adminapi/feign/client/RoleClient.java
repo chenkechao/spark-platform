@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @Description:
  * @Version: 1.0
  */
-@FeignClient(contextId = "roleClient", name = ServiceNameConstants.SOPHIA_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = RoleClientFallBack.class)
+@FeignClient(contextId = "roleClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = RoleClientFallBack.class)
 public interface RoleClient {
 
     @GetMapping("/role/info/{id}")

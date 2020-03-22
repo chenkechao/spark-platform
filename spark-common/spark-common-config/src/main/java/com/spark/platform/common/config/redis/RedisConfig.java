@@ -122,8 +122,6 @@ public class RedisConfig extends CachingConfigurerSupport {
                 .disableCachingNullValues();
         //初始化RedisCacheManager
         RedisCacheManager cacheManager = new RedisCacheManager(redisCacheWriter, defaultCacheConfig);
-        // 设置白名单,使用fastjson的时候：序列化时将class信息写入，反解析的时候,fastjson默认情况下会开启autoType的检查，相当于一个白名单检查,如果序列化信息中的类路径不在autoType中,反解析就会报com.alibaba.fastjson.JSONException: autoType is not support的异常
-        // ParserConfig.getGlobalInstance().addAccept("com.scaffolding.sophia.admin.api.entity.user.User");
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
         log.debug("自定义RedisCacheManager加载完成");
         return cacheManager;

@@ -30,9 +30,9 @@ public class ApiResponse implements Serializable {
         this.code = code;
         this.msg = msg;
     }
-    public ApiResponse(SparkHttpStatus sophiaHttpStatus) {
-        this.code = sophiaHttpStatus.getCode();
-        this.msg = sophiaHttpStatus.getMessage();
+    public ApiResponse(SparkHttpStatus sparkHttpStatus) {
+        this.code = sparkHttpStatus.getCode();
+        this.msg = sparkHttpStatus.getMessage();
     }
 
 

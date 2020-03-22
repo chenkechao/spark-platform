@@ -6,7 +6,7 @@ import lombok.Getter;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.common.base.enums
- * @ClassName: SophiaHttpStatus
+ * @ClassName: SparkHttpStatus
  * @Description: http状态枚举
  * @Version: 1.0
  */

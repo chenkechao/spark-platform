@@ -71,7 +71,7 @@ public class GlobalsConstants {
     public static final String DB_PREFIX = "spring.datasource";
 
     /**
-     *  sophia security配置
+     *  spark security配置
      */
     public static final String SPARK_OAUTH_PREFIX = "spark.security";
     /**

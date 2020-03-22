@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 /**
- * @author: LHL
- * @ProjectName: sophia_scaffolding
- * @Package: com.scaffolding.sophia.common.feign
+ * @author: wangdingfeng
+ * @ProjectName: spark-platform
+ * @Package: com.spark.platform.common.feign.config
  * @ClassName: FeignRequestInterceptorConfig
  * @Description:
  * @Version: 1.0

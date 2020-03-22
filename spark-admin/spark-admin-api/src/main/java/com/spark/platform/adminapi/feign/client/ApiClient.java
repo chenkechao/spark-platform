@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @Description:
  * @Version: 1.0
  */
-@FeignClient(contextId = "apiClient", name = ServiceNameConstants.SOPHIA_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = ApiClientFallBack.class)
+@FeignClient(contextId = "apiClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = ApiClientFallBack.class)
 public interface ApiClient {
 
     @GetMapping("/api/principal")

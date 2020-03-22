@@ -22,7 +22,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.common.security.component
- * @ClassName: SophiaWebResponseExceptionTranslator
+ * @ClassName: SparkWebResponseExceptionTranslator
  * @Description: 异常处理,重写oauth 默认实现
  * @Version: 1.0
  */

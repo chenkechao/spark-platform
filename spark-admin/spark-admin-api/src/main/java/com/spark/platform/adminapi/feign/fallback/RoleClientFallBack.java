@@ -23,6 +23,6 @@ public class RoleClientFallBack implements RoleClient {
     @Override
     public ApiResponse getRoleByUserId(Long id) {
         logger.error("调用spark-admin服务getRoleByUserId方法失败!");
-        return ApiResponse.hystrixError(ServiceNameConstants.SOPHIA_ADMIN, "getRoleByUserId");
+        return ApiResponse.hystrixError(ServiceNameConstants.SPARK_ADMIN, "getRoleByUserId");
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Date: 2020/3/17 9:27
  * @Version: 1.0
  */
-@FeignClient(contextId = "menuClient", name = ServiceNameConstants.SOPHIA_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = MenuClientFallBack.class)
+@FeignClient(contextId = "menuClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = MenuClientFallBack.class)
 public interface MenuClient {
 
     /**

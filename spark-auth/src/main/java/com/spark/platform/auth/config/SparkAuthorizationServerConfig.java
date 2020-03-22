@@ -31,7 +31,7 @@ import java.util.Arrays;
  * @author: wangdingfeng
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.auth.config
- * @ClassName: SophiaAuthorizationServerConfig
+ * @ClassName: SparkAuthorizationServerConfig
  * @Description: 认证服务
  * @Version: 1.0
  */
@@ -40,7 +40,7 @@ import java.util.Arrays;
 public class SparkAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private SparkUserDetailService sophiaUserDetailService;
+    private SparkUserDetailService sparkUserDetailService;
     @Autowired
     private RedisConnectionFactory connectionFactory;
     @Autowired
@@ -48,14 +48,14 @@ public class SparkAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private  PasswordEncoder passwordEncoder;
     @Autowired
-    private SparkClientDetailsService sophiaClientDetailsService;
+    private SparkClientDetailsService sparkClientDetailsService;
 
     /**
      *  配置客户端详情信息，客户端详情信息在这里进行初始化，通过数据库来存储调取详情信息
      * */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(sophiaClientDetailsService);
+        clients.withClientDetails(sparkClientDetailsService);
     }
 
     /**
@@ -68,7 +68,7 @@ public class SparkAuthorizationServerConfig extends AuthorizationServerConfigure
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
         //指定认证管理器
         endpoints.authenticationManager(authenticationManager)
-                .userDetailsService(sophiaUserDetailService)
+                .userDetailsService(sparkUserDetailService)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
                 //指定token存储位置
                 .tokenStore(tokenStore())

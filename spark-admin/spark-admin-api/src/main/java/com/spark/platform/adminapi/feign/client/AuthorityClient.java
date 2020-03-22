@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Description:
  * @Version: 1.0
  */
-@FeignClient(contextId = "authorityClient", name = ServiceNameConstants.SOPHIA_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = AuthorityClientFallBack.class)
+@FeignClient(contextId = "authorityClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = AuthorityClientFallBack.class)
 public interface AuthorityClient {
 
     @GetMapping("/authority/api/info")
