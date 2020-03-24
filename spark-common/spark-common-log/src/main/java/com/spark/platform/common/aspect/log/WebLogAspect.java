@@ -1,16 +1,23 @@
-package com.spatk.platform.common.log.aspect;
+package com.spark.platform.common.aspect.log;
+
+/**
+ * @author: wangdingfeng
+ * @Date: 2020/3/24 20:08
+ * @Description:
+ */
 
 import cn.hutool.core.util.URLUtil;
+import com.google.common.collect.Lists;
 import com.spark.platform.adminapi.entity.log.ApiLog;
 import com.spark.platform.adminapi.feign.client.ApiLogClient;
 import com.spark.platform.common.utils.AddressUtils;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -21,6 +28,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
+
 
 /**
  * @ProjectName: spark-platform
@@ -31,46 +40,53 @@ import java.util.Arrays;
  * @Date: 2020/3/24 12:59
  * @Version: 1.0
  */
-@Component
 @Aspect
+@Component
+@Order(-5)
 @Slf4j
-public class LogAspect {
+public class WebLogAspect {
+
+    ThreadLocal<Long> currentTime = new ThreadLocal<>();
 
     @Autowired
     private ApiLogClient apiLogClient;
 
-    @Pointcut("execution(public * com.spark.platform.*.controller.*(..) )")
-    public void log() {
-
+    @Pointcut("execution(public * com.spark.platform.*.controller..*.*(..))")
+    public void webLog() {
     }
 
-    /**
-     * 方法执行前
-     * @param joinpoint [参数说明]
-     */
-    @Before("log()")
-    public void before(JoinPoint joinpoint) {
+
+    @Around("webLog()")
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        Object result;
+        currentTime.set(System.currentTimeMillis());
+        result = joinPoint.proceed();
+        //过滤不需要记录的日志
+        List<String> filter = Lists.newArrayList("/log/save","/api/principal","/api/login","/authority/api/info","/user/api","/menu/api/findAuthByUserId");
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
-        String operation = request.getMethod();
-        try {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        //获取 swagger 注解
+        ApiOperation apiOperation = signature.getMethod().getAnnotation(ApiOperation.class);
+        if(!filter.contains(request.getRequestURI())){
             ApiLog apiLog = new ApiLog();
             apiLog.setCreateTime(LocalDateTime.now());
             apiLog.setCreator(getUsername());
-            apiLog.setParams(Arrays.toString(joinpoint.getArgs()));
-            String className = joinpoint.getTarget().getClass().getName();
-            apiLog.setMethod(className + "." + operation);
+            apiLog.setParams(Arrays.toString(joinPoint.getArgs()));
+            String className = joinPoint.getTarget().getClass().getName();
+            apiLog.setMethod(className + "." + request.getMethod());
             apiLog.setUrl(URLUtil.getPath(request.getRequestURI()));
             String ip = AddressUtils.getIpAddress(request);
             apiLog.setIp(ip);
+            apiLog.setDescription(apiOperation.value());
+            apiLog.setTimes(System.currentTimeMillis() - currentTime.get());
             apiLog.setAddress(AddressUtils.getCityInfo(ip));
             apiLogClient.save(apiLog);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        currentTime.remove();
+        return result;
     }
-
 
     /**
      * 获取用户名称
@@ -85,17 +101,5 @@ public class LogAspect {
         return authentication.getName();
     }
 
-
-    /**
-     * 方法执行后
-     * @param joinpoint [参数说明]
-     * @return void [返回类型说明]
-     * @throws throws [违例类型] [违例说明]
-     * @see [类、类#方法、类#成员]
-     */
-    @After("log()")
-    public void after(JoinPoint joinpoint) {
-
-    }
 
 }
