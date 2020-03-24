@@ -3,8 +3,7 @@ package com.spark.platform.adminapi.feign.fallback;
 import com.spark.platform.common.base.constants.ServiceNameConstants;
 import com.spark.platform.adminapi.feign.client.ApiClient;
 import com.spark.platform.common.base.support.ApiResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,13 +15,11 @@ import org.springframework.stereotype.Component;
  * @Version: 1.0
  */
 @Component
+@Slf4j
 public class ApiClientFallBack implements ApiClient {
-
-    private final Logger logger = LoggerFactory.getLogger(ApiClientFallBack.class);
-
     @Override
     public ApiResponse getUserInfo() {
-        logger.error("调用spark-admin服务getUserInfo方法失败!");
+        log.error("调用spark-admin服务ApiClient:getUserInfo方法失败!");
         return ApiResponse.hystrixError(ServiceNameConstants.SPARK_ADMIN , "getUserInfo");
     }
 

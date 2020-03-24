@@ -21,7 +21,7 @@ public class MenuClientFallBack implements MenuClient {
 
     @Override
     public ApiResponse findAuthByUserId(Long userId) {
-        log.error("调用spark-admin服务findAuthByUserId方法失败!");
+        log.error("调用spark-admin服务MenuClient:findAuthByUserId方法失败!");
         return ApiResponse.hystrixError(ServiceNameConstants.SPARK_ADMIN, "findAuthByUserId");
     }
 }
