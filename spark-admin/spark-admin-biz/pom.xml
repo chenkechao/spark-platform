@@ -42,6 +42,11 @@
             <artifactId>spark-common-security</artifactId>
             <version>${spark-common.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.spatk.platform</groupId>
+            <artifactId>spark-common-log</artifactId>
+            <version>${spark-common.version}</version>
+        </dependency>
         <!--actuator监管-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

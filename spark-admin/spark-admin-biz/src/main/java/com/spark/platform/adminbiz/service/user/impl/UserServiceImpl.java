@@ -125,8 +125,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             if (null != user.getStatus()) {
                 wrapper.eq("status", user.getStatus());
             }
-            if (null != user.getNickname()) {
+            if (StringUtils.isNotBlank( user.getNickname())) {
                 wrapper.like("nickname", user.getNickname());
+            }
+            if(null != user.getDeptId()){
+                wrapper.eq("dept_id", user.getDeptId());
             }
         }
         return super.page(page, wrapper);
