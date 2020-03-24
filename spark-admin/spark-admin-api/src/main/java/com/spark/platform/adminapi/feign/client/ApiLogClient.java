@@ -26,6 +26,6 @@ public interface ApiLogClient {
      * @param apiLog
      * @return
      */
-    @PostMapping("/save")
+    @PostMapping("/log/save")
     ApiResponse save(@RequestBody ApiLog apiLog);
 }
