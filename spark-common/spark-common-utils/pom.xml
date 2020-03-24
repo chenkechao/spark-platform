@@ -11,17 +11,24 @@
     <artifactId>spark-common-utils</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spark-common-utils</name>
-    <description>Demo project for Spring Boot</description>
+    <description>公共工具包</description>
     <packaging>jar</packaging>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
+        <!--hutool-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lionsoul</groupId>
+            <artifactId>ip2region</artifactId>
+            <version>${ip2-region-version}</version>
         </dependency>
     </dependencies>
 
