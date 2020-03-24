@@ -141,9 +141,8 @@ feign:
 ignore:
   urls:
     - /actuator/**
-    - /user/api/**
+    - /**/api/**
     - /authority/api/**
-    - /menu/api/**
     - /v2/api-docs
     - /swagger-ui.html
     - /swagger-resources/**
