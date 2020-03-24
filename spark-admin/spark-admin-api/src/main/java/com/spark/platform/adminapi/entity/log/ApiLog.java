@@ -1,5 +1,7 @@
 package com.spark.platform.adminapi.entity.log;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +17,8 @@ import java.time.LocalDateTime;
  * @Version: 1.0
  */
 @Data
+@TableName("sys_api_log")
+@ApiModel(value = "ApiLog",description = "日志")
 public class ApiLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,7 +44,7 @@ public class ApiLog implements Serializable {
     /**
      * 耗时
      */
-    private Integer times;
+    private Long times;
     /**
      * 访问用户
      */
@@ -53,10 +57,6 @@ public class ApiLog implements Serializable {
      * 地址
      */
     private String address;
-    /**
-     * 请求方式
-     */
-    private String methodType;
     /**
      * 描述
      */

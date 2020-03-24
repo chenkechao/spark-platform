@@ -4,6 +4,7 @@ import com.spark.platform.adminapi.entity.log.ApiLog;
 import com.spark.platform.adminapi.feign.client.ApiLogClient;
 import com.spark.platform.common.base.constants.ServiceNameConstants;
 import com.spark.platform.common.base.support.ApiResponse;
+import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +19,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class ApiLogClientFallBack implements ApiLogClient {
+public class ApiLogClientFallBackFactory implements FallbackFactory<ApiLogClient> {
 
     @Override
-    public ApiResponse save(ApiLog apiLog) {
-        log.error("调用spark-admin服务ApiLogClient:save方法失败!");
-        return ApiResponse.hystrixError(ServiceNameConstants.SPARK_ADMIN , "save");
+    public ApiLogClient create(Throwable throwable) {
+        return new ApiLogClient() {
+            @Override
+            public ApiResponse save(ApiLog apiLog) {
+                log.error("调用spark-admin服务ApiLogClient:save方法失败!,错误日志:{}",throwable.getMessage());
+                return ApiResponse.hystrixError(ServiceNameConstants.SPARK_ADMIN , "save");
+            }
+        };
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableEurekaClient
 @EnableDiscoveryClient
 @MapperScan({"com.spark.platform.adminbiz.dao"})
+@EnableFeignClients(basePackages = "com.spark.platform.adminapi.feign.client")
 @ComponentScan(basePackages = {"com.spark.platform"})
 @EnableSwagger2Doc
 public class SparkAdminBizApplication {

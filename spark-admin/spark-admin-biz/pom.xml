@@ -10,7 +10,7 @@
     </parent>
     <artifactId>spark-admin-biz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spark-admin-service</name>
+    <name>spark-admin-biz</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -30,6 +30,11 @@
             <artifactId>spark-common-utils</artifactId>
             <version>${spark-common.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.spark.platform</groupId>
+            <artifactId>spark-common-log</artifactId>
+            <version>${spark-common.version}</version>
+        </dependency>
         <!--公共配置包 包含base包-->
         <dependency>
             <groupId>com.spark.platform</groupId>
@@ -40,11 +45,6 @@
         <dependency>
             <groupId>com.spark.platform</groupId>
             <artifactId>spark-common-security</artifactId>
-            <version>${spark-common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.spatk.platform</groupId>
-            <artifactId>spark-common-log</artifactId>
             <version>${spark-common.version}</version>
         </dependency>
         <!--actuator监管-->
