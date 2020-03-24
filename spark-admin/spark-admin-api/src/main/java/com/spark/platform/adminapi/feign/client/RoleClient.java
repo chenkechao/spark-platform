@@ -1,6 +1,6 @@
 package com.spark.platform.adminapi.feign.client;
 
-import com.spark.platform.adminapi.feign.fallback.RoleClientFallBack;
+import com.spark.platform.adminapi.feign.fallback.RoleClientFallBackFactory;
 import com.spark.platform.common.base.constants.ServiceNameConstants;
 import com.spark.platform.common.feign.config.FeignRequestInterceptorConfig;
 import com.spark.platform.common.base.support.ApiResponse;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @Description:
  * @Version: 1.0
  */
-@FeignClient(contextId = "roleClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = RoleClientFallBack.class)
+@FeignClient(contextId = "roleClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallbackFactory = RoleClientFallBackFactory.class)
 public interface RoleClient {
 
     @GetMapping("/role/info/{id}")

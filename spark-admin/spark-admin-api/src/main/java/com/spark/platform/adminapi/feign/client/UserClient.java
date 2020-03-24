@@ -3,7 +3,7 @@ package com.spark.platform.adminapi.feign.client;
 
 import com.spark.platform.common.base.constants.ServiceNameConstants;
 import com.spark.platform.common.feign.config.FeignRequestInterceptorConfig;
-import com.spark.platform.adminapi.feign.fallback.UserClientFallBack;
+import com.spark.platform.adminapi.feign.fallback.UserClientFallBackFactory;
 import com.spark.platform.common.base.support.ApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Description:
  * @Version: 1.0
  */
-@FeignClient(contextId = "userClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallback = UserClientFallBack.class)
+@FeignClient(contextId = "userClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallbackFactory = UserClientFallBackFactory.class)
 public interface UserClient {
 
     @GetMapping("/user/api")
