@@ -11,7 +11,7 @@
     <artifactId>spark-admin-biz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spark-admin-biz</name>
-    <description>Demo project for Spring Boot</description>
+    <description>admin 服务</description>
 
     <properties>
         <java.version>1.8</java.version>
