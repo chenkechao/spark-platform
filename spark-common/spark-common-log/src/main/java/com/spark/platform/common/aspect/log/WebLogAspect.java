@@ -10,6 +10,7 @@ import cn.hutool.core.util.URLUtil;
 import com.google.common.collect.Lists;
 import com.spark.platform.adminapi.entity.log.ApiLog;
 import com.spark.platform.adminapi.feign.client.ApiLogClient;
+import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.utils.AddressUtils;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -61,8 +62,13 @@ public class WebLogAspect {
         Object result;
         currentTime.set(System.currentTimeMillis());
         result = joinPoint.proceed();
+        Integer code = 200;
+        //获取请求码
+        if(result instanceof ApiResponse){
+            code = ((ApiResponse)result).getCode();
+        }
         //过滤不需要记录的日志
-        List<String> filter = Lists.newArrayList("/log/save","/api/principal","/api/login","/authority/api/info","/user/api","/menu/api/findAuthByUserId");
+        List<String> filter = Lists.newArrayList("/log/api/save","/api/principal","/api/login","/authority/api/info","/user/api","/menu/api/findAuthByUserId");
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
@@ -82,6 +88,7 @@ public class WebLogAspect {
             apiLog.setDescription(apiOperation.value());
             apiLog.setTimes(System.currentTimeMillis() - currentTime.get());
             apiLog.setAddress(AddressUtils.getCityInfo(ip));
+            apiLog.setStatus(code);
             apiLogClient.save(apiLog);
         }
         currentTime.remove();

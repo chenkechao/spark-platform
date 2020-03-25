@@ -28,6 +28,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuS
     @Override
     public List<Menu> treeList(String name) {
         QueryWrapper<Menu> menuWrapper = new QueryWrapper<>();
+        menuWrapper.orderByAsc("sort");
         //如果有查询条件 不拼接树
         if(StringUtils.isNotBlank(name)){
             menuWrapper.like("name",name);
