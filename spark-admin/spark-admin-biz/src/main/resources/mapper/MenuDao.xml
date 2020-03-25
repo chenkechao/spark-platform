@@ -46,6 +46,7 @@
         WHERE
         m.del_flag = 0
         AND m.type != '2'
+        ORDER BY m.sort
     </select>
 
     <!--查询当前用户权限-->
