@@ -1,7 +1,10 @@
 package com.spark.platform.adminbiz.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.adminapi.entity.dict.Dict;
+import com.spark.platform.adminapi.entity.dict.DictItem;
+import com.spark.platform.adminbiz.service.dict.DictItemService;
 import com.spark.platform.adminbiz.service.dict.DictService;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.base.support.BaseController;
@@ -23,22 +26,31 @@ public class DictController extends BaseController {
     @Autowired
     private DictService dictService;
 
-    @GetMapping("/page")
+    @Autowired
+    private DictItemService dictItemService;
+
+    @PostMapping("/page")
     @ApiOperation(value = "字典列表")
     public ApiResponse page(Dict dict, Page page){
         return success(dictService.findPage(dict,page));
     }
 
-    @GetMapping("/findById/{id}")
+    @PostMapping("/page/item")
+    @ApiOperation(value = "字典子列表")
+    public ApiResponse pageItem(DictItem dictItem,Page page){
+        return success(dictItemService.page(page, Wrappers.query(dictItem).orderByAsc("sort")));
+    }
+
+    @GetMapping("/find/{id}")
     @ApiOperation(value = "根据id获取字典信息")
     public ApiResponse findById(@PathVariable Long id){
         return success(dictService.getById(id));
     }
 
-    @GetMapping("/getTree")
-    @ApiOperation(value = "获取字典树")
-    public ApiResponse getTree(){
-        return success(dictService.getTree());
+    @GetMapping("/find/item/{id}")
+    @ApiOperation(value = "根据id获取字典信息")
+    public ApiResponse findItemById(@PathVariable Long id){
+        return success(dictItemService.getById(id));
     }
 
     @PostMapping("/save")
@@ -47,16 +59,34 @@ public class DictController extends BaseController {
         return success(dictService.save(dict));
     }
 
+    @PostMapping("/save/item")
+    @ApiOperation(value = "保存字典子表信息")
+    public ApiResponse saveItem(@RequestBody DictItem dictItem){
+        return success(dictItemService.save(dictItem));
+    }
+
     @PostMapping("/update")
     @ApiOperation(value = "更新字典信息")
     public ApiResponse update(@RequestBody Dict dict){
         return success(dictService.updateById(dict));
     }
 
+    @PostMapping("/update/item")
+    @ApiOperation(value = "更新字典子表信息")
+    public ApiResponse updateItem(@RequestBody DictItem dictItem){
+        return success(dictItemService.updateById(dictItem));
+    }
+
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "删除字典信息")
-    public ApiResponse update(@PathVariable Long id){
+    public ApiResponse delete(@PathVariable Long id){
         return success(dictService.removeById(id));
+    }
+
+    @DeleteMapping("/delete/item/{id}")
+    @ApiOperation(value = "删除字典子表信息")
+    public ApiResponse deleteItem(@PathVariable Long id){
+        return success(dictItemService.removeById(id));
     }
 
 

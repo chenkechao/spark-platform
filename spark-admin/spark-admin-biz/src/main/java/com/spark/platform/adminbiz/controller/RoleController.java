@@ -43,7 +43,7 @@ public class RoleController extends BaseController {
         return success(roleService.findPage(role,page));
     }
 
-    @GetMapping("/getRoleAll")
+    @GetMapping("/all")
     @ApiOperation(value = "获取所有角色")
     public ApiResponse getRoleAll(){
         return success(roleService.findAllRole());

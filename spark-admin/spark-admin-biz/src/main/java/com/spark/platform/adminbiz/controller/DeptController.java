@@ -29,13 +29,13 @@ public class DeptController extends BaseController {
         return success(deptService.list(dept));
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/find/{id}")
     @ApiOperation(value = "根据id获取部门信息")
     public ApiResponse findById(@PathVariable Long id){
         return success(deptService.getById(id));
     }
 
-    @GetMapping("/getTree")
+    @GetMapping("/tree")
     @ApiOperation(value = "获取部门树")
     public ApiResponse getTree(boolean isRoot){
         return success(deptService.getTree(isRoot));
@@ -58,7 +58,7 @@ public class DeptController extends BaseController {
     @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "删除部门信息")
     @PreAuthorize("hasAnyAuthority('dept:delete1')")
-    public ApiResponse update(@PathVariable Long id){
+    public ApiResponse delete(@PathVariable Long id){
         return success(deptService.removeById(id));
     }
 
