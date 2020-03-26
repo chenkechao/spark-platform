@@ -83,7 +83,7 @@ public class MenuController extends BaseController {
         return success(menuService.removeById(id));
     }
 
-    @GetMapping("/getTree")
+    @GetMapping("/tree")
     @ApiOperation(value = "获取菜单树")
     public ApiResponse getTree(){
         return success(menuService.getMenuTree());
