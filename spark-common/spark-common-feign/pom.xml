@@ -11,7 +11,7 @@
     <artifactId>spark-common-feign</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spark-common-feign</name>
-    <description>Demo project for Spring Boot</description>
+    <description>feign</description>
 
     <dependencies>
         <dependency>
