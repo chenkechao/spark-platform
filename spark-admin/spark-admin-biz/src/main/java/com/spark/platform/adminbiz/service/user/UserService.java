@@ -33,14 +33,6 @@ public interface UserService extends IService<User> {
      * @return User
      */
     User loadUserByUserId(Long userId);
-    /**
-     * 用户 用户名和密码登录
-     *
-     * @param userName 用户名
-     * @param password 密码
-     * @return UserVo
-     * */
-    UserVo loginByPassword(String userName, String password,String ip);
 
     /**
      * 更新用户信息

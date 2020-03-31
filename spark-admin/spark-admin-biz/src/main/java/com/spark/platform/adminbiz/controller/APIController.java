@@ -17,10 +17,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -73,20 +71,6 @@ public class APIController extends BaseController {
         userDto.setRoles(roles);
         userDto.setMenus(menuList);
         return success(userDto);
-    }
-
-    /**
-     * 开放登录接口
-     * @return
-     */
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    @ApiOperation(value = "登录接口")
-    public ApiResponse webLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
-        UserVo result = userService.loginByPassword(username, password,getIpAddr(request));
-        if(null != result){
-            return success(result);
-        }
-        return fail("账户名或密码错误");
     }
 
 

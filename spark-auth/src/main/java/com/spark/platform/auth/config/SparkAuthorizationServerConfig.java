@@ -1,7 +1,7 @@
 package com.spark.platform.auth.config;
 
 import com.spark.platform.common.base.constants.GlobalsConstants;
-import com.spark.platform.common.security.component.SparkWebResponseExceptionTranslator;
+import com.spark.platform.common.security.support.SparkWebResponseExceptionTranslator;
 import com.spark.platform.common.security.config.JwtTokenEnhancer;
 import com.spark.platform.common.security.service.SparkClientDetailsService;
 import com.spark.platform.common.security.service.SparkUserDetailService;

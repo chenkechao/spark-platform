@@ -1,13 +1,12 @@
 package com.spark.platform.common.security.config;
 
 import com.spark.platform.common.base.constants.GlobalsConstants;
-import com.spark.platform.common.security.component.MyAccessDeniedHandler;
-import com.spark.platform.common.security.component.MyAuthExceptionEntryPoint;
+import com.spark.platform.common.security.support.MyAccessDeniedHandler;
+import com.spark.platform.common.security.support.MyAuthExceptionEntryPoint;
 import com.spark.platform.common.security.properties.FilterIgnoreProperties;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -26,14 +25,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.common.security.config
  * @ClassName: SophiaResourceServerConfig
- * @Description: 资源服务 资源访问权限配置: 给接口地址让security管理起来，如哪些不需要授权能访问;哪些需要登录授权后能访问，哪些需要用户拥有这些角色才能访问。
+ * @Description: 资源服务
  * 优先级低于AuthorizationServerConfigurerAdapter
  * @Version: 1.0
  */
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@ComponentScan("com.spark.platform.common.security")
 public class SparkResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -52,16 +50,6 @@ public class SparkResourceServerConfig extends ResourceServerConfigurerAdapter {
         //对称加密方式 测试用,资源服务使用相同的字符达到一个对称加密的效果,生产时候使用RSA非对称加密方式
         jwtAccessTokenConverter.setSigningKey(GlobalsConstants.OAUTH_SIGNING_KEY);
         return jwtAccessTokenConverter;
-        //非对称加密方式(jks文件可能过期，jks文件需要Java keytool工具生成)
-//        Resource resource = new ClassPathResource("publicKey.txt");
-//        String publicKey ;
-//        try {
-//            publicKey = new String(FileCopyUtils.copyToByteArray(resource.getInputStream()));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//          设置公钥
-//        jwtAccessTokenConverter.setVerifierKey(publicKey);
     }
 
     /**
@@ -69,10 +57,7 @@ public class SparkResourceServerConfig extends ResourceServerConfigurerAdapter {
      */
     @Bean
     public TokenStore tokenStore() {
-//        return new InMemoryTokenStore();
         return new RedisTokenStore(redisConnectionFactory);
-//        return new JwtTokenStore(jwtAccessTokenConverter());
-//        return new JdbcTokenStore(dataSource);
     }
 
     @Override
@@ -94,10 +79,6 @@ public class SparkResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     @CrossOrigin
     public void configure(ResourceServerSecurityConfigurer resources) {
-        // String resourceIds = publicMapper.getResourceIdsByClientId(clientId);
-        // //设置客户端所能访问的资源id集合(默认取第一个是本服务的资源)
-        // resources.resourceId(resourceIds.split(",")[0]).stateless(true);
-        // resources.resourceId("admin").stateless(true);
         resources
                 .tokenStore(tokenStore())
                 //自定义Token异常信息,用于token校验失败返回信息

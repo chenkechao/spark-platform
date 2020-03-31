@@ -35,6 +35,12 @@ public class ApiResponse implements Serializable {
         this.msg = sparkHttpStatus.getMessage();
     }
 
+    public ApiResponse(Integer code, String msg,Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
 
     /**
      * 调用服务的错误

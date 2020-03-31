@@ -13,10 +13,6 @@ import lombok.Getter;
 @Getter
 public enum SparkHttpStatus {
     /**
-     * Gl 000500 error code enum.
-     */
-    GL99990500(500, "未知异常"),
-    /**
      * Gl 99990100 error code enum.
      */
     GL99990100(9999100, "参数异常"),

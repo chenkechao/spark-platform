@@ -4,16 +4,10 @@ package com.spark.platform.common.base.exception;
 import com.spark.platform.common.base.enums.SparkHttpStatus;
 import com.spark.platform.common.base.support.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.converter.HttpMessageConversionException;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.List;
 
 /**
  * @author: wangdingfeng
@@ -62,33 +56,6 @@ public class GlobalExceptionHandler {
         return new ApiResponse(SparkHttpStatus.SERVER_FUGUE.getCode(),"不允许访问".equals(e.getMessage()) ? e.getMessage():SparkHttpStatus.SERVER_FUGUE.getMessage());
     }
 
-
-    /**
-     * desc 请求参数合法性校验
-     * @param exception
-     * @return
-     */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ApiResponse validationBodyException(MethodArgumentNotValidException exception){
-
-//        StringBuffer buffer = new StringBuffer();
-
-        BindingResult result  = exception.getBindingResult();
-        if (result.hasErrors()) {
-
-            List<ObjectError> errors = result.getAllErrors();
-
-            errors.forEach(p ->{
-
-                FieldError fieldError = (FieldError) p;
-                log.error("Data check failure : object{"+fieldError.getObjectName()+"},field{"+fieldError.getField()+
-                        "},errorMessage{"+fieldError.getDefaultMessage()+"}");
-//                buffer.append(fieldError.getDefaultMessage()).append(",");
-            });
-        }
-        return new ApiResponse(SparkHttpStatus.GL99990100.getCode(), SparkHttpStatus.GL99990100.getMessage());
-    }
-
     /**
      * 全部异常
      * @param e
@@ -102,30 +69,25 @@ public class GlobalExceptionHandler {
         apiResponse.setData(e.getMessage());
         return apiResponse;
     }
-
     /**
-     * 缺少参数
-     * @param ex
-     * @return
+     * 空指针异常
      */
-    @ExceptionHandler( ServletRequestBindingException.class)
-    public ApiResponse validationBodyException(Exception ex){
-        log.error("缺少必要的参数:"+ex.getMessage());
-        return new ApiResponse(SparkHttpStatus.GL99990100.getCode(), SparkHttpStatus.GL99990100.getMessage());
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiResponse nullPointerExceptionHandler(Exception e) {
+        e.printStackTrace();
+        createLogger(e);
+        return new ApiResponse(SparkHttpStatus.SERVER_ERROR.getCode(), SparkHttpStatus.SERVER_ERROR.getMessage());
     }
 
     /**
-     * 请求参数转换异常
-     * @param exception
-     * @return
+     * 类型转换异常
      */
-    @ExceptionHandler(HttpMessageConversionException.class)
-    public ApiResponse parameterTypeException(HttpMessageConversionException exception){
-        log.error("请求参数转换异常"+exception.getMessage());
-        return new ApiResponse(SparkHttpStatus.GL99990100.getCode(), SparkHttpStatus.GL99990100.getMessage());
-
+    @ExceptionHandler(ClassCastException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiResponse classCastExceptionHandler() {
+        return new ApiResponse(SparkHttpStatus.SERVER_ERROR.getCode(), SparkHttpStatus.SERVER_ERROR.getMessage());
     }
-
 
     /**
      * 打印关键log信息

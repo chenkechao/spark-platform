@@ -1,4 +1,4 @@
-package com.spark.platform.common.security.component;
+package com.spark.platform.common.security.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spark.platform.common.base.enums.SparkHttpStatus;

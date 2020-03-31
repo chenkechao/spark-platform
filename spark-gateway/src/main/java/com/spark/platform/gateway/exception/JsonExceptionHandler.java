@@ -75,7 +75,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
     public static Map<String, Object> response(int status, String errorMessage) {
         Map<String, Object> map = new HashMap<>();
         map.put("code", status);
-        map.put("message", errorMessage);
+        map.put("msg", errorMessage);
         map.put("data", null);
         return map;
     }

@@ -1,4 +1,4 @@
-package com.spark.platform.common.security.component;
+package com.spark.platform.common.security.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spark.platform.common.base.enums.SparkHttpStatus;
@@ -16,7 +16,7 @@ import java.util.Map;
  * @ProjectName: spark-platform
  * @Package: com.spark.platform.common.security.component
  * @ClassName: MyAccessDeniedHandler
- * @Description: 授权失败处理异常
+ * @Description: 请求拒绝，没有权限
  * @Version: 1.0
  */
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
@@ -24,7 +24,6 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        response.setContentType("application/json;charset=UTF-8");
         SparkHttpStatus resultEnum = SparkHttpStatus.UNAUTHORIZED;
         Map map = new HashMap();
         map.put("code", resultEnum.getCode());
