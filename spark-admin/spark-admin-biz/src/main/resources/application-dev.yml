@@ -148,6 +148,3 @@ ignore:
     - /swagger-resources/**
     - /webjars/**
     - /api/**
-
-gateway:
-  url: http://localhost:8002
