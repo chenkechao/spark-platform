@@ -87,8 +87,6 @@ management:
   endpoint:
     bus-refresh:
       enabled: true
-  security:
-    enabled: false
 
 swagger:
   base-package: com.spark.platform.adminbiz
