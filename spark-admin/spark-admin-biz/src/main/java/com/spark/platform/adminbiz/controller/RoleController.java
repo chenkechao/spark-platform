@@ -31,7 +31,7 @@ public class RoleController extends BaseController {
     @Autowired
     private MenuService menuService;
 
-    @GetMapping("/info/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "根据用户id获取用户角色信息")
     public ApiResponse getRoleByUserId(@PathVariable Long id) {
         return success(roleService.getRoleByUserId(id));
@@ -49,34 +49,34 @@ public class RoleController extends BaseController {
         return success(roleService.findAllRole());
     }
 
-    @PostMapping("/save")
+    @PostMapping
     @ApiOperation(value = "保存角色信息")
     @PreAuthorize("hasAnyAuthority('role:add')")
     public ApiResponse save(@RequestBody Role role){
         return success(roleService.save(role));
     }
 
-    @PostMapping("/update")
+    @PutMapping
     @ApiOperation(value = "更新角色信息")
     @PreAuthorize("hasAnyAuthority('role:edit')")
     public ApiResponse update(@RequestBody Role role){
         return success(roleService.updateById(role));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "更新角色信息")
     @PreAuthorize("hasAnyAuthority('role:delete1')")
     public ApiResponse delete(@PathVariable Long id){
         return success(roleService.removeById(id));
     }
 
-    @GetMapping("/getRoleAuth")
+    @GetMapping("/auth")
     @ApiOperation(value = "根据角色id获取权限")
     public ApiResponse getRoleAuth(@RequestParam Long id){
         return success(menuService.getMenuIdsByRole(id));
     }
 
-    @PostMapping("/saveRoleAuth")
+    @PostMapping("/auth")
     @ApiOperation(value = "更新角色权限信息")
     @PreAuthorize("hasAnyAuthority('role:edit')")
     public ApiResponse saveRoleAuth(@RequestBody Role role){

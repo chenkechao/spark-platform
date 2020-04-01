@@ -31,7 +31,7 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/info/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "根据用户id获取用户信息")
     public ApiResponse getUserByUserId(@PathVariable Long id) {
         return success(userService.loadUserByUserId(id));
@@ -49,28 +49,28 @@ public class UserController extends BaseController {
         return success(userService.findPage(user,page));
     }
 
-    @PostMapping("/save")
+    @PostMapping
     @ApiOperation(value = "保存用户数据")
     @PreAuthorize("hasAnyAuthority('user:add')")
     public ApiResponse save(@RequestBody User user){
         return success(userService.save(user));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "删除用户")
     @PreAuthorize("hasAnyAuthority('user:delete1')")
     public ApiResponse delete(@PathVariable Long id){
         return success(userService.removeById(id));
     }
 
-    @PostMapping("/update")
+    @PutMapping
     @ApiOperation(value = "更新用户数据")
     @PreAuthorize("hasAnyAuthority('user:edit')")
     public ApiResponse update(@RequestBody User user){
         return success(userService.updateUser(user));
     }
 
-    @GetMapping("/restPassword")
+    @GetMapping("/rest/password")
     @ApiOperation(value = "重置密码")
     @PreAuthorize("hasAnyAuthority('user:edit')")
     public ApiResponse restPassword(@RequestParam Long id){
@@ -81,7 +81,7 @@ public class UserController extends BaseController {
         return success("重置成功");
     }
 
-    @PostMapping("/updatePassword")
+    @PatchMapping
     @ApiOperation(value = "修改用户信息")
     public ApiResponse updatePassword(@RequestBody User user){
         user.setId(UserUtils.getLoginUser().getId());
@@ -89,7 +89,7 @@ public class UserController extends BaseController {
         return success("修改用户信息");
     }
 
-    @GetMapping("/getRolIdsByUserId/{id}")
+    @GetMapping("/roles/{id}")
     @ApiOperation(value = "根据用户id获取角色ids")
     public ApiResponse getRolIdsByUserId(@PathVariable Long id){
         return success(userService.findRolIdsByUserId(id));

@@ -41,21 +41,21 @@ public class AuthorityController extends BaseController {
         return success(oauthClientDetailsService.findPage(oauthClientDetails,page));
     }
 
-    @PostMapping("/save")
+    @PostMapping
     @ApiOperation(value = "保存信息")
     @PreAuthorize("hasAnyAuthority('oauth:add')")
     public ApiResponse save(@RequestBody OauthClientDetails oauthClientDetails){
         return success(oauthClientDetailsService.save(oauthClientDetails));
     }
 
-    @PostMapping("/update")
+    @PutMapping
     @ApiOperation(value = "更新信息")
     @PreAuthorize("hasAnyAuthority('oauth:edit')")
     public ApiResponse update(@RequestBody OauthClientDetails oauthClientDetails){
         return success(oauthClientDetailsService.updateById(oauthClientDetails));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "更新信息")
     @PreAuthorize("hasAnyAuthority('oauth:delete1')")
     public ApiResponse delete(@PathVariable Long id){

@@ -41,49 +41,49 @@ public class DictController extends BaseController {
         return success(dictItemService.page(page, Wrappers.query(dictItem).orderByAsc("sort")));
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "根据id获取字典信息")
     public ApiResponse findById(@PathVariable Long id){
         return success(dictService.getById(id));
     }
 
-    @GetMapping("/find/item/{id}")
+    @GetMapping("/item/{id}")
     @ApiOperation(value = "根据id获取字典信息")
     public ApiResponse findItemById(@PathVariable Long id){
         return success(dictItemService.getById(id));
     }
 
-    @PostMapping("/save")
+    @PostMapping
     @ApiOperation(value = "保存字典信息")
     public ApiResponse save(@RequestBody Dict dict){
         return success(dictService.save(dict));
     }
 
-    @PostMapping("/save/item")
+    @PostMapping("/item")
     @ApiOperation(value = "保存字典子表信息")
     public ApiResponse saveItem(@RequestBody DictItem dictItem){
         return success(dictItemService.save(dictItem));
     }
 
-    @PostMapping("/update")
+    @PutMapping
     @ApiOperation(value = "更新字典信息")
     public ApiResponse update(@RequestBody Dict dict){
         return success(dictService.updateById(dict));
     }
 
-    @PostMapping("/update/item")
+    @PutMapping("/item")
     @ApiOperation(value = "更新字典子表信息")
     public ApiResponse updateItem(@RequestBody DictItem dictItem){
         return success(dictItemService.updateById(dictItem));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "删除字典信息")
     public ApiResponse delete(@PathVariable Long id){
         return success(dictService.removeById(id));
     }
 
-    @DeleteMapping("/delete/item/{id}")
+    @DeleteMapping("/item/{id}")
     @ApiOperation(value = "删除字典子表信息")
     public ApiResponse deleteItem(@PathVariable Long id){
         return success(dictItemService.removeById(id));

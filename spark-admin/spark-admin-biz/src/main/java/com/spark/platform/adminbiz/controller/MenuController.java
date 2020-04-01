@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,14 +39,14 @@ public class MenuController extends BaseController {
     @Autowired
     private MenuService menuService;
 
-    @GetMapping("/build")
+    @GetMapping("/index")
     @ApiOperation(value = "根据用户获取菜单信息")
     public ApiResponse build(Principal principal){
         List<MenuVue> menuVues = menuService.findMenuTree(principal.getName());
         return success(menuVues);
     }
 
-    @GetMapping("/api/findAuthByUserId")
+    @GetMapping("/api/auth")
     @ApiOperation(value = "根据用户获取菜单信息")
     public ApiResponse findAuthByUserId(@RequestParam Long userId){
         return success(menuService.findAuthByUserId(userId));
@@ -62,21 +63,21 @@ public class MenuController extends BaseController {
         return success(menuService.treeList(name));
     }
 
-    @PostMapping("/save")
+    @PostMapping
     @ApiOperation(value = "保存菜单")
     @PreAuthorize("hasAnyAuthority('menu:add')")
     public ApiResponse save(@RequestBody Menu menu){
         return success(menuService.save(menu));
     }
 
-    @PostMapping("/update")
+    @PutMapping
     @ApiOperation(value = "更新菜单")
     @PreAuthorize("hasAnyAuthority('menu:edit')")
     public ApiResponse update(@RequestBody Menu menu){
         return success(menuService.updateById(menu));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "删除菜单")
     @PreAuthorize("hasAnyAuthority('menu:delete1')")
     public ApiResponse delete(@PathVariable Long id){

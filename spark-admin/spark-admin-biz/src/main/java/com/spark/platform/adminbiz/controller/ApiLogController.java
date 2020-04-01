@@ -36,7 +36,7 @@ public class ApiLogController extends BaseController {
         return success(apiLogService.findPage(apiLog, page));
     }
 
-    @PostMapping("/api/save")
+    @PostMapping("/api")
     @ApiOperation(value = "保存日志信息")
     public ApiResponse save(@RequestBody ApiLog apiLog) {
         return success(apiLogService.save(apiLog));

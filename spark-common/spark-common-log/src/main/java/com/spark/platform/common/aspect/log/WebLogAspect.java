@@ -43,11 +43,8 @@ import java.util.List;
  */
 @Aspect
 @Component
-@Order(-5)
 @Slf4j
 public class WebLogAspect {
-
-    ThreadLocal<Long> currentTime = new ThreadLocal<>();
 
     @Autowired
     private ApiLogClient apiLogClient;
@@ -60,15 +57,16 @@ public class WebLogAspect {
     @Around("webLog()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Object result;
-        currentTime.set(System.currentTimeMillis());
+        Long startTime = System.currentTimeMillis();
         result = joinPoint.proceed();
+        Long endTime = System.currentTimeMillis();
         Integer code = 200;
         //获取请求码
         if(result instanceof ApiResponse){
             code = ((ApiResponse)result).getCode();
         }
         //过滤不需要记录的日志
-        List<String> filter = Lists.newArrayList("/log/api/save","/api/principal","/api/login","/authority/api/info","/user/api","/menu/api/findAuthByUserId");
+        List<String> filter = Lists.newArrayList("/log/api","/api/principal","/authority/api/info","/user/api","/menu/api/auth");
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
@@ -86,12 +84,11 @@ public class WebLogAspect {
             String ip = AddressUtils.getIpAddress(request);
             apiLog.setIp(ip);
             apiLog.setDescription(apiOperation.value());
-            apiLog.setTimes(System.currentTimeMillis() - currentTime.get());
+            apiLog.setTimes(endTime - startTime);
             apiLog.setAddress(AddressUtils.getCityInfo(ip));
             apiLog.setStatus(code);
             apiLogClient.save(apiLog);
         }
-        currentTime.remove();
         return result;
     }
 

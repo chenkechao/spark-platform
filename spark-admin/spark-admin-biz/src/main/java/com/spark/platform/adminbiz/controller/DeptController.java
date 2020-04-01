@@ -29,7 +29,7 @@ public class DeptController extends BaseController {
         return success(deptService.list(dept));
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     @ApiOperation(value = "根据id获取部门信息")
     public ApiResponse findById(@PathVariable Long id){
         return success(deptService.getById(id));
@@ -41,21 +41,21 @@ public class DeptController extends BaseController {
         return success(deptService.getTree(isRoot));
     }
 
-    @PostMapping("/save")
+    @PostMapping
     @ApiOperation(value = "保存部门信息")
     @PreAuthorize("hasAnyAuthority('dept:add')")
     public ApiResponse save(@RequestBody Dept dept){
         return success(deptService.save(dept));
     }
 
-    @PostMapping("/update")
+    @PutMapping
     @ApiOperation(value = "更新部门信息")
     @PreAuthorize("hasAnyAuthority('dept:edit')")
     public ApiResponse update(@RequestBody Dept dept){
         return success(deptService.updateById(dept));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "删除部门信息")
     @PreAuthorize("hasAnyAuthority('dept:delete1')")
     public ApiResponse delete(@PathVariable Long id){
