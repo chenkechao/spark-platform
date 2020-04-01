@@ -1,13 +1,13 @@
 server:
-  port: 8001
+  port: 8000
 spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: spark-admin
+    name: spark-auth
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:  jdbc:mysql://127.0.0.1:3306/spark-dev?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    url:  jdbc:mysql://127.0.0.1:3306/spark?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password:
     name: spark
@@ -59,9 +59,8 @@ mybatis-plus:
     call-setters-on-nulls: true
   global-config:
     db-config:
-      logic-delete-field: delFlag
-      logic-not-delete-value: 0
-      logic-delete-value: 1
+      logic-not-delete-value: 1
+      logic-delete-value: 0
 eureka:
   client:
     register-with-eureka: true
@@ -89,9 +88,9 @@ management:
       enabled: true
 
 swagger:
-  base-package: com.spark.platform.adminbiz
+  base-package: com.spark.platform.auth
   enabled: true
-  description: spark用户服务
+  description: spark认证服务
   version: V1.0
   license: Apache License, Version 2.0
   license-url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -101,14 +100,21 @@ swagger:
     name: wangdingfeng
     email: wangdingfeng@live.com
 
-security:
-  oauth2:
-    client:
-      client-id: spark-admin
-      client-secret: spark-admin-secret
-    resource:
-      jwt:
-        key-value: spark_oauth_key
+spark:
+  security:
+    web:
+      unInterceptUris: /v2/api-docs,/swagger-ui.html,/swagger-resources/**,/webjars/**,/oauth/**,/actuator/**,/druid/*
+
+# 直接放行URL
+ignore:
+  urls:
+    - /oauth/**
+    - /actuator/**
+    - /druid/*
+    - /v2/api-docs
+    - /swagger-ui.html
+    - /swagger-resources/**
+    - /webjars/**
 
 ribbon:
   ReadTimeout: 10000 #请求处理的超时时间
@@ -134,15 +140,3 @@ feign:
     enabled: true
   httpclient:
     enabled: false
-
-# 直接放行URL
-ignore:
-  urls:
-    - /actuator/**
-    - /**/api/**
-    - /authority/api/**
-    - /v2/api-docs
-    - /swagger-ui.html
-    - /swagger-resources/**
-    - /webjars/**
-    - /api/**
