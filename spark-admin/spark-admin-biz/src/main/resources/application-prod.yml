@@ -28,10 +28,11 @@ spring:
   boot:
     admin:
       client:
-        url: http://127.0.0.1:8980
+        url: http://127.0.0.1:9002
         instance:
           prefer-ip: true
-  #    filters: stat,wall,log4j
+#          分服务器部署一定要配置ip
+          service-url: http://127.0.0.1:8001
   redis:
     host: 127.0.0.1
     port: 6379
@@ -67,11 +68,13 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:8761/eureka/
+      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@127.0.0.1:9000/eureka/
   instance:
-    prefer‐ip‐address: true
     status-page-url-path: /actuator/info
     health-check-url-path: /actuator/health
+#      分服务器部署一定要配置ip
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
 eurekaUserName: spark
 eurekaPassWord: spark
 
@@ -139,6 +142,7 @@ feign:
 ignore:
   urls:
     - /actuator/**
+    - /druid/**
     - /**/api/**
     - /authority/api/**
     - /v2/api-docs

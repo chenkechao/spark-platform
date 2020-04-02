@@ -1,5 +1,5 @@
 server:
-  port: 8761
+  port: 9000
 spring:
 #  注册中心登录信息
   security:
@@ -12,7 +12,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://127.0.0.1:8980
+        url: http://127.0.0.1:9002
         instance:
           prefer-ip: true
 eureka:

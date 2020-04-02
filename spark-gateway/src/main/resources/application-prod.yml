@@ -1,5 +1,5 @@
 server:
-  port: 8002
+  port: 9001
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -43,7 +43,7 @@ spring:
   boot:
     admin:
       client:
-        url: http://127.0.0.1:8980
+        url: http://127.0.0.1:9002
         instance:
           prefer-ip: true
 eureka:
@@ -51,7 +51,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:8761/eureka/
+      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:9000/eureka/
   instance:
     prefer‐ip‐address: true
     status-page-url-path: /actuator/info

@@ -69,7 +69,6 @@ eureka:
     serviceUrl:
       defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:8761/eureka/
   instance:
-    prefer‐ip‐address: true
     status-page-url-path: /actuator/info
     health-check-url-path: /actuator/health
 eurekaUserName: spark
@@ -139,6 +138,7 @@ feign:
 ignore:
   urls:
     - /actuator/**
+    - /druid/**
     - /**/api/**
     - /authority/api/**
     - /v2/api-docs

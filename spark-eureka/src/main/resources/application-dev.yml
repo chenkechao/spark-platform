@@ -1,5 +1,5 @@
 server:
-  port: 8761
+  port: 9000
 spring:
 #  注册中心登录信息
   security:
