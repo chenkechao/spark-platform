@@ -14,7 +14,7 @@
     <groupId>com.spark.platform</groupId>
     <artifactId>spark-platform</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <description>springCloud脚手架</description>
+    <description>spark 平台</description>
     <name>spark-platform</name>
     <packaging>pom</packaging>
 

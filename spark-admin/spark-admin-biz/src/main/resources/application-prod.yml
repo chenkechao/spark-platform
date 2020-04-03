@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 9020
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -32,7 +32,7 @@ spring:
         instance:
           prefer-ip: true
 #          分服务器部署一定要配置ip
-          service-url: http://127.0.0.1:8001
+          service-url: http://127.0.0.1:9020
   redis:
     host: 127.0.0.1
     port: 6379

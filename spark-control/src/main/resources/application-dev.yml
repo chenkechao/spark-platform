@@ -1,5 +1,5 @@
 server:
-  port: 8980
+  port: 9002
 spring:
   application:
     name: spark-control
@@ -8,7 +8,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:8761/eureka/
+      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:9000/eureka/
   instance:
     prefer‐ip‐address: true
     status-page-url-path: /actuator/info

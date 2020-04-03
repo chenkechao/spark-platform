@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 9020
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -67,7 +67,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:8761/eureka/
+      defaultZone: http://${eurekaUserName}:${eurekaPassWord}@localhost:9000/eureka/
   instance:
     status-page-url-path: /actuator/info
     health-check-url-path: /actuator/health
