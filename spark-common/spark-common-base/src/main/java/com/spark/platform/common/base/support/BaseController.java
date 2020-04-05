@@ -45,6 +45,7 @@ public class BaseController {
 
     /**
      * 获取IP地址
+     *
      * @param request
      * @return
      */
@@ -67,35 +68,41 @@ public class BaseController {
         }
     }
 
-    public ApiResponse success(){
-        return  new ApiResponse(SparkHttpStatus.SUCCESS);
+    public ApiResponse success() {
+        return new ApiResponse(SparkHttpStatus.SUCCESS);
     }
 
-    public ApiResponse success(String msg){
+    public ApiResponse success(String msg) {
         ApiResponse re = new ApiResponse(SparkHttpStatus.SUCCESS);
         re.setMsg(msg);
-        return  re;
+        return re;
     }
-    public ApiResponse success(Object data){
+
+    public ApiResponse success(String msg, Object data) {
+        ApiResponse re = new ApiResponse(SparkHttpStatus.SUCCESS.getCode(),msg,data);
+        return re;
+    }
+
+    public ApiResponse success(Object data) {
         ApiResponse re = new ApiResponse(SparkHttpStatus.SUCCESS);
         re.setData(data);
-        return  re;
+        return re;
     }
 
-    public ApiResponse fail(){
-        return  new ApiResponse(SparkHttpStatus.COMMON_FAIL);
+    public ApiResponse fail() {
+        return new ApiResponse(SparkHttpStatus.COMMON_FAIL);
     }
 
-    public ApiResponse fail(String msg){
+    public ApiResponse fail(String msg) {
         ApiResponse re = new ApiResponse(SparkHttpStatus.COMMON_FAIL);
         re.setMsg(msg);
-        return  re;
+        return re;
     }
 
-    public ApiResponse handle(boolean bl){
-        if(bl){
+    public ApiResponse handle(boolean bl) {
+        if (bl) {
             return success();
-        }else {
+        } else {
             return fail();
         }
     }

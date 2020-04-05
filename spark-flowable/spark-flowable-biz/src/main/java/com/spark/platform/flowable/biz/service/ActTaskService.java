@@ -33,6 +33,17 @@ public interface ActTaskService {
     void setVariablesLocal(String taskId, Map<String, ? extends Object> variables);
 
     /**
+     * 执行任务
+     * @param taskId 任务id
+     * @param userId 用户id
+     * @param action 任务执行类型 claim：签收 unclaim 反签收 complete 完成 delegate 任务委派 resolve 任务签收完成 返回任务人 assignee 任务转办
+     * @param variables 任务变量
+     * @param localScope 存储范围。如果为true，则提供的变量将存储在任务本地（当任务结束后，再也取不到这个值），
+     *                   而不是流程实例范围（默认是存放在流程实例中）。
+     */
+    Map<String, Object> execute(String taskId, String userId, String action, Map<String,Object> variables,boolean localScope);
+
+    /**
      * 任务签收。
      *
      * @param taskId 任务的id，不能为null.

@@ -1,5 +1,7 @@
 package com.spark.platform.flowable.biz.service.impl;
 
+import com.google.common.collect.Maps;
+import com.spark.platform.flowable.api.enums.ActionEnum;
 import com.spark.platform.flowable.api.vo.TaskVO;
 import com.spark.platform.flowable.biz.service.ActTaskQueryService;
 import com.spark.platform.flowable.biz.service.ActTaskService;
@@ -43,6 +45,36 @@ public class ActTaskServiceImpl implements ActTaskService {
     @Override
     public void setVariablesLocal(String taskId, Map<String, ? extends Object> variables) {
         taskService.setVariablesLocal(taskId, variables);
+    }
+
+    @Override
+    public Map<String, Object> execute(String taskId, String userId, String action, Map<String, Object> variables, boolean localScope) {
+        log.info("-----签收任务ID:{}，签收类型:{},签收人ID:{},---------",taskId,action,userId);
+        Map<String, Object> result = Maps.newHashMap();
+        ActionEnum actionEnum = ActionEnum.actionOf(action);
+        switch (actionEnum){
+            case COMPLETE:
+                //完成任务
+                result = this.complete(taskId,variables,localScope);break;
+            case CLAIM:
+                //签收任务
+                this.claim(taskId,userId);break;
+            case UNCLAIM:
+                //反签收
+                this.unClaim(taskId);break;
+            case DELEGATE:
+                //任务委派
+                this.delegate(taskId,userId);break;
+            case RESOLVE:
+                //委派任务完成，归还委派人
+                this.resolveTask(taskId);break;
+            case ASSIGNEE:
+                //任务转办
+                this.setAssignee(taskId,userId);break;
+            default:
+                break;
+        }
+        return result;
     }
 
     @Override

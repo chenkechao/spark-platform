@@ -75,12 +75,11 @@ public interface ActInstanceService  {
      * @param businessKey 业务id
      * @param businessType 业务type
      * @param businessName 业务名称
-     * @param userId 用户id
      * @param variables           流程实例变量。
      * @return
      */
 
-    ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey, String businessType, String businessName,String userId ,Map<String, Object> variables);
+    ProcessInstance startProcessInstanceByKey(String processDefinitionKey, String businessKey, String businessType, String businessName,Map<String, Object> variables);
 
     /**
      * 启动流程实例--通过流程定义key、流程实例变量
@@ -132,6 +131,13 @@ public interface ActInstanceService  {
                                                          String tenantId, Map<String, Object> variables);
 
     /**
+     * 操作流程
+     * @param action suspend: 挂起流程,activate: 激活流程
+     * @param processInstanceId 流程实例id
+     */
+    void action(String action,String processInstanceId);
+
+    /**
      * 中断流程实例
      *
      * @param processInstanceId 流程实例id
@@ -148,7 +154,7 @@ public interface ActInstanceService  {
      * @return
      * @throws Exception
      */
-    void deleteProcessInstance(String processInstanceId, String deleteReason) throws Exception;
+    void deleteProcessInstance(String processInstanceId, String deleteReason);
 
     /**
      * 设置流程开始节点发起人

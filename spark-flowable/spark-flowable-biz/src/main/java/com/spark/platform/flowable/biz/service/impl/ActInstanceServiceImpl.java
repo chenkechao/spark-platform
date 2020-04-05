@@ -1,6 +1,7 @@
 package com.spark.platform.flowable.biz.service.impl;
 
 import com.google.common.collect.Maps;
+import com.spark.platform.flowable.api.enums.ActionEnum;
 import com.spark.platform.flowable.api.enums.VariablesEnum;
 import com.spark.platform.flowable.api.vo.TaskVO;
 import com.spark.platform.flowable.biz.service.ActInstanceService;
@@ -91,7 +92,7 @@ public class ActInstanceServiceImpl implements ActInstanceService {
     }
 
     @Override
-    public ProcessInstance startProcessInstanceByKey(String processDefinitionKey,String businessKey,String businessType, String businessName, String userId, Map<String, Object> variables) {
+    public ProcessInstance startProcessInstanceByKey(String processDefinitionKey,String businessKey,String businessType, String businessName, Map<String, Object> variables) {
         Assert.notNull(businessKey, "请输入业务id");
         Assert.notNull(businessType, "请输入业务类型");
         //系统常量放入variables中
@@ -130,6 +131,21 @@ public class ActInstanceServiceImpl implements ActInstanceService {
                 .startProcessInstanceByKeyAndTenantId(processDefinitionKey, businessKey, variables, tenantId);
         log.info("流程实例ID:{}---流程定义ID:{}", pi.getId(), pi.getProcessDefinitionId());
         return pi;
+    }
+
+    @Override
+    public void action(String action, String processInstanceId) {
+        ActionEnum actionEnum = ActionEnum.actionOf(action);
+        switch (actionEnum){
+            case SUSPEND:
+                //挂起流程
+                this.suspendProcessInstanceById(processInstanceId); ;break;
+            case ACTIVATE:
+                //激活流程
+                this.activateProcessInstanceById(processInstanceId);break;
+            default:
+                break;
+        }
     }
 
 

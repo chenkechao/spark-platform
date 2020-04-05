@@ -1,18 +1,21 @@
 package com.spark.platform.flowable.biz.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.spark.platform.flowable.api.vo.HistTaskVO;
 import com.spark.platform.flowable.biz.service.ActHistTaskService;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
+import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: wangdingfeng
@@ -77,5 +80,14 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
         page.setTotal(count);
         page.setRecords(histTaskVOS);
         return page;
+    }
+
+    @Override
+    public List<HistoricActivityInstance> listByInstanceIdFilter(String instanceId, List<String> filterEvents) {
+        //过滤历史节点类型 只要开始 结束 任务节点类型的
+        if(CollectionUtil.isEmpty(filterEvents)) filterEvents = Lists.newArrayList("startEvent","endEvent","userTask");
+        List<String> activityTypeFilter = filterEvents;
+        return historyService.createHistoricActivityInstanceQuery().processInstanceId(instanceId)
+                .orderByHistoricActivityInstanceEndTime().desc().list().stream().filter(his -> activityTypeFilter.contains(his.getActivityType())).collect(Collectors.toList());
     }
 }
