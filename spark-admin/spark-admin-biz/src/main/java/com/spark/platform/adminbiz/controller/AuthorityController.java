@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/authority")
-@Api(tags = "Oauht2客户端详情设置")
+@Api(tags = "Oauht2客户端")
 public class AuthorityController extends BaseController {
 
     @Autowired
