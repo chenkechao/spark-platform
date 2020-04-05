@@ -48,12 +48,16 @@ spark-platform
      ├── spark-common-feigh -- 公共feigh类
      ├── spark-common-security -- 安全工具类
      └── spark-common-utils -- 工具类
+     └── spark-common-log -- 日志记录
 ├── spark-gateway -- Spring Cloud Gateway网关
 ├── spark-eureka -- Spring Cloud eureka注册中心
 ├── spark-control -- Spring Boot Admin监控
 └── spark-admin -- 通用用户权限管理模块
      └── spark-admin-api -- 通用用户权限管理系统公共api模块
      └── spark-admin-biz -- 通用用户权限管理系统业务处理模块
+└── spark-flowable -- 通用工作流模块
+     └── spark-flowable-api -- 通用工作流模块公共api模块
+     └── spark-flowable-biz -- 通用工作流模块业务处理模块
 ```
  **平台截图**
  
