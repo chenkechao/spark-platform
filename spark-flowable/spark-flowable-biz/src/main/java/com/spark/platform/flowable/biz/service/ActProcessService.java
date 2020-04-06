@@ -1,5 +1,7 @@
 package com.spark.platform.flowable.biz.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.spark.platform.flowable.api.DTO.DeploymentDTO;
 import com.spark.platform.flowable.api.vo.DeploymentVO;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
 import org.flowable.engine.repository.*;
@@ -138,4 +140,12 @@ public interface ActProcessService {
      * @throws FlowableObjectNotFoundException 当流程定义或用户不存在时.
      */
     void addCandidateStarterUser(String processDefinitionKey, String userId);
+
+    /**
+     * 分页查询
+     * @param deploymentDTO 流程
+     * @param page
+     * @return
+     */
+    Page<DeploymentVO> listPage(DeploymentDTO deploymentDTO, Page page);
 }

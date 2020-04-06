@@ -1,9 +1,14 @@
 package com.spark.platform.flowable.biz.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import com.spark.platform.common.base.constants.ProcessConstants;
+import com.spark.platform.flowable.api.DTO.DeploymentDTO;
 import com.spark.platform.flowable.api.vo.DeploymentVO;
+import com.spark.platform.flowable.api.vo.TaskVO;
 import com.spark.platform.flowable.biz.service.ActProcessService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.*;
 import org.springframework.beans.BeanUtils;
@@ -131,5 +136,33 @@ public class ActProcessServiceImpl implements ActProcessService {
     @Override
     public void addCandidateStarterUser(String processDefinitionKey, String userId) {
         repositoryService.addCandidateStarterUser(processDefinitionKey, userId);
+    }
+
+    @Override
+    public Page<DeploymentVO> listPage(DeploymentDTO deploymentDTO, Page page) {
+        int firstResult = (int)((page.getCurrent()-1)*page.getSize());
+        int maxResults = (int)(page.getCurrent()*page.getSize());
+        DeploymentQuery deploymentQuery = createDeploymentQuery();
+        if(StringUtils.isNotBlank(deploymentDTO.getDeploymentName())){
+            deploymentQuery.deploymentNameLike(deploymentDTO.getDeploymentName());
+        }
+        if(StringUtils.isNotBlank(deploymentDTO.getDeploymentKey())){
+            deploymentQuery.deploymentKeyLike(deploymentDTO.getDeploymentKey());
+        }
+        if(StringUtils.isNotBlank(deploymentDTO.getCategory())){
+            deploymentQuery.deploymentKeyLike(deploymentDTO.getCategory());
+        }
+        long count = deploymentQuery.count();
+        List<Deployment> deployments = deploymentQuery.orderByDeploymenTime().desc().listPage(firstResult,maxResults);
+        List<DeploymentVO> deploymentVOS = Lists.newArrayList();
+        deployments.forEach(deployment -> {
+            DeploymentVO deploymentVO = new DeploymentVO();
+            //忽略二进制文件（模板文件、模板图片）返回
+            BeanUtils.copyProperties(deployment,deploymentVO,"resources");
+            deploymentVOS.add(deploymentVO);
+        });
+        page.setRecords(deploymentVOS);
+        page.setTotal(count);
+        return page;
     }
 }

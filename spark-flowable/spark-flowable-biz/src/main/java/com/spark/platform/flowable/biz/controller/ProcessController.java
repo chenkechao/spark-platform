@@ -1,7 +1,9 @@
 package com.spark.platform.flowable.biz.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.base.support.BaseController;
+import com.spark.platform.flowable.api.DTO.DeploymentDTO;
 import com.spark.platform.flowable.api.vo.DeploymentVO;
 import com.spark.platform.flowable.biz.service.ActProcessService;
 import io.swagger.annotations.Api;
@@ -23,14 +25,20 @@ import java.util.zip.ZipInputStream;
  * @Description:
  */
 @RestController
-@RequestMapping("/runtime/process")
+@RequestMapping("/runtime/process-definitions")
 @Api(value = "Process", tags = {"流程模板"}, description = "注意：如果部署流程定义时指定了tenantId,那么在启动流程实例的时候，也需要传递tenantId，否则报错")
 public class ProcessController extends BaseController {
 
     @Autowired
     private ActProcessService actProcessService;
 
-    @PostMapping(value = "/deploy/files/zip", headers = "content-type=multipart/form-data")
+    @GetMapping
+    @ApiOperation(value = "分页查询流程实例")
+    public ApiResponse page(Page page, DeploymentDTO deploymentDTO){
+        return success(actProcessService.listPage(deploymentDTO,page));
+    }
+
+    @PostMapping(value = "/files/zip", headers = "content-type=multipart/form-data")
     @ApiOperation(value = "部署压缩包形式的模板(.zip .bar)，主子流程定义部署", notes = "可用于一次性部署多个资源文件（.bpmn .drl .form等）")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "主模板名称（模板ID）", required = true, dataType = "String"),
@@ -48,6 +56,7 @@ public class ProcessController extends BaseController {
         return success(deployment);
     }
 
+    @PostMapping(value = "/file", headers = "content-type=multipart/form-data")
     @ApiOperation(value = "部署流程模板文件", notes = "模板与工作流微服务解耦，模板文件可来自网络中某个位置，也可以来自业务项目。" +
             "tenantId用于记录流程定义归属于哪个业务系统，实际使用中，可以为每个系统设置一个固定标识，文件的结尾必须要是.bpmn或者bpmn.xml")
     @ApiImplicitParams({
@@ -56,8 +65,7 @@ public class ProcessController extends BaseController {
             @ApiImplicitParam(name = "tenantId", value = "系统标识", required = false, dataType = "String"),
             @ApiImplicitParam(name = "file", value = "模板文件", required = true, dataType = "__file")
     })
-    @PostMapping(value = "/deploy/file", headers = "content-type=multipart/form-data")
-    public ApiResponse deployByInputStream(String name, String tenantId, String category, MultipartFile file) {
+    public ApiResponse deployByInputStream(String name, String tenantId, String category,String key,@RequestParam("file") MultipartFile file) {
         DeploymentVO deploy = null;
         if (actProcessService.exist(name)) {
             return fail("模板名称重复");
