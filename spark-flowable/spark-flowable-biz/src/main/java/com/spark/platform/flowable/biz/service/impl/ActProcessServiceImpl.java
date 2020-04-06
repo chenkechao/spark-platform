@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.spark.platform.common.base.constants.ProcessConstants;
 import com.spark.platform.flowable.api.DTO.DeploymentDTO;
+import com.spark.platform.flowable.api.DTO.ProcessDefinitionDTO;
 import com.spark.platform.flowable.api.vo.DeploymentVO;
+import com.spark.platform.flowable.api.vo.ProcessDefinitionVO;
 import com.spark.platform.flowable.api.vo.TaskVO;
 import com.spark.platform.flowable.biz.service.ActProcessService;
 import lombok.extern.slf4j.Slf4j;
@@ -125,6 +127,33 @@ public class ActProcessServiceImpl implements ActProcessService {
     }
 
     @Override
+    public Page<ProcessDefinitionVO> listDefinitionPage(ProcessDefinitionDTO processDefinitionDTO, Page page) {
+        int firstResult = (int)((page.getCurrent()-1)*page.getSize());
+        int maxResults = (int)(page.getCurrent()*page.getSize());
+        ProcessDefinitionQuery processDefinitionQuery = createProcessDefinitionQuery();
+        if(StringUtils.isNotBlank(processDefinitionDTO.getName())){
+            processDefinitionQuery.processDefinitionNameLike(processDefinitionDTO.getName());
+        }
+        if(StringUtils.isNotBlank(processDefinitionDTO.getKey())){
+            processDefinitionQuery.processDefinitionKeyLike(processDefinitionDTO.getKey());
+        }
+        if(StringUtils.isNotBlank(processDefinitionDTO.getCategory())){
+            processDefinitionQuery.processDefinitionCategoryLike(processDefinitionDTO.getCategory());
+        }
+        long count = processDefinitionQuery.count();
+        List<ProcessDefinition> processDefinitionList = processDefinitionQuery.orderByDeploymentId().desc().listPage(firstResult,maxResults);
+        List<ProcessDefinitionVO> processDefinitionVOS = Lists.newArrayList();
+        processDefinitionList.forEach(processDefinition -> {
+            ProcessDefinitionVO vo = new ProcessDefinitionVO();
+            BeanUtils.copyProperties(processDefinition,vo);
+            processDefinitionVOS.add(vo);
+        });
+        page.setRecords(processDefinitionVOS);
+        page.setTotal(count);
+        return page;
+    }
+
+    @Override
     public Deployment deployName(String deploymentName) {
         List<Deployment> list = repositoryService
                 .createDeploymentQuery()
@@ -150,7 +179,7 @@ public class ActProcessServiceImpl implements ActProcessService {
             deploymentQuery.deploymentKeyLike(deploymentDTO.getDeploymentKey());
         }
         if(StringUtils.isNotBlank(deploymentDTO.getCategory())){
-            deploymentQuery.deploymentKeyLike(deploymentDTO.getCategory());
+            deploymentQuery.deploymentCategoryLike(deploymentDTO.getCategory());
         }
         long count = deploymentQuery.count();
         List<Deployment> deployments = deploymentQuery.orderByDeploymenTime().desc().listPage(firstResult,maxResults);

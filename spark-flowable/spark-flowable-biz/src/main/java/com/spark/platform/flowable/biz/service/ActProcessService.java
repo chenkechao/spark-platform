@@ -2,7 +2,9 @@ package com.spark.platform.flowable.biz.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.flowable.api.DTO.DeploymentDTO;
+import com.spark.platform.flowable.api.DTO.ProcessDefinitionDTO;
 import com.spark.platform.flowable.api.vo.DeploymentVO;
+import com.spark.platform.flowable.api.vo.ProcessDefinitionVO;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
 import org.flowable.engine.repository.*;
 import org.springframework.lang.Nullable;
@@ -123,6 +125,14 @@ public interface ActProcessService {
      * @return
      */
     ProcessDefinition queryByProcessDefinitionKey(String processDefinitionKey);
+
+    /**
+     * 分页查询 流程定义信息
+     * @param processDefinitionDTO 流程
+     * @param page
+     * @return
+     */
+    Page<ProcessDefinitionVO> listDefinitionPage(ProcessDefinitionDTO processDefinitionDTO, Page page);
 
     /**
      * 根据流程部署name，查询流程部署信息（最新）

@@ -3,7 +3,7 @@ package com.spark.platform.flowable.biz.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.base.support.BaseController;
-import com.spark.platform.flowable.api.DTO.DeploymentDTO;
+import com.spark.platform.flowable.api.DTO.ProcessDefinitionDTO;
 import com.spark.platform.flowable.api.vo.DeploymentVO;
 import com.spark.platform.flowable.biz.service.ActProcessService;
 import io.swagger.annotations.Api;
@@ -33,9 +33,9 @@ public class ProcessController extends BaseController {
     private ActProcessService actProcessService;
 
     @GetMapping
-    @ApiOperation(value = "分页查询流程实例")
-    public ApiResponse page(Page page, DeploymentDTO deploymentDTO){
-        return success(actProcessService.listPage(deploymentDTO,page));
+    @ApiOperation(value = "分页查询流程定义实例")
+    public ApiResponse page(ProcessDefinitionDTO processDefinitionDTO,Page page){
+        return success(actProcessService.listDefinitionPage(processDefinitionDTO,page));
     }
 
     @PostMapping(value = "/files/zip", headers = "content-type=multipart/form-data")

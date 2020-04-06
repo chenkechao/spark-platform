@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-@ApiModel(value = "DeploymentDTO",description = "流程实例查询DTO")
+@ApiModel(value = "DeploymentDTO")
 public class DeploymentDTO {
     /**
      * 流程实例名称
