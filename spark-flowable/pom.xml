@@ -12,6 +12,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>spark-flowable</name>
     <description>工作流</description>
+    <packaging>pom</packaging>
 
     <modules>
         <module>spark-flowable-biz</module>

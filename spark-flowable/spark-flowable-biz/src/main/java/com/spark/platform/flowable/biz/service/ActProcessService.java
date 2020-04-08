@@ -152,10 +152,26 @@ public interface ActProcessService {
     void addCandidateStarterUser(String processDefinitionKey, String userId);
 
     /**
+     * 删除部署流程
+     * @param deploymentId 部署id
+     * @param cascade 是否递归删除
+     */
+    void deleteDeployment(String deploymentId, boolean cascade);
+
+    /**
      * 分页查询
      * @param deploymentDTO 流程
      * @param page
      * @return
      */
     Page<DeploymentVO> listPage(DeploymentDTO deploymentDTO, Page page);
+
+    /**
+     * 读取资源
+     * @param procDefId 流程定义ID
+     * @param proInsId 流程实例ID
+     * @param resType 资源类型(xml|image)
+     * @return
+     */
+    InputStream resourceRead(String procDefId, String proInsId, String resType);
 }

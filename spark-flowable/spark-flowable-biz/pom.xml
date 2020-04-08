@@ -34,11 +34,6 @@
             <artifactId>flowable-spring-boot-starter-process</artifactId>
             <version>${flowable.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.flowable</groupId>
-            <artifactId>flowable-spring-boot-starter-actuator</artifactId>
-            <version>${flowable.version}</version>
-        </dependency>
         <!-- for swagger -->
         <dependency>
             <groupId>com.spring4all</groupId>

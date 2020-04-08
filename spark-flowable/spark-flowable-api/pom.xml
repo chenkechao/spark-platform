@@ -12,7 +12,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>spark-flowable-api</name>
     <description>工作流暴露接口</description>
-    <packaging>jar</packaging>
 
     <dependencies>
         <!--公共基礎包-->

@@ -14,10 +14,6 @@
     <description>feign</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
         <!--feign 依赖-->
         <dependency>
             <groupId>io.github.openfeign</groupId>

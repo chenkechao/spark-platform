@@ -7,12 +7,13 @@ import com.spark.platform.flowable.api.DTO.DeploymentDTO;
 import com.spark.platform.flowable.api.DTO.ProcessDefinitionDTO;
 import com.spark.platform.flowable.api.vo.DeploymentVO;
 import com.spark.platform.flowable.api.vo.ProcessDefinitionVO;
-import com.spark.platform.flowable.api.vo.TaskVO;
 import com.spark.platform.flowable.biz.service.ActProcessService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.engine.RepositoryService;
+import org.flowable.engine.RuntimeService;
 import org.flowable.engine.repository.*;
+import org.flowable.engine.runtime.ProcessInstance;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class ActProcessServiceImpl implements ActProcessService {
 
     @Autowired
     private RepositoryService repositoryService;
+
+    @Autowired
+    private RuntimeService runtimeService;
 
     @Override
     public DeploymentBuilder createDeployment() {
@@ -168,6 +172,12 @@ public class ActProcessServiceImpl implements ActProcessService {
     }
 
     @Override
+    public void deleteDeployment(String deploymentId, boolean cascade) {
+        repositoryService.deleteDeployment(deploymentId,cascade);
+        log.info("删除部署流程成功，部署id:{}",deploymentId);
+    }
+
+    @Override
     public Page<DeploymentVO> listPage(DeploymentDTO deploymentDTO, Page page) {
         int firstResult = (int)((page.getCurrent()-1)*page.getSize());
         int maxResults = (int)(page.getCurrent()*page.getSize());
@@ -193,5 +203,22 @@ public class ActProcessServiceImpl implements ActProcessService {
         page.setRecords(deploymentVOS);
         page.setTotal(count);
         return page;
+    }
+
+    @Override
+    public InputStream resourceRead(String procDefId, String proInsId, String resType) {
+        if (StringUtils.isBlank(procDefId)){
+            ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(proInsId).singleResult();
+            procDefId = processInstance.getProcessDefinitionId();
+        }
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(procDefId).singleResult();
+        String resourceName = "";
+        if (resType.equals("image")) {
+            resourceName = processDefinition.getDiagramResourceName();
+        } else if (resType.equals("xml")) {
+            resourceName = processDefinition.getResourceName();
+        }
+        InputStream resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
+        return resourceAsStream;
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -36,6 +37,16 @@ public class ProcessController extends BaseController {
     @ApiOperation(value = "分页查询流程定义实例")
     public ApiResponse page(ProcessDefinitionDTO processDefinitionDTO,Page page){
         return success(actProcessService.listDefinitionPage(processDefinitionDTO,page));
+    }
+
+    @DeleteMapping(value = "/{deploymentId}")
+    @ApiOperation(value = "删除流程部署", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "deploymentId", value = "流程部署ID", required = true, dataType = "String")
+    })
+    public ApiResponse delete(@PathVariable String deploymentId){
+        actProcessService.deleteDeployment(deploymentId,true);
+        return success("删除成功");
     }
 
     @PostMapping(value = "/files/zip", headers = "content-type=multipart/form-data")
@@ -77,5 +88,21 @@ public class ProcessController extends BaseController {
             }
         }
         return success(deploy);
+    }
+
+    @GetMapping("/resource")
+    @ApiOperation(value = "查看流程部署图片", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "procDefId", value = "流程定义ID", required = false, dataType = "String"),
+            @ApiImplicitParam(name = "proInsId", value = "流程实例ID", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "resType", value = "资源类型(xml|image)", required = true, dataType = "String")
+    })
+    public void resourceRead(String procDefId, String proInsId, String resType, HttpServletResponse response) throws Exception {
+        InputStream resourceAsStream = actProcessService.resourceRead(procDefId, proInsId, resType);
+        byte[] b = new byte[1024];
+        int len = -1;
+        while ((len = resourceAsStream.read(b, 0, 1024)) != -1) {
+            response.getOutputStream().write(b, 0, len);
+        }
     }
 }
