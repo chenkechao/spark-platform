@@ -1,5 +1,6 @@
 package com.spark.platform.flowable.biz.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.base.support.BaseController;
 import com.spark.platform.flowable.api.enums.ActionEnum;
@@ -36,10 +37,10 @@ public class InstanceController extends BaseController {
             @ApiImplicitParam(name = "businessType", value = "业务type(通常为当前业务类型)"),
             @ApiImplicitParam(name = "businessName", value = "业务name(通常为当前业务名称)"),
     })
-    public ApiResponse startByKey(@RequestParam(value = "key") String key, @RequestParam(value = "key") String businessKey, @RequestParam(value = "businessType") String businessType,
+    public ApiResponse startByKey(@RequestParam(value = "key") String key, @RequestParam(value = "businessKey") String businessKey, @RequestParam(value = "businessType") String businessType,
                                   @RequestParam(value = "businessName") String businessName, @RequestBody Map<String, Object> variables) {
         ProcessInstance pi = actInstanceService.startProcessInstanceByKey(key, businessKey, businessType, businessName, variables);
-        return success(pi);
+        return success(BeanUtil.beanToMap(pi));
     }
 
     @PutMapping(value = "/{processInstanceId}")

@@ -1,5 +1,6 @@
 package com.spark.platform.flowable.biz.service.impl;
 
+import cn.hutool.core.map.MapUtil;
 import com.google.common.collect.Maps;
 import com.spark.platform.flowable.api.enums.ActionEnum;
 import com.spark.platform.flowable.api.enums.VariablesEnum;
@@ -96,7 +97,7 @@ public class ActInstanceServiceImpl implements ActInstanceService {
         Assert.notNull(businessKey, "请输入业务id");
         Assert.notNull(businessType, "请输入业务类型");
         //系统常量放入variables中
-        if(null != variables) variables = Maps.newHashMap();
+        if(MapUtil.isEmpty(variables)) variables = Maps.newHashMap();
         variables.put(VariablesEnum.businessType.toString(),businessType);
         variables.put(VariablesEnum.businessName.toString(),businessName);
         ProcessInstance processInstance = this.startProcessInstanceByKey(processDefinitionKey,businessKey,variables);
