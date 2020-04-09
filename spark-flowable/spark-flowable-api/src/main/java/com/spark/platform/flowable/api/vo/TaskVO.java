@@ -71,7 +71,7 @@ public class TaskVO implements Serializable {
 
     public void setVariables(Map<String, Object> variables) {
         this.variables = variables;
-        if(null == variables){
+        if(null != variables){
             //放入业务常量
             this.businessType = (String) variables.get(VariablesEnum.businessType.toString());
             this.businessName = (String) variables.get(VariablesEnum.businessName.toString());

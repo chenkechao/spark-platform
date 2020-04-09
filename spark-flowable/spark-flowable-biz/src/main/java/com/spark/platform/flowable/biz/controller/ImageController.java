@@ -24,7 +24,7 @@ import java.io.OutputStream;
  */
 @RestController
 @RequestMapping("runtime/image")
-@Api(value = "Image", tags = {"流程实例"})
+@Api(value = "Image", tags = {"流程跟踪"})
 @Slf4j
 public class ImageController extends BaseController {
 

@@ -59,8 +59,10 @@ public class APIController extends BaseController {
         }
         User user = userService.loadUserByUserId(loginUser.getId());
         UserVo userVo = new UserVo();
+        //查询角色name信息
+        List<String> roleNames = roleService.getRoleByUserId(loginUser.getId()).stream().map(Role::getRoleName).collect(toList());
         //查询角色信息
-        List<String> roles = roleService.getRoleByUserId(loginUser.getId()).stream().map(Role::getRoleName).collect(toList());
+        List<String> roles = roleService.getRoleByUserId(loginUser.getId()).stream().map(Role::getRoleCode).collect(toList());
         //查询权限信息
         List<String> authList = menuService.findAuthByUserId(loginUser.getId()).stream().map(Menu::getPermission).collect(toList());
         //查询路由菜案信息
@@ -69,6 +71,7 @@ public class APIController extends BaseController {
         userDto.setSysUser(userVo);
         userDto.setPermissions(authList);
         userDto.setRoles(roles);
+        userDto.setRoleNames(roleNames);
         userDto.setMenus(menuList);
         return success(userDto);
     }

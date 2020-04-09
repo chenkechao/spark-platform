@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.base.support.BaseController;
 import com.spark.platform.flowable.api.enums.ActionEnum;
+import com.spark.platform.flowable.api.request.TaskRequestQuery;
 import com.spark.platform.flowable.biz.service.ActHistTaskService;
 import com.spark.platform.flowable.biz.service.ActTaskQueryService;
 import com.spark.platform.flowable.biz.service.ActTaskService;
@@ -37,21 +38,11 @@ public class TaskController extends BaseController {
     private ActHistTaskService actHistTaskService;
 
 
-    @GetMapping("/page")
+    @PostMapping
     @ApiOperation(value = "根据用户ID或者用户组ID，查询该用户代办", produces = "application/json")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "groupId", value = "用户组ID", required = true, dataType = "String")
-    })
-    public ApiResponse page(Page page, String userId, String groupId) {
-        return success(actTaskQueryService.taskCandidateOrAssignedOrGroupPage(userId, groupId, page));
+    public ApiResponse page(@RequestBody TaskRequestQuery taskRequestQuery) {
+        return success(actTaskQueryService.taskCandidateOrAssignedOrGroupPage(taskRequestQuery));
     }
-
-
-    public ApiResponse query() {
-        return success();
-    }
-
 
     @GetMapping(value = "/comment")
     @ApiOperation(value = "查询批注信息", produces = "application/json")

@@ -1,6 +1,7 @@
 package com.spark.platform.flowable.biz.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.spark.platform.flowable.api.request.TaskRequestQuery;
 import com.spark.platform.flowable.api.vo.TaskVO;
 import org.flowable.task.api.Task;
 import org.flowable.task.api.TaskQuery;
@@ -130,11 +131,10 @@ public interface ActTaskQueryService {
     /**
      * 通过用户标识(实际参与者、或候选人)或者用户组 查询任务列表 分页
      *
-     * @param userId 用户标识.
-     * @param groupId  组id
+     * @param query 查询参数.
      * @return List<Task>  流程任务列表.
      */
-    Page<TaskVO> taskCandidateOrAssignedOrGroupPage(String userId, String groupId, Page page);
+    Page<TaskVO> taskCandidateOrAssignedOrGroupPage(TaskRequestQuery query);
 
     /**
      * 通过用户标识(或候选人)，分页查询任务列表

@@ -34,6 +34,10 @@ public class UserDto implements Serializable {
      * */
     private List<String> roles;
     /**
+     * 角色名称
+     * */
+    private List<String> roleNames;
+    /**
      * 菜单
      * */
     private List<MenuVue> menus;

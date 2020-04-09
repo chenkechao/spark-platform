@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.spark.platform.flowable.api.enums.VariablesEnum;
+import com.spark.platform.flowable.api.request.TaskRequestQuery;
 import com.spark.platform.flowable.api.vo.TaskVO;
 import com.spark.platform.flowable.biz.service.ActTaskQueryService;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,7 @@ import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,10 +102,20 @@ public class ActTaskQueryServiceImpl implements ActTaskQueryService {
     }
 
     @Override
-    public Page<TaskVO> taskCandidateOrAssignedOrGroupPage(String userId, String groupId, Page page) {
-        int firstResult = (int)((page.getCurrent()-1)*page.getSize());
-        int maxResults = (int)(page.getCurrent()*page.getSize());
-        List<Task> taskList = createTaskQuery().taskCandidateOrAssigned(userId).taskCandidateGroup(groupId).includeProcessVariables()
+    public Page<TaskVO> taskCandidateOrAssignedOrGroupPage(TaskRequestQuery query) {
+        int firstResult = (int)((query.getCurrent()-1)*query.getSize());
+        int maxResults = (int)(query.getCurrent()*query.getSize());
+        TaskQuery taskQuery = createTaskQuery().taskCandidateOrAssigned(query.getUserId()).taskCandidateGroupIn(query.getGroupIds());
+        if(StringUtils.isNotBlank(query.getBusinessKey())){
+            taskQuery.processInstanceBusinessKey(query.getBusinessKey());
+        }
+        if(StringUtils.isNotBlank(query.getBusinessType())){
+            taskQuery.processVariableValueEquals(VariablesEnum.businessType.toString(),query.getBusinessType());
+        }
+        if(StringUtils.isNotBlank(query.getBusinessName())){
+            taskQuery.processVariableValueLike(VariablesEnum.businessName.toString(),query.getBusinessName());
+        }
+        List<Task> taskList = taskQuery.includeProcessVariables()
                 .orderByTaskPriority().desc()
                 .orderByTaskCreateTime().desc()
                 .listPage(firstResult,maxResults);
@@ -117,8 +129,8 @@ public class ActTaskQueryServiceImpl implements ActTaskQueryService {
             taskVO.setVariables(task.getProcessVariables());
             voList.add(taskVO);
         });
-        Long count = createTaskQuery().taskCandidateOrAssigned(userId).taskCandidateGroup(groupId).count();
-        page.setTotal(count);
+        Long count = taskQuery.count();
+        Page page =new Page(query.getCurrent(),query.getSize(),count);
         page.setRecords(voList);
         return page;
     }
