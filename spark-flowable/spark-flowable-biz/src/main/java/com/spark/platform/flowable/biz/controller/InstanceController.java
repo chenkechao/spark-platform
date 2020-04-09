@@ -43,6 +43,16 @@ public class InstanceController extends BaseController {
         return success(pi.getId());
     }
 
+    @GetMapping(value = "/{processInstanceId}")
+    @ApiOperation(value = "查询", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "processInstanceId", value = "流程实例ID", required = true, dataType = "String")
+    })
+    public ApiResponse get(@PathVariable String processInstanceId){
+        Map<String,Object> objectMap = BeanUtil.beanToMap(actInstanceService.processInstanceId(processInstanceId));
+        return success(objectMap);
+    }
+
     @PutMapping(value = "/{processInstanceId}")
     @ApiOperation(value = "操作流程", notes = "suspend: 挂起流程,activate: 激活流程", produces = "application/json")
     @ApiImplicitParams({
@@ -55,7 +65,7 @@ public class InstanceController extends BaseController {
     }
 
     @DeleteMapping(value = "/{processInstanceId}")
-    @ApiOperation(value = "操作流程", notes = "suspend: 挂起流程,activate: 激活流程", produces = "application/json")
+    @ApiOperation(value = "删除", notes = "删除流程", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "processInstanceId", value = "流程实例ID", required = true, dataType = "String")
     })

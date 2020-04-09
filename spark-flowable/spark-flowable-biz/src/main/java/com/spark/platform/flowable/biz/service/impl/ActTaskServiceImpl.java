@@ -1,5 +1,6 @@
 package com.spark.platform.flowable.biz.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.google.common.collect.Maps;
 import com.spark.platform.flowable.api.enums.ActionEnum;
 import com.spark.platform.flowable.api.vo.TaskVO;
@@ -106,11 +107,9 @@ public class ActTaskServiceImpl implements ActTaskService {
         Task finishTask = actTaskQueryService.createTaskQuery().taskId(taskId).singleResult();
         taskService.complete(taskId, variables, localScope);
         Task task = actTaskQueryService.processInstanceId(finishTask.getProcessInstanceId());
-        TaskVO activeTask = new TaskVO();
-        BeanUtils.copyProperties(task, activeTask);
         Map<String, Object> map = new HashMap<>(16);
-        map.put("finish", finishTask);
-        map.put("active", activeTask);
+        map.put("finish", BeanUtil.beanToMap(finishTask));
+        map.put("active", BeanUtil.beanToMap(task));
         return map;
     }
 

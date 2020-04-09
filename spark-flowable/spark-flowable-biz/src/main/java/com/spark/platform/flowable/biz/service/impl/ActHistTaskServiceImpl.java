@@ -5,7 +5,6 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.spark.platform.flowable.api.enums.VariablesEnum;
-import com.spark.platform.flowable.api.request.TaskRequestQuery;
 import com.spark.platform.flowable.api.vo.HistTaskVO;
 import com.spark.platform.flowable.biz.service.ActHistTaskService;
 import org.apache.commons.lang3.StringUtils;
@@ -66,9 +65,9 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
 
     @Override
     public Page pageListByUserId(long current,long size,String userId,String businessKey,String businessName,String businessType) {
-        int firstResult = (int)((current)-1*size);
+        int firstResult = (int)((current-1)*size);
         int maxResults = (int)(current*size);
-        HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery().taskAssignee(userId);
+        HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery().taskAssignee(userId).finished();
         if(StringUtils.isNotBlank(businessKey)){
             query.processInstanceBusinessKey(businessKey);
         }
