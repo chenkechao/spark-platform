@@ -61,7 +61,7 @@ public class ActTaskQueryServiceImpl implements ActTaskQueryService {
     public TaskVO queryTaskVOById(String taskId) {
         Task task = createTaskQuery().taskId(taskId).singleResult();
         TaskVO taskVO = new TaskVO();
-        BeanUtils.copyProperties(task, taskVO);
+        BeanUtils.copyProperties(task, taskVO,"variables");
         return taskVO;
     }
 

@@ -40,7 +40,7 @@ public class InstanceController extends BaseController {
     public ApiResponse startByKey(@RequestParam(value = "key") String key, @RequestParam(value = "businessKey") String businessKey, @RequestParam(value = "businessType") String businessType,
                                   @RequestParam(value = "businessName") String businessName, @RequestBody Map<String, Object> variables) {
         ProcessInstance pi = actInstanceService.startProcessInstanceByKey(key, businessKey, businessType, businessName, variables);
-        return success(BeanUtil.beanToMap(pi));
+        return success(pi.getId());
     }
 
     @PutMapping(value = "/{processInstanceId}")

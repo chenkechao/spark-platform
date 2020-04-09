@@ -1,6 +1,7 @@
 package com.spark.platform.flowable.biz.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.spark.platform.flowable.api.request.TaskRequestQuery;
 import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.api.history.HistoricTaskInstanceQuery;
@@ -57,10 +58,12 @@ public interface ActHistTaskService {
     /**
      * 分页查询用户已办任务
      * @param userId
-     * @param page
+     * @param businessKey
+     * @param businessName
+     * @param businessType
      * @return
      */
-    Page pageListByUserId(String userId,Page page);
+    Page pageListByUserId(long current,long size,String userId,String businessKey,String businessName,String businessType);
 
     /**
      * 查询需要过滤的历史流程

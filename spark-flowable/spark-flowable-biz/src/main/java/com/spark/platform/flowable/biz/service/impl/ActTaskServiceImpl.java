@@ -103,10 +103,7 @@ public class ActTaskServiceImpl implements ActTaskService {
 
     @Override
     public Map<String, Object> complete(String taskId, Map<String, Object> variables, boolean localScope) {
-        TaskVO finishTask = actTaskQueryService.queryTaskVOById(taskId);
-        if(null == finishTask || StringUtils.isBlank(finishTask.getId())){
-            throw new RuntimeException("任务已经被提交");
-        }
+        Task finishTask = actTaskQueryService.createTaskQuery().taskId(taskId).singleResult();
         taskService.complete(taskId, variables, localScope);
         Task task = actTaskQueryService.processInstanceId(finishTask.getProcessInstanceId());
         TaskVO activeTask = new TaskVO();

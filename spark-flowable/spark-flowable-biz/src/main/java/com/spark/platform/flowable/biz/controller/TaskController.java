@@ -51,23 +51,27 @@ public class TaskController extends BaseController {
         return success(actTaskService.getTaskComments(taskId));
     }
 
-    @GetMapping(value = "/his/page")
-    @ApiOperation(value = "查询批注信息", produces = "application/json")
-    @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "String")})
-    public ApiResponse hisPage(Page page, String userId) {
-        return success(actHistTaskService.pageListByUserId(userId, page));
+    @GetMapping(value = "/his/{userId}")
+    @ApiOperation(value = "查询已办任务", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "current", value = "页码",defaultValue = "1",required = false, dataType = "long"),
+            @ApiImplicitParam(name = "size", value = "数量",defaultValue = "20",required = false, dataType = "long"),
+    })
+    public ApiResponse hisPage(@PathVariable String userId,long current,long size,String businessKey,String businessName,String businessType) {
+        return success(actHistTaskService.pageListByUserId(current,size,userId,businessKey,businessName,businessType));
     }
 
     @PostMapping(value = "/{taskId}")
     @ApiOperation(value = "执行任务", notes = "任务执行类型 claim：签收 unclaim 反签收 complete 完成 delegate 任务委派 resolve 任务签收完成 返回任务人 assignee 任务转办", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "taskId", value = "任务ID", required = true),
-            @ApiImplicitParam(name = "action", value = "执行任务类型", required = false),
+            @ApiImplicitParam(name = "action", value = "执行任务类型", required = true),
             @ApiImplicitParam(name = "assignee", value = "受让人", required = false),
             @ApiImplicitParam(name = "localScope", value = "流程参数存储范围", required = false)
     })
-    public ApiResponse executeTask(@PathVariable String taskId, @RequestParam("action") String action, @RequestParam(value = "assignee") String assignee,
-                                   @RequestParam(value = "localScope") boolean localScope, @RequestBody Map<String, Object> variables) {
+    public ApiResponse executeTask(@PathVariable String taskId, @RequestParam("action") String action, @RequestParam(value = "assignee",required = false) String assignee,
+                                   @RequestParam(value = "localScope",required = false) boolean localScope, @RequestBody Map<String, Object> variables) {
         Map<String, Object> map = actTaskService.execute(taskId, assignee, action, variables, localScope);
         return success(ActionEnum.actionOf(action).getName(), map);
     }
