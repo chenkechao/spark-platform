@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import com.spark.platform.flowable.api.enums.VariablesEnum;
+import com.spark.platform.flowable.api.request.TaskRequestQuery;
 import com.spark.platform.flowable.api.vo.HistTaskVO;
 import com.spark.platform.flowable.biz.service.ActHistTaskService;
 import org.apache.commons.lang3.StringUtils;
@@ -64,20 +65,20 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
     }
 
     @Override
-    public Page pageListByUserId(long current,long size,String userId,String businessKey,String businessName,String businessType) {
-        int firstResult = (int)((current-1)*size);
-        int maxResults = (int)(current*size);
-        HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery().taskAssignee(userId).finished();
-        if(StringUtils.isNotBlank(businessKey)){
-            query.processInstanceBusinessKey(businessKey);
+    public Page pageListByUser(TaskRequestQuery taskRequestQuery) {
+        int firstResult = (int)((taskRequestQuery.getCurrent()-1)*taskRequestQuery.getSize());
+        int maxResults = (int)(taskRequestQuery.getCurrent()*taskRequestQuery.getSize());
+        HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery().taskAssignee(taskRequestQuery.getUserId());
+        if(StringUtils.isNotBlank(taskRequestQuery.getBusinessKey())){
+            query.processInstanceBusinessKey(taskRequestQuery.getBusinessKey());
         }
-        if(StringUtils.isNotBlank(businessName)){
-            query.processVariableValueEquals(VariablesEnum.businessType.toString(),businessName);
+        if(StringUtils.isNotBlank(taskRequestQuery.getBusinessName())){
+            query.processVariableValueEquals(VariablesEnum.businessType.toString(),taskRequestQuery.getBusinessName());
         }
-        if(StringUtils.isNotBlank(businessType)){
-            query.processVariableValueLike(VariablesEnum.businessName.toString(),businessType);
+        if(StringUtils.isNotBlank(taskRequestQuery.getBusinessType())){
+            query.processVariableValueLike(VariablesEnum.businessName.toString(),taskRequestQuery.getBusinessType());
         }
-        List<HistoricTaskInstance> historicTaskInstances = query
+        List<HistoricTaskInstance> historicTaskInstances = query.finished()
                 .includeProcessVariables().orderByHistoricTaskInstanceEndTime().desc().
                         listPage(firstResult,maxResults);
         List<HistTaskVO> histTaskVOS = Lists.newArrayList();
@@ -89,7 +90,7 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
             histTaskVOS.add(histTaskVO);
         });
         long count = query.count();
-        Page page = new Page(current,size,count);
+        Page page = new Page(taskRequestQuery.getCurrent(),taskRequestQuery.getSize(),count);
         page.setRecords(histTaskVOS);
         return page;
     }
@@ -99,7 +100,7 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
         //过滤历史节点类型 只要开始 结束 任务节点类型的
         if(CollectionUtil.isEmpty(filterEvents)) filterEvents = Lists.newArrayList("startEvent","endEvent","userTask");
         List<String> activityTypeFilter = filterEvents;
-        return historyService.createHistoricActivityInstanceQuery().processInstanceId(instanceId)
+        return historyService.createHistoricActivityInstanceQuery().processInstanceId(instanceId).finished()
                 .orderByHistoricActivityInstanceEndTime().desc().list().stream().filter(his -> activityTypeFilter.contains(his.getActivityType())).collect(Collectors.toList());
     }
 }

@@ -44,6 +44,12 @@ public class TaskController extends BaseController {
         return success(actTaskQueryService.taskCandidateOrAssignedOrGroupPage(taskRequestQuery));
     }
 
+    @GetMapping
+    @ApiOperation(value = "查询任务", produces = "application/json")
+    public ApiResponse getTask(TaskRequestQuery taskRequestQuery) {
+        return success(actTaskQueryService.queryByParams(taskRequestQuery));
+    }
+
     @GetMapping(value = "/comment")
     @ApiOperation(value = "查询批注信息", produces = "application/json")
     @ApiImplicitParams({@ApiImplicitParam(name = "taskId", value = "任务ID", required = true, dataType = "String")})
@@ -58,8 +64,8 @@ public class TaskController extends BaseController {
             @ApiImplicitParam(name = "current", value = "页码",defaultValue = "1",required = false, dataType = "long"),
             @ApiImplicitParam(name = "size", value = "数量",defaultValue = "20",required = false, dataType = "long"),
     })
-    public ApiResponse hisPage(@PathVariable String userId,long current,long size,String businessKey,String businessName,String businessType) {
-        return success(actHistTaskService.pageListByUserId(current,size,userId,businessKey,businessName,businessType));
+    public ApiResponse hisPage(TaskRequestQuery taskRequestQuery) {
+        return success(actHistTaskService.pageListByUser(taskRequestQuery));
     }
 
     @PostMapping(value = "/{taskId}")
@@ -86,6 +92,13 @@ public class TaskController extends BaseController {
     public ApiResponse withdraw(String processInstanceId, String currentTaskKey, String targetTaskKey) {
         actTaskService.withdraw(processInstanceId, currentTaskKey, targetTaskKey);
         return success("任务撤回成功");
+    }
+
+    @GetMapping(value = "/records/{processInstanceId}")
+    @ApiOperation(value = "查询流程记录", produces = "application/json")
+    @ApiImplicitParams({@ApiImplicitParam(name = "processInstanceId", value = "流程实例ID", required = true, dataType = "String")})
+    public ApiResponse records(@PathVariable String processInstanceId){
+        return success(actHistTaskService.listByInstanceIdFilter(processInstanceId,null));
     }
 
 

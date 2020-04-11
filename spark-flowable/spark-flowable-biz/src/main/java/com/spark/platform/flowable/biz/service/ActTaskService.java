@@ -80,7 +80,7 @@ public interface ActTaskService {
      * @return
      * @throws Exception
      */
-    void complete(String taskId, Map<String, Object> variables) throws Exception;
+    void complete(String taskId, Map<String, Object> variables);
 
     /**
      * 执行任务，并设置任务变量。

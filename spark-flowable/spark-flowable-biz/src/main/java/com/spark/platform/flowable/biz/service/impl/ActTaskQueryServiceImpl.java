@@ -19,7 +19,6 @@ import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +62,29 @@ public class ActTaskQueryServiceImpl implements ActTaskQueryService {
         TaskVO taskVO = new TaskVO();
         BeanUtils.copyProperties(task, taskVO,"variables");
         return taskVO;
+    }
+
+    @Override
+    public List<TaskVO> queryByParams(TaskRequestQuery taskRequestQuery) {
+        TaskQuery taskQuery = createTaskQuery();
+        if(StringUtils.isNotBlank(taskRequestQuery.getTaskId())){
+            //任务id查询单条记录
+            Task task = createTaskQuery().taskId(taskRequestQuery.getTaskId()).includeProcessVariables().singleResult();
+            TaskVO taskVO = new TaskVO();
+            BeanUtil.copyProperties(task,taskVO,"variables");
+            return Lists.newArrayList(taskVO);
+        }
+        if(StringUtils.isNotBlank(taskRequestQuery.getProcessInstanceId())){
+            taskQuery.processInstanceId(taskRequestQuery.getProcessInstanceId());
+        }
+        List<Task> tasks = taskQuery.includeProcessVariables().list();
+        List<TaskVO> taskVOS = Lists.newArrayList();
+        tasks.forEach(task -> {
+            TaskVO taskVO = new TaskVO();
+            BeanUtil.copyProperties(task,taskVO,"variables");
+            taskVOS.add(taskVO);
+        });
+        return taskVOS;
     }
 
     @Override

@@ -82,6 +82,12 @@ public interface ActTaskQueryService {
     TaskVO queryTaskVOById(String taskId);
 
     /**
+     * 根据参数查询数据
+     * @return
+     */
+    List<TaskVO> queryByParams(TaskRequestQuery taskRequestQuery);
+
+    /**
      * 查询活动的流程任务
      *
      * @param processInstanceId 流程实例ID.

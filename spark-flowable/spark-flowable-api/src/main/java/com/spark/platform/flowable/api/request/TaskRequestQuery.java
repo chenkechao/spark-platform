@@ -19,6 +19,8 @@ import java.util.List;
 @Data
 @ApiModel(value = "TaskRequestQuery",description = "任务查询query")
 public class TaskRequestQuery {
+    @ApiModelProperty(value = "任务ID")
+    private String taskId;
     @ApiModelProperty(value = "用户id")
     private String userId;
     @ApiModelProperty(value = "用户groupIds")
@@ -33,6 +35,8 @@ public class TaskRequestQuery {
     private String businessType;
     @ApiModelProperty(value = "业务名称")
     private String businessName;
+    @ApiModelProperty(value = "流程实例ID")
+    private String processInstanceId;
     /**
      * 页码
      */
