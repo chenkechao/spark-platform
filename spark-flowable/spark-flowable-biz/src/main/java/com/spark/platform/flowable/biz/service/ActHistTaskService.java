@@ -57,13 +57,10 @@ public interface ActHistTaskService {
 
     /**
      * 分页查询用户已办任务
-     * @param userId
-     * @param businessKey
-     * @param businessName
-     * @param businessType
+     * @param taskRequestQuery
      * @return
      */
-    Page pageListByUserId(long current,long size,String userId,String businessKey,String businessName,String businessType);
+    Page pageListByUser(TaskRequestQuery taskRequestQuery);
 
     /**
      * 查询需要过滤的历史流程
