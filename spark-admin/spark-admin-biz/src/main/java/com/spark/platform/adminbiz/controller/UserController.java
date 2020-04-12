@@ -83,10 +83,10 @@ public class UserController extends BaseController {
 
     @PatchMapping
     @ApiOperation(value = "修改用户信息")
-    public ApiResponse updatePassword(@RequestBody User user){
+    public ApiResponse updateUserInfo(@RequestBody User user){
         user.setId(UserUtils.getLoginUser().getId());
         userService.updateUserInfo(user);
-        return success("修改用户信息");
+        return success("修改用户信息成功");
     }
 
     @GetMapping("/roles/{id}")

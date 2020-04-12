@@ -26,10 +26,6 @@ public class UserDto implements Serializable {
      * */
     private UserVo sysUser;
     /**
-     * 权限
-     * */
-    private List<String> permissions;
-    /**
      * 角色
      * */
     private List<String> roles;

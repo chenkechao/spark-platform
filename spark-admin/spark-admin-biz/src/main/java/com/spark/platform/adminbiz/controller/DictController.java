@@ -41,6 +41,12 @@ public class DictController extends BaseController {
         return success(dictItemService.page(page, Wrappers.query(dictItem).orderByAsc("sort")));
     }
 
+    @GetMapping("/type/{type}")
+    @ApiOperation(value = "通过type查询菜单子项")
+    public ApiResponse findItemType(@PathVariable String type){
+        return success(dictItemService.findItemType(type));
+    }
+
     @GetMapping("/{id}")
     @ApiOperation(value = "根据id获取字典信息")
     public ApiResponse findById(@PathVariable Long id){

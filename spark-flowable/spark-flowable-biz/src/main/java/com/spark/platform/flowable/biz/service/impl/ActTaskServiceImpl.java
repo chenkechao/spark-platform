@@ -106,7 +106,7 @@ public class ActTaskServiceImpl implements ActTaskService {
     public Map<String, Object> complete(String taskId, Map<String, Object> variables, boolean localScope) {
         Task finishTask = actTaskQueryService.createTaskQuery().taskId(taskId).singleResult();
         taskService.complete(taskId, variables, localScope);
-        List<Task> task = actTaskQueryService.processInstanceId4Multi(finishTask.getProcessInstanceId());
+        List<Task> task = actTaskQueryService.createTaskQuery().processInstanceId(finishTask.getProcessInstanceId()).active().list();
         Map<String, Object> map = new HashMap<>(16);
         map.put("finish", BeanUtil.beanToMap(finishTask));
         map.put("active", BeanUtil.beanToMap(task));

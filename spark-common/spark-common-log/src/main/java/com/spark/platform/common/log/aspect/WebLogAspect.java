@@ -1,4 +1,4 @@
-package com.spark.platform.common.aspect.log;
+package com.spark.platform.common.log.aspect;
 
 import cn.hutool.core.util.URLUtil;
 import com.google.common.collect.Lists;

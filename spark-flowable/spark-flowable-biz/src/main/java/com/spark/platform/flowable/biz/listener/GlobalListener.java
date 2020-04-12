@@ -23,6 +23,7 @@ public class GlobalListener implements ExecutionListener {
         String instanceId = delegateExecution.getProcessInstanceId();
         String eventName = delegateExecution.getEventName();
         log.info("流程定义ID:{}   流程实例ID:{}", defId, instanceId);
+        delegateExecution.getCurrentActivityId();
         log.debug("监听器事件名称：{}", eventName);
         switch (eventName){
             case BaseExecutionListener.EVENTNAME_START:

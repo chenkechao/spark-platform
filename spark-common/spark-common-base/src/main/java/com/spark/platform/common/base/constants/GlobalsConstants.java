@@ -24,6 +24,10 @@ public class GlobalsConstants {
      * Redis Cache
      */
     public static final String REDIS_USER_CACHE = "RedisUserCache";
+    /**
+     * 字典子项list
+     */
+    public static final String REDIS_DICT_CACHE = "RedisDictCache";
 
     /**
      * Redis Cache
@@ -34,6 +38,10 @@ public class GlobalsConstants {
      * 缓存中user的key
      */
     public static final String USER_KEY_PREFIX = "SparkUser_";
+    /**
+     * 缓存中user的key
+     */
+    public static final String DICT_KEY_PREFIX = "SparkDict_";
 
     /**
      * oauth 客户端信息
@@ -69,6 +77,10 @@ public class GlobalsConstants {
      * druid配置
      */
     public static final String DB_PREFIX = "spring.datasource";
+    /**
+     *  spark security配置
+     */
+    public static final String SPARK_PREFIX = "spark";
 
     /**
      *  spark security配置

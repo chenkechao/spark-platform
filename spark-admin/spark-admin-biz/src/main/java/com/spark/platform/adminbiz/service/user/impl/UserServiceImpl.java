@@ -11,6 +11,7 @@ import com.spark.platform.common.base.exception.BusinessException;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminbiz.dao.user.UserDao;
 import com.spark.platform.adminbiz.service.user.UserService;
+import com.spark.platform.common.security.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,13 +85,16 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public void updateUserInfo(User user) {
-        User userInfo = super.getById(user.getId());
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String password = user.getPassword();
-        if (passwordEncoder.matches(password, userInfo.getPassword())) {
-            throw new BusinessException("新密码与旧密码重复，请重新修改新密码");
+        if(StringUtils.isNotBlank(user.getPassword())){
+            //修改密码
+            User userInfo = super.getById(user.getId());
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String password = user.getPassword();
+            if (passwordEncoder.matches(password, userInfo.getPassword())) {
+                throw new BusinessException("新密码与旧密码重复，请重新修改新密码");
+            }
+            user.setPassword(passwordEncoder.encode(password));
         }
-        user.setPassword(passwordEncoder.encode(password));
         super.updateById(user);
     }
 
