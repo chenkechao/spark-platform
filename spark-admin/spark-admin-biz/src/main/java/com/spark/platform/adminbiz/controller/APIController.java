@@ -57,7 +57,7 @@ public class APIController extends BaseController {
         if(null == loginUser){
             return fail("登录失效");
         }
-        User user = userService.loadUserByUserId(loginUser.getId());
+        User user = userService.getById(loginUser.getId());
         UserVo userVo = new UserVo();
         List<Role> roleList = roleService.getRoleByUserId(loginUser.getId());
         //查询角色name信息

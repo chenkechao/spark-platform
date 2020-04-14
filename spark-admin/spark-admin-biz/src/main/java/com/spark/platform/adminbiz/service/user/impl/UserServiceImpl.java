@@ -99,7 +99,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             }
             user.setPassword(passwordEncoder.encode(password));
         }
-        redisUtils.deleteKey(GlobalsConstants.REDIS_USER_CACHE);
         super.updateById(user);
     }
 
