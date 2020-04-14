@@ -5,14 +5,16 @@ spark 平台
 - 基于数据驱动视图的理念封装 element-ui，即使没有 vue 的使用经验也能快速上手  
 - 前后端分离架构，客户端和服务端纯Token交互，并且接口全部使用restful风格
 - 认证服务器与资源服务器分离，方便接入自己的微服务系统；
-- 由于项目是自己的学习项目，里边存在大量的注释，后期会慢慢的清除，但是这个注释明确的版本也会保留，留给初学者学习研究。
+- 基于flowable的工作流系统，提供完善基于业务的流程系统
 
 待开发完善功能......
-- 工作流(整合flowable 本来想整合activiti 但是我正好最近也在做flowable，正在分支develop中开发，预计近期上线)
-- 定时任务管理器(预计4月份上线)
-- 文件管理(在考虑预计4月份上线)
-- 网关限流(预计4月份)
-- 代码生成器(预计4月份)
+- 定时任务管理器
+- 文件管理
+- 网关限流
+- 代码生成器
+- 配置中心
+
+
 
 ### 项目地址
  平台  | spark-platform（后端）|spark-admin（前端）
@@ -49,20 +51,22 @@ spark-platform
      ├── spark-common-feigh -- 公共feigh类
      ├── spark-common-security -- 安全工具类
      └── spark-common-utils -- 工具类
+     └── spark-common-log -- 日志记录
 ├── spark-gateway -- Spring Cloud Gateway网关
 ├── spark-eureka -- Spring Cloud eureka注册中心
 ├── spark-control -- Spring Boot Admin监控
 └── spark-admin -- 通用用户权限管理模块
      └── spark-admin-api -- 通用用户权限管理系统公共api模块
      └── spark-admin-biz -- 通用用户权限管理系统业务处理模块
+└── spark-flowable -- 通用工作流模块
+     └── spark-flowable-api -- 通用工作流模块公共api模块
+     └── spark-flowable-biz -- 通用工作流模块业务处理模块
 ```
  **平台截图**
  
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151326_252c25ec_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151355_0143597f_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151425_4b29ee4d_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151714_931ceceb_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151605_9ea88479_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151638_e3a879e1_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151843_3da31289_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0405/151906_98d9aabc_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160400_845b86fb_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160509_bf5b2ae0_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160637_d79af584_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160659_0a3e68e0_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160735_29eb44f6_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160753_86cd807a_1890906.png "屏幕截图.png")
