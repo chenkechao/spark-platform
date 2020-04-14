@@ -46,6 +46,10 @@ public class ImageController extends BaseController {
             byte[] processImage = imageService.generateImageByProcInstId(processId);
             response.reset();
             response.setContentType("image/png");
+            //禁止图片缓存
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expires", 0);
             OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
             toClient.write(processImage);
             toClient.flush();
