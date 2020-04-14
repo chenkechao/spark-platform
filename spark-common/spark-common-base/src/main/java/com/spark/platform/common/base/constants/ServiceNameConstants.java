@@ -10,6 +10,13 @@ package com.spark.platform.common.base.constants;
  */
 public class ServiceNameConstants {
 
-    public static final String  SPARK_ADMIN= "SPARK-ADMIN";
+    /**
+     * admin
+     */
+    public static final String SPARK_ADMIN = "SPARK-ADMIN";
+    /**
+     * 工作流
+     */
+    public static final String SPARK_FLOWABLE  = "SPARK_FLOWABLE";
 
 }

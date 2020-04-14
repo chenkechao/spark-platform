@@ -21,11 +21,16 @@
             <artifactId>json</artifactId>
             <version>${json.version}</version>
         </dependency>
-        <!--admin  api 包含oauth-->
+        <!--admin  api -->
         <dependency>
             <groupId>com.spark.platform</groupId>
             <artifactId>spark-admin-api</artifactId>
             <version>${spark-common.version}</version>
+        </dependency>
+        <!-- oauth-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
         <!--security-->
         <dependency>

@@ -1,10 +1,4 @@
-package com.spark.platform.common.aspect.log;
-
-/**
- * @author: wangdingfeng
- * @Date: 2020/3/24 20:08
- * @Description:
- */
+package com.spark.platform.common.log.aspect;
 
 import cn.hutool.core.util.URLUtil;
 import com.google.common.collect.Lists;
@@ -18,7 +12,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

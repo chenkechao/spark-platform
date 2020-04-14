@@ -57,19 +57,23 @@ public class APIController extends BaseController {
         if(null == loginUser){
             return fail("登录失效");
         }
-        User user = userService.loadUserByUserId(loginUser.getId());
+        User user = userService.getById(loginUser.getId());
         UserVo userVo = new UserVo();
+        List<Role> roleList = roleService.getRoleByUserId(loginUser.getId());
+        //查询角色name信息
+        List<String> roleNames = roleList.stream().map(Role::getRoleName).collect(toList());
         //查询角色信息
-        List<String> roles = roleService.getRoleByUserId(loginUser.getId()).stream().map(Role::getRoleName).collect(toList());
-        //查询权限信息
-        List<String> authList = menuService.findAuthByUserId(loginUser.getId()).stream().map(Menu::getPermission).collect(toList());
+        List<String> roles = roleList.stream().map(Role::getRoleCode).collect(toList());
         //查询路由菜案信息
         List<MenuVue> menuList = menuService.findMenuTree(loginUser.getUsername());
+        //查询权限信息
+        List<String> authList = menuService.findAuthByUserId(loginUser.getId()).stream().map(Menu::getPermission).collect(toList());
         BeanUtils.copyProperties(user, userVo);
         userDto.setSysUser(userVo);
-        userDto.setPermissions(authList);
         userDto.setRoles(roles);
+        userDto.setRoleNames(roleNames);
         userDto.setMenus(menuList);
+        userDto.setPermissions(authList);
         return success(userDto);
     }
 
