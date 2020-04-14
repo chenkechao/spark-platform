@@ -10,8 +10,8 @@ import com.spark.platform.flowable.api.vo.HistTaskVO;
 import com.spark.platform.flowable.biz.service.ActHistTaskService;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.engine.HistoryService;
-import org.flowable.engine.RuntimeService;
 import org.flowable.engine.history.HistoricActivityInstance;
+import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.api.history.HistoricTaskInstanceQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +30,6 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
 
     @Autowired
     private HistoryService historyService;
-
-    @Autowired
-    private RuntimeService runtimeService;
 
     @Override
     public HistoricTaskInstanceQuery createHistoricTaskInstanceQuery() {
@@ -66,31 +63,33 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
 
     @Override
     public Page pageListByUser(TaskRequestQuery taskRequestQuery) {
-        int firstResult = (int)((taskRequestQuery.getCurrent()-1)*taskRequestQuery.getSize());
-        int maxResults = (int)(taskRequestQuery.getCurrent()*taskRequestQuery.getSize());
+        int firstResult = (int) ((taskRequestQuery.getCurrent() - 1) * taskRequestQuery.getSize());
+        int maxResults = (int) (taskRequestQuery.getCurrent() * taskRequestQuery.getSize());
         HistoricTaskInstanceQuery query = createHistoricTaskInstanceQuery().taskAssignee(taskRequestQuery.getUserId());
-        if(StringUtils.isNotBlank(taskRequestQuery.getBusinessKey())){
+        if (StringUtils.isNotBlank(taskRequestQuery.getBusinessKey())) {
             query.processInstanceBusinessKey(taskRequestQuery.getBusinessKey());
         }
-        if(StringUtils.isNotBlank(taskRequestQuery.getBusinessName())){
-            query.processVariableValueEquals(VariablesEnum.businessType.toString(),taskRequestQuery.getBusinessName());
+        if (StringUtils.isNotBlank(taskRequestQuery.getBusinessName())) {
+            query.processVariableValueEquals(VariablesEnum.businessType.toString(), taskRequestQuery.getBusinessName());
         }
-        if(StringUtils.isNotBlank(taskRequestQuery.getBusinessType())){
-            query.processVariableValueLike(VariablesEnum.businessName.toString(),taskRequestQuery.getBusinessType());
+        if (StringUtils.isNotBlank(taskRequestQuery.getBusinessType())) {
+            query.processVariableValueLike(VariablesEnum.businessName.toString(), taskRequestQuery.getBusinessType());
         }
         List<HistoricTaskInstance> historicTaskInstances = query.finished()
                 .includeProcessVariables().orderByHistoricTaskInstanceEndTime().desc().
-                        listPage(firstResult,maxResults);
+                        listPage(firstResult, maxResults);
         List<HistTaskVO> histTaskVOS = Lists.newArrayList();
         historicTaskInstances.forEach(historicTaskInstance -> {
             HistTaskVO histTaskVO = new HistTaskVO();
-            BeanUtil.copyProperties(historicTaskInstance,histTaskVO);
+            BeanUtil.copyProperties(historicTaskInstance, histTaskVO);
             histTaskVO.setVariables(historicTaskInstance.getProcessVariables());
-            histTaskVO.setBusinessKey(runtimeService.createProcessInstanceQuery().processInstanceId(historicTaskInstance.getProcessInstanceId()).singleResult().getBusinessKey());
+            //查询业务主键
+            HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(historicTaskInstance.getProcessInstanceId()).singleResult();
+            histTaskVO.setBusinessKey(processInstance.getBusinessKey());
             histTaskVOS.add(histTaskVO);
         });
         long count = query.count();
-        Page page = new Page(taskRequestQuery.getCurrent(),taskRequestQuery.getSize(),count);
+        Page page = new Page(taskRequestQuery.getCurrent(), taskRequestQuery.getSize(), count);
         page.setRecords(histTaskVOS);
         return page;
     }
@@ -98,7 +97,8 @@ public class ActHistTaskServiceImpl implements ActHistTaskService {
     @Override
     public List<HistoricActivityInstance> listByInstanceIdFilter(String instanceId, List<String> filterEvents) {
         //过滤历史节点类型 只要开始 结束 任务节点类型的
-        if(CollectionUtil.isEmpty(filterEvents)) filterEvents = Lists.newArrayList("startEvent","endEvent","userTask");
+        if (CollectionUtil.isEmpty(filterEvents))
+            filterEvents = Lists.newArrayList("startEvent", "endEvent", "userTask");
         List<String> activityTypeFilter = filterEvents;
         return historyService.createHistoricActivityInstanceQuery().processInstanceId(instanceId).finished()
                 .orderByHistoricActivityInstanceEndTime().desc().list().stream().filter(his -> activityTypeFilter.contains(his.getActivityType())).collect(Collectors.toList());
