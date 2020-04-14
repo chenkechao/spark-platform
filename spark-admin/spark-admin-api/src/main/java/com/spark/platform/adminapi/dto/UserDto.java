@@ -37,4 +37,8 @@ public class UserDto implements Serializable {
      * 菜单
      * */
     private List<MenuVue> menus;
+    /**
+     * 权限
+     * */
+    private List<String> permissions;
 }

@@ -11,6 +11,7 @@ import com.spark.platform.common.base.exception.BusinessException;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminbiz.dao.user.UserDao;
 import com.spark.platform.adminbiz.service.user.UserService;
+import com.spark.platform.common.config.redis.RedisUtils;
 import com.spark.platform.common.security.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +37,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Autowired
     private UserRoleDao userRoleDao;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Override
     public User loadUserByUserName(String username) {
@@ -95,6 +99,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             }
             user.setPassword(passwordEncoder.encode(password));
         }
+        redisUtils.deleteKey(GlobalsConstants.REDIS_USER_CACHE);
         super.updateById(user);
     }
 

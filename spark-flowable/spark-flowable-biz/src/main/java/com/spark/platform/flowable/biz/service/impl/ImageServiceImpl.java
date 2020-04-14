@@ -68,17 +68,6 @@ public class ImageServiceImpl implements ImageService {
     public List<Execution> getRunningActivityInst(String procInstId) {
         return runtimeService.createExecutionQuery().processInstanceId(procInstId).list();
     }
-
-    /**
-     * 通过流程实例ID获取已经完成的历史流程实例
-     *
-     * @param procInstId
-     * @return
-     */
-    public List<HistoricProcessInstance> getHistoricFinishedProcInst(String procInstId) {
-        return historyService.createHistoricProcessInstanceQuery().processInstanceId(procInstId).finished().list();
-    }
-
     /**
      * 获取已流经的流程线，需要高亮显示高亮流程已发生流转的线id集合
      *
@@ -236,9 +225,6 @@ public class ImageServiceImpl implements ImageService {
                     log.info("执行中的节点[{}-{}-{}]", execution.getId(), execution.getActivityId(), execution.getName());
                 }
             }
-
-            // 通过流程实例ID获取已经完成的历史流程实例
-            List<HistoricProcessInstance> historicFinishedProcessInstanceList = getHistoricFinishedProcInst(procInstId);
 
             // 定义流程画布生成器
             ProcessDiagramGenerator processDiagramGenerator = null;

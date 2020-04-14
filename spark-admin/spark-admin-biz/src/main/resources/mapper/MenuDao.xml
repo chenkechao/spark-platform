@@ -52,7 +52,8 @@
     <!--查询当前用户权限-->
     <select id="findAuthByUserId" resultType="Menu">
         SELECT
-            m.*
+            m.name,
+            m.permission
         FROM
             sys_menu m
             JOIN (

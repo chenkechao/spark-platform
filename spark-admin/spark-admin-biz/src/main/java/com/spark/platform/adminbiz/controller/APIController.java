@@ -66,11 +66,14 @@ public class APIController extends BaseController {
         List<String> roles = roleList.stream().map(Role::getRoleCode).collect(toList());
         //查询路由菜案信息
         List<MenuVue> menuList = menuService.findMenuTree(loginUser.getUsername());
+        //查询权限信息
+        List<String> authList = menuService.findAuthByUserId(loginUser.getId()).stream().map(Menu::getPermission).collect(toList());
         BeanUtils.copyProperties(user, userVo);
         userDto.setSysUser(userVo);
         userDto.setRoles(roles);
         userDto.setRoleNames(roleNames);
         userDto.setMenus(menuList);
+        userDto.setPermissions(authList);
         return success(userDto);
     }
 

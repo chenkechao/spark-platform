@@ -72,6 +72,7 @@ public class ActTaskQueryServiceImpl implements ActTaskQueryService {
             Task task = createTaskQuery().taskId(taskRequestQuery.getTaskId()).includeProcessVariables().singleResult();
             TaskVO taskVO = new TaskVO();
             BeanUtil.copyProperties(task,taskVO,"variables");
+            taskVO.setVariables(task.getProcessVariables());
             return Lists.newArrayList(taskVO);
         }
         if(StringUtils.isNotBlank(taskRequestQuery.getProcessInstanceId())){
@@ -82,6 +83,7 @@ public class ActTaskQueryServiceImpl implements ActTaskQueryService {
         tasks.forEach(task -> {
             TaskVO taskVO = new TaskVO();
             BeanUtil.copyProperties(task,taskVO,"variables");
+            taskVO.setVariables(task.getProcessVariables());
             taskVOS.add(taskVO);
         });
         return taskVOS;
