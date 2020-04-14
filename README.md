@@ -2,8 +2,8 @@
 spark 平台
 
 - 基于 Spring Cloud Hoxton 、Spring Boot 2.2、 OAuth2 的RBAC权限管理系统  
-- 基于数据驱动视图的理念封装 element-ui，即使没有 vue 的使用经验也能快速上手  
-- 前后端分离架构，客户端和服务端纯Token交互，并且接口全部使用restful风格
+- 基于vue-element-template 实现的前端交互  
+- 前后端分离架构，客户端和服务端纯Token交互，接口全部使用restful风格
 - 认证服务器与资源服务器分离，方便接入自己的微服务系统；
 - 基于flowable的工作流系统，提供完善基于业务的流程系统
 
@@ -30,13 +30,16 @@ Gitee  | [https://gitee.com/dreamfeng/spark-platform](https://gitee.com/dreamfen
 | 账号  | 密码   | 权限               |
 | ----- | ------ | ------------------ |
 | admin | 123456 | 除删除外所有的权限 |
-
+| zuzhang | 123456 | 工作流权限 |
+| zhubian1 | 123456 | 工作流权限 |
+| zhubian2 | 123456 | 工作流权限 |
 
 依赖 | 版本
 ---|---
 Spring Boot |  2.2.0.RELEASE 
 Spring Cloud | Hoxton.RC1   
 Spring Security | 5.1.6.RELEASE
+Flowable | 6.4.0
 Mybatis Plus | 3.2.0
 Spring Boot Admin | 2.2.0
 Security Jwt | 1.0.10.RELEASE
@@ -64,9 +67,14 @@ spark-platform
 ```
  **平台截图**
  
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160400_845b86fb_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160509_bf5b2ae0_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160637_d79af584_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160659_0a3e68e0_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160735_29eb44f6_1890906.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2020/0322/160753_86cd807a_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/203519_d3bb2ecf_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/203457_15593a6b_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/203428_709e61c6_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/203543_ed7c5f02_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/205632_66bdcc0b_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/205726_e7fc1fd3_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/205905_b67406dd_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/205836_f50e2362_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/205954_e8763418_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/210304_7fb0e942_1890906.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/0414/210343_6346c833_1890906.png "屏幕截图.png")
