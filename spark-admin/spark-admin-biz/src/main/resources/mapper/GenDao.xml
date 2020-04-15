@@ -16,10 +16,10 @@
             information_schema.TABLES 
         WHERE
             TABLE_SCHEMA = #{tableSchema}
+            AND LEFT(TABLE_NAME,3) != 'act'
             <if test="tableName != null and tableName != ''">
                 AND TABLE_NAME =#{tableName}
             </if>
-        ORDER BY TABLE_COMMENT DESC
     </select>
 
     <select id="findTableColumnInfo" resultType="com.spark.platform.adminapi.entity.gen.TableColumnInfo">
