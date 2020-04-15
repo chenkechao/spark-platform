@@ -55,6 +55,7 @@
         <spring-boot-admin-version>2.2.0</spring-boot-admin-version>
         <ip2-region-version>1.7.2</ip2-region-version>
         <commons-io-version>2.6</commons-io-version>
+        <freemarker.version>2.3.28</freemarker.version>
     </properties>
 
     <dependencies>
@@ -74,6 +75,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
         </dependency>
         <!--配置文件处理器-->

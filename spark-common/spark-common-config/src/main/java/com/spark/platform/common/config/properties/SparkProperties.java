@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = GlobalsConstants.SPARK_OAUTH_PREFIX)
+@ConfigurationProperties(prefix = GlobalsConstants.SPARK_PREFIX)
 public class SparkProperties {
     /**
      * 文件路径
