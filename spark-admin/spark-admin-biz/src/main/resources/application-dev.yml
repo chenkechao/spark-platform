@@ -140,8 +140,11 @@ ignore:
     - /actuator/**
     - /druid/**
     - /**/api/**
+    - /authority/api/**
     - /v2/api-docs
     - /swagger-ui.html
     - /swagger-resources/**
     - /webjars/**
-    - /api/**
+spark:
+#  文件保存路径
+  file-path: E:/spark/file

@@ -148,4 +148,6 @@ ignore:
     - /swagger-ui.html
     - /swagger-resources/**
     - /webjars/**
-    - /api/**
+spark:
+  #  文件保存路径
+  file-path: /app/file
