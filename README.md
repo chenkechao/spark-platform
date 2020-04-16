@@ -10,12 +10,12 @@ spark 平台
 ### 已实现功能
 |   用户管理  |  角色管理   |  菜单管理   |  部门管理   |  字典管理   |  客户端管理   |  待办事项   |  已办事项   |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-|   流程管理   |  系统日志   |  系统监控   |     |     |     |     |     |
+|   流程管理   |  系统日志   |  系统监控   | 代码生成器    |     |     |     |     |
 
 ### 未实现功能
 
-| 网关限流 | 文件管理 | 定时任务 | 代码生成器 | 配置中心 |  平台文档   |
-| -------- | -------- | -------- | ---------- | -------- | --- |
+| 网关限流 | 文件管理 | 定时任务 |  配置中心 |  平台文档   |
+| -------- | -------- | -------- | -------- | --- |
 
 
 
@@ -39,11 +39,10 @@ Gitee  | [https://gitee.com/dreamfeng/spark-platform](https://gitee.com/dreamfen
 
 依赖 | 版本
 ---|---
-Spring Boot |  2.2.0.RELEASE 
-Spring Cloud | Hoxton.RC1   
-Spring Security | 5.1.6.RELEASE
+Spring Boot |  2.2.6.RELEASE 
+Spring Cloud | Hoxton.SR3   
 Flowable | 6.4.0
-Mybatis Plus | 3.2.0
+Mybatis Plus | 3.3.1
 Spring Boot Admin | 2.2.0
 Security Jwt | 1.0.10.RELEASE
 
