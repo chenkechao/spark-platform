@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Past;
 
 /**
  * @author: wangdingfeng
@@ -31,6 +30,12 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/principal")
+    @ApiOperation(value = "获取用户DTO")
+    public ApiResponse getUserInfo() {
+        return success(userService.getUserInfo());
+    }
+
     @GetMapping("/{id}")
     @ApiOperation(value = "根据用户id获取用户信息")
     public ApiResponse getUserByUserId(@PathVariable Long id) {
@@ -45,35 +50,35 @@ public class UserController extends BaseController {
 
     @PostMapping("/page")
     @ApiOperation(value = "获取用户列表分页")
-    public ApiResponse page(User user, Page page){
-        return success(userService.findPage(user,page));
+    public ApiResponse page(User user, Page page) {
+        return success(userService.findPage(user, page));
     }
 
     @PostMapping
     @ApiOperation(value = "保存用户数据")
     @PreAuthorize("hasAnyAuthority('user:add')")
-    public ApiResponse save(@RequestBody User user){
+    public ApiResponse save(@RequestBody User user) {
         return success(userService.save(user));
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除用户")
     @PreAuthorize("hasAnyAuthority('user:delete1')")
-    public ApiResponse delete(@PathVariable Long id){
+    public ApiResponse delete(@PathVariable Long id) {
         return success(userService.removeById(id));
     }
 
     @PutMapping
     @ApiOperation(value = "更新用户数据")
     @PreAuthorize("hasAnyAuthority('user:edit')")
-    public ApiResponse update(@RequestBody User user){
+    public ApiResponse update(@RequestBody User user) {
         return success(userService.updateUser(user));
     }
 
     @GetMapping("/rest/password")
     @ApiOperation(value = "重置密码")
     @PreAuthorize("hasAnyAuthority('user:edit')")
-    public ApiResponse restPassword(@RequestParam Long id){
+    public ApiResponse restPassword(@RequestParam Long id) {
         User user = new User();
         user.setId(id);
         user.setPassword(GlobalsConstants.DEFAULT_USER_PASSWORD);
@@ -83,7 +88,7 @@ public class UserController extends BaseController {
 
     @PatchMapping
     @ApiOperation(value = "修改用户信息")
-    public ApiResponse updateUserInfo(@RequestBody User user){
+    public ApiResponse updateUserInfo(@RequestBody User user) {
         user.setId(UserUtils.getLoginUser().getId());
         userService.updateUserInfo(user);
         return success("修改用户信息成功");
@@ -91,7 +96,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/roles/{id}")
     @ApiOperation(value = "根据用户id获取角色ids")
-    public ApiResponse getRolIdsByUserId(@PathVariable Long id){
+    public ApiResponse getRolIdsByUserId(@PathVariable Long id) {
         return success(userService.findRolIdsByUserId(id));
     }
 }

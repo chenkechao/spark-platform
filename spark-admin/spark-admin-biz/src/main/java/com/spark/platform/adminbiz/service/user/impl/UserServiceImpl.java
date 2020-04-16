@@ -4,17 +4,25 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.spark.platform.adminapi.dto.UserDto;
+import com.spark.platform.adminapi.entity.authority.Menu;
+import com.spark.platform.adminapi.entity.role.Role;
 import com.spark.platform.adminapi.entity.user.UserRole;
+import com.spark.platform.adminapi.vo.MenuVue;
+import com.spark.platform.adminapi.vo.UserVo;
 import com.spark.platform.adminbiz.dao.user.UserRoleDao;
+import com.spark.platform.adminbiz.service.menu.MenuService;
+import com.spark.platform.adminbiz.service.role.RoleService;
 import com.spark.platform.common.base.constants.GlobalsConstants;
 import com.spark.platform.common.base.exception.BusinessException;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminbiz.dao.user.UserDao;
 import com.spark.platform.adminbiz.service.user.UserService;
-import com.spark.platform.common.config.redis.RedisUtils;
+import com.spark.platform.common.security.model.LoginUser;
 import com.spark.platform.common.security.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +30,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author: wangdingfeng
@@ -39,7 +49,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     private UserRoleDao userRoleDao;
 
     @Autowired
-    private RedisUtils redisUtils;
+    private RoleService roleService;
+
+    @Autowired
+    private MenuService menuService;
 
     @Override
     public User loadUserByUserName(String username) {
@@ -50,6 +63,30 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Cacheable(value = GlobalsConstants.REDIS_USER_CACHE, unless = "#result == null", key = "T(com.spark.platform.common.base.constants.GlobalsConstants).USER_KEY_PREFIX.concat(T(String).valueOf(#userId))")
     public User loadUserByUserId(Long userId) {
         return super.baseMapper.findByUserId(userId);
+    }
+
+    @Override
+    public UserDto getUserInfo() {
+        UserDto userDto = new UserDto();
+        LoginUser loginUser = UserUtils.getLoginUser();
+        User user = this.getById(loginUser.getId());
+        UserVo userVo = new UserVo();
+        List<Role> roleList = roleService.getRoleByUserId(loginUser.getId());
+        //查询角色name信息
+        List<String> roleNames = roleList.stream().map(Role::getRoleName).collect(toList());
+        //查询角色信息
+        List<String> roles = roleList.stream().map(Role::getRoleCode).collect(toList());
+        //查询路由菜案信息
+        List<MenuVue> menuList = menuService.findMenuTree(loginUser.getUsername());
+        //查询权限信息
+        List<String> authList = menuService.findAuthByUserId(loginUser.getId()).stream().map(Menu::getPermission).collect(toList());
+        BeanUtils.copyProperties(user, userVo);
+        userDto.setSysUser(userVo);
+        userDto.setRoles(roles);
+        userDto.setRoleNames(roleNames);
+        userDto.setMenus(menuList);
+        userDto.setPermissions(authList);
+        return userDto;
     }
 
     @Override
@@ -89,7 +126,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public void updateUserInfo(User user) {
-        if(StringUtils.isNotBlank(user.getPassword())){
+        if (StringUtils.isNotBlank(user.getPassword())) {
             //修改密码
             User userInfo = super.getById(user.getId());
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
