@@ -1,6 +1,10 @@
 server:
   port: 9001
 spring:
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
   main:
     allow-bean-definition-overriding: true
   application:
@@ -22,24 +26,33 @@ spring:
             - Path=/auth/**
           #过滤器 设置所有的 方法都会自动添加foo=bar
           filters:
-#            - SwaggerHeaderFilter
             #StripPrefix=2就代表截取路径的个数，这样配置后， PATH 就必须是 XXX/auth
             - StripPrefix=1
             - name: Hystrix
               args:
                 name: oauth-hystrix
                 fallbackUri: forward:/common/fallback #设置熔断器
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2 #允许用户每秒处理多少个请求
+                redis-rate-limiter.burstCapacity: 5 #令牌桶的容量，允许在一秒钟内完成的最大请求数
+                key-resolver: "#{@ipKeyResolver}" #使用SpEL按名称引用bean
         - id: spark-admin
           uri: lb://spark-admin
           predicates:
             - Path=/admin/**
           filters:
-#            - SwaggerHeaderFilter
+            #            - SwaggerHeaderFilter
             - StripPrefix=1
             - name: Hystrix
               args:
                 name: admin-hystrix
                 fallbackUri: forward:/common/fallback #设置熔断器
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 10
+                key-resolver: "#{@ipKeyResolver}"
         - id: spark-flowable
           uri: lb://spark-flowable
           predicates:
@@ -51,6 +64,12 @@ spring:
               args:
                 name: flowable-hystrix
                 fallbackUri: forward:/common/fallback #设置熔断器
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 10
+                key-resolver: "#{@ipKeyResolver}"
+
   boot:
     admin:
       client:
