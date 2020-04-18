@@ -2,8 +2,8 @@ package com.spark.platform.common.log.aspect;
 
 import cn.hutool.core.util.URLUtil;
 import com.google.common.collect.Lists;
-import com.spark.platform.adminapi.entity.log.ApiLog;
-import com.spark.platform.adminapi.feign.client.ApiLogClient;
+import com.spark.platform.adminapi.entity.log.LogApi;
+import com.spark.platform.adminapi.feign.client.LogClient;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.utils.AddressUtils;
 import io.swagger.annotations.ApiOperation;
@@ -40,9 +40,9 @@ import java.util.List;
 public class WebLogAspect {
 
     @Autowired
-    private ApiLogClient apiLogClient;
+    private LogClient apiLogClient;
 
-    @Pointcut("execution(public * com.spark.platform.*.controller..*.*(..))")
+    @Pointcut("execution(public * com.spark.platform..*.controller..*.*(..))")
     public void webLog() {
     }
 
@@ -59,7 +59,7 @@ public class WebLogAspect {
             code = ((ApiResponse)result).getCode();
         }
         //过滤不需要记录的日志
-        List<String> filter = Lists.newArrayList("/log/api","/api/principal","/authority/api/info","/user/api","/menu/api/auth");
+        List<String> filter = Lists.newArrayList("/log/api","/login-log/api","/authority/api/info","/user/api","/menu/api/auth");
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         HttpServletRequest request = sra.getRequest();
@@ -67,7 +67,7 @@ public class WebLogAspect {
         //获取 swagger 注解
         ApiOperation apiOperation = signature.getMethod().getAnnotation(ApiOperation.class);
         if(!filter.contains(request.getRequestURI())){
-            ApiLog apiLog = new ApiLog();
+            LogApi apiLog = new LogApi();
             apiLog.setCreateTime(LocalDateTime.now());
             apiLog.setCreator(getUsername());
             apiLog.setParams(Arrays.toString(joinPoint.getArgs()));

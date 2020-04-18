@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.spark.platform.adminapi.dto.UserDto;
+import com.spark.platform.adminapi.dto.UserDTO;
 import com.spark.platform.adminapi.entity.authority.Menu;
 import com.spark.platform.adminapi.entity.role.Role;
 import com.spark.platform.adminapi.entity.user.UserRole;
@@ -66,8 +66,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     @Override
-    public UserDto getUserInfo() {
-        UserDto userDto = new UserDto();
+    public UserDTO getUserInfo() {
+        UserDTO userDto = new UserDTO();
         LoginUser loginUser = UserUtils.getLoginUser();
         User user = this.getById(loginUser.getId());
         UserVo userVo = new UserVo();

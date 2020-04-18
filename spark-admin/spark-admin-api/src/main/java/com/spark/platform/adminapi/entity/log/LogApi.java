@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
  * @Version: 1.0
  */
 @Data
-@TableName("sys_api_log")
-@ApiModel(value = "ApiLog",description = "日志")
-public class ApiLog implements Serializable {
+@TableName("sys_log_api")
+@ApiModel(value = "LogApi",description = "日志")
+public class LogApi implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

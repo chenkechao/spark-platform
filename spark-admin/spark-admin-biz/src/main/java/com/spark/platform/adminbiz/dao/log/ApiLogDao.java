@@ -1,7 +1,7 @@
 package com.spark.platform.adminbiz.dao.log;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.spark.platform.adminapi.entity.log.ApiLog;
+import com.spark.platform.adminapi.entity.log.LogApi;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @Version: 1.0
  */
 @Repository
-public interface ApiLogDao extends BaseMapper<ApiLog> {
+public interface ApiLogDao extends BaseMapper<LogApi> {
 
 }

@@ -3,7 +3,7 @@ package com.spark.platform.adminbiz.service.log;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.spark.platform.adminapi.entity.log.ApiLog;
+import com.spark.platform.adminapi.entity.log.LogApi;
 
 /**
  * @ProjectName: spark-platform
@@ -14,7 +14,7 @@ import com.spark.platform.adminapi.entity.log.ApiLog;
  * @Date: 2020/3/24 13:18
  * @Version: 1.0
  */
-public interface ApiLogService extends IService<ApiLog> {
+public interface LogApiService extends IService<LogApi> {
 
     /**
      * 分页数据
@@ -22,5 +22,5 @@ public interface ApiLogService extends IService<ApiLog> {
      * @param page
      * @return
      */
-    IPage findPage(ApiLog apiLog, Page page);
+    IPage findPage(LogApi apiLog, Page page);
 }

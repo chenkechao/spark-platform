@@ -1,7 +1,8 @@
 package com.spark.platform.adminapi.feign.client;
 
-import com.spark.platform.adminapi.entity.log.ApiLog;
-import com.spark.platform.adminapi.feign.fallback.ApiLogClientFallBackFactory;
+import com.spark.platform.adminapi.entity.log.LogApi;
+import com.spark.platform.adminapi.entity.log.LogLogin;
+import com.spark.platform.adminapi.feign.fallback.LogClientFallBackFactory;
 import com.spark.platform.common.base.constants.ServiceNameConstants;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.feign.config.FeignRequestInterceptorConfig;
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Date: 2020/3/24 13:31
  * @Version: 1.0
  */
-@FeignClient(contextId = "apiLogClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallbackFactory = ApiLogClientFallBackFactory.class)
-public interface ApiLogClient {
+@FeignClient(contextId = "apiLogClient", name = ServiceNameConstants.SPARK_ADMIN, configuration = FeignRequestInterceptorConfig.class, fallbackFactory = LogClientFallBackFactory.class)
+public interface LogClient {
 
     /**
      * 保存日志
@@ -27,5 +28,15 @@ public interface ApiLogClient {
      * @return
      */
     @PostMapping("/log/api")
-    ApiResponse save(@RequestBody ApiLog apiLog);
+    ApiResponse save(@RequestBody LogApi apiLog);
+
+    /**
+     * 保存登录日志
+     * @param loginLog
+     * @return
+     */
+    @PostMapping("/login-log/api")
+    ApiResponse saveLoginLog(@RequestBody LogLogin loginLog);
+
+
 }

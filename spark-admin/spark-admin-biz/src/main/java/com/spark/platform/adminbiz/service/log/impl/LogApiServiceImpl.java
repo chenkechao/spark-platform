@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.spark.platform.adminapi.entity.log.ApiLog;
+import com.spark.platform.adminapi.entity.log.LogApi;
 import com.spark.platform.adminbiz.dao.log.ApiLogDao;
-import com.spark.platform.adminbiz.service.log.ApiLogService;
+import com.spark.platform.adminbiz.service.log.LogApiService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,10 +19,10 @@ import org.springframework.stereotype.Service;
  * @Version: 1.0
  */
 @Service
-public class ApiLogServiceImpl extends ServiceImpl<ApiLogDao, ApiLog> implements ApiLogService {
+public class LogApiServiceImpl extends ServiceImpl<ApiLogDao, LogApi> implements LogApiService {
 
     @Override
-    public IPage findPage(ApiLog apiLog, Page page) {
+    public IPage findPage(LogApi apiLog, Page page) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.orderByDesc("create_time");
         return super.page(page,wrapper);

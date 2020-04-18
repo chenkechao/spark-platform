@@ -124,5 +124,13 @@ public class GlobalsConstants {
      * 默认密码
      */
     public static final String DEFAULT_USER_PASSWORD  = "123456";
+    /**
+     * 文件上传保存临时路径
+     */
+    public static final String FILE_PATH_TEMP = "temp";
+    /**
+     * 文件存储业务路径
+     */
+    public static final String FILE_PATH_BIZ = "biz";
 
 }

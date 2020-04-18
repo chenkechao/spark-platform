@@ -3,9 +3,8 @@ package com.spark.platform.adminbiz.service.user;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.spark.platform.adminapi.dto.UserDto;
+import com.spark.platform.adminapi.dto.UserDTO;
 import com.spark.platform.adminapi.entity.user.User;
-import com.spark.platform.adminapi.vo.UserVo;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public interface UserService extends IService<User> {
      * 获取用户信息
      * @return
      */
-    UserDto getUserInfo();
+    UserDTO getUserInfo();
 
     /**
      * 更新用户信息

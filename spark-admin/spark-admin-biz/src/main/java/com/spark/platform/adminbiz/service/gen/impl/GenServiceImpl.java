@@ -110,7 +110,7 @@ public class GenServiceImpl implements GenService {
         // 公共父类
         strategy.setSuperControllerClass("com.spark.platform.common.base.support.BaseController");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("creator", "modifier", "create_date", "modified_date", "del_flag", "remarks");
+        strategy.setSuperEntityColumns("creator", "modifier", "create_date", "modify_date", "del_flag", "remarks");
         strategy.setInclude(generatorConfigVo.getTableName());
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");

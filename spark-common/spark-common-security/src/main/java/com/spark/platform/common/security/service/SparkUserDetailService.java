@@ -2,6 +2,8 @@ package com.spark.platform.common.security.service;
 
 import com.alibaba.fastjson.JSON;
 import com.spark.platform.adminapi.entity.authority.Menu;
+import com.spark.platform.adminapi.entity.log.LogLogin;
+import com.spark.platform.adminapi.feign.client.LogClient;
 import com.spark.platform.adminapi.feign.client.MenuClient;
 import com.spark.platform.adminapi.feign.client.UserClient;
 import com.spark.platform.common.base.constants.BizConstants;
@@ -9,6 +11,8 @@ import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.common.base.exception.CommonException;
 import com.spark.platform.common.base.support.ApiResponse;
 import com.spark.platform.common.security.model.LoginUser;
+import com.spark.platform.common.utils.AddressUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,8 +20,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +43,16 @@ public class SparkUserDetailService implements UserDetailsService {
     private UserClient userClient;
     @Autowired
     private MenuClient menuClient;
+    @Autowired
+    private LogClient logClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if(StringUtils.isEmpty(username)){
+        if (StringUtils.isEmpty(username)) {
             throw new CommonException("登录名不能为空");
         }
         ApiResponse apiResponse = userClient.getUserByUserName(username);
-        User user = JSON.parseObject(JSON.toJSONString( apiResponse.getData(), true),User.class);
+        User user = JSON.parseObject(JSON.toJSONString(apiResponse.getData(), true), User.class);
         if (user == null) {
             throw new CommonException("登录名不存在");
         } else if (BizConstants.USER_STATUS_EXPIRED.equals(user.getStatus())) {
@@ -57,14 +66,30 @@ public class SparkUserDetailService implements UserDetailsService {
         ApiResponse response = menuClient.findAuthByUserId(user.getId());
         List<Menu> authList = JSON.parseArray(JSON.toJSONString(response.getData(), true), Menu.class);
         List<GrantedAuthority> lists = new ArrayList<>();
-        if(authList != null && authList.size()>0){
+        if (authList != null && authList.size() > 0) {
             for (Menu auth : authList) {
                 lists.add(new SimpleGrantedAuthority(auth.getPermission()));
             }
         }
-        LoginUser loginUser = new LoginUser(username,user.getPassword(),user.getNickname(),user.getStatus(), lists);
+        LoginUser loginUser = new LoginUser(username, user.getPassword(), user.getNickname(), user.getStatus(), lists);
         loginUser.setId(user.getId());
         loginUser.setDeptId(user.getDeptId());
+        //保存登录日志
+        saveLoginLog(username);
         return loginUser;
+    }
+
+    /**
+     * 保存登录日志信息
+     */
+    private void saveLoginLog(String username) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        String ip = AddressUtils.getIpAddress(request);
+        String location = AddressUtils.getCityInfo(ip);
+        String os = System.getProperty("os.name").toString();
+        String browser = StringUtils.substringBefore(request.getHeader("user-agent"),"(") ;
+        LogLogin loginLog = new LogLogin(username, os, browser, LocalDateTime.now(), location, ip);
+        logClient.saveLoginLog(loginLog);
     }
 }
