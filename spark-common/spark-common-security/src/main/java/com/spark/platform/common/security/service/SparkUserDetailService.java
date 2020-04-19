@@ -1,5 +1,7 @@
 package com.spark.platform.common.security.service;
 
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.alibaba.fastjson.JSON;
 import com.spark.platform.adminapi.entity.authority.Menu;
 import com.spark.platform.adminapi.entity.log.LogLogin;
@@ -87,8 +89,9 @@ public class SparkUserDetailService implements UserDetailsService {
         HttpServletRequest request = attributes.getRequest();
         String ip = AddressUtils.getIpAddress(request);
         String location = AddressUtils.getCityInfo(ip);
-        String os = System.getProperty("os.name").toString();
-        String browser = StringUtils.substringBefore(request.getHeader("user-agent"),"(") ;
+        UserAgent userAgent = UserAgentUtil.parse(request.getHeader("user-agent"));
+        String os = userAgent.getOs().getName();
+        String browser = userAgent.getBrowser().getName();
         LogLogin loginLog = new LogLogin(username, os, browser, LocalDateTime.now(), location, ip);
         logClient.saveLoginLog(loginLog);
     }
