@@ -18,6 +18,7 @@ import com.spark.platform.common.base.exception.BusinessException;
 import com.spark.platform.adminapi.entity.user.User;
 import com.spark.platform.adminbiz.dao.user.UserDao;
 import com.spark.platform.adminbiz.service.user.UserService;
+import com.spark.platform.common.base.support.WrapperSupport;
 import com.spark.platform.common.security.model.LoginUser;
 import com.spark.platform.common.security.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -107,20 +108,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Override
     public IPage findPage(User user, Page page) {
         QueryWrapper wrapper = new QueryWrapper<User>();
-        if (null != user) {
-            if (StringUtils.isNotBlank(user.getUsername())) {
-                wrapper.like("username", user.getUsername());
-            }
-            if (null != user.getStatus()) {
-                wrapper.eq("status", user.getStatus());
-            }
-            if (StringUtils.isNotBlank(user.getNickname())) {
-                wrapper.like("nickname", user.getNickname());
-            }
-            if (null != user.getDeptId()) {
-                wrapper.eq("dept_id", user.getDeptId());
-            }
-        }
+        WrapperSupport.putParamsLike(wrapper,user,"username","nickname");
+        WrapperSupport.putParamsEqual(wrapper,user,"status","deptId");
         return super.page(page, wrapper);
     }
 

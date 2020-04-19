@@ -10,8 +10,8 @@ import com.spark.platform.adminapi.entity.role.RoleMenu;
 import com.spark.platform.adminbiz.dao.role.RoleDao;
 import com.spark.platform.adminbiz.dao.role.RoleMenuDao;
 import com.spark.platform.adminbiz.service.role.RoleService;
+import com.spark.platform.common.base.support.WrapperSupport;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,11 +44,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
     @Override
     public IPage findPage(Role role, Page page) {
         QueryWrapper queryWrapper = new QueryWrapper<Role>();
-        if(null != role){
-            if(StringUtils.isNotBlank(role.getRoleName())){
-                queryWrapper.like("roleName",role.getRoleName());
-            }
-        }
+        WrapperSupport.putParamsLike(queryWrapper,role,"roleName");
         return roleDao.selectPage(page,queryWrapper);
     }
 

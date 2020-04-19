@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.spark.platform.adminapi.entity.dict.Dict;
 import com.spark.platform.adminbiz.dao.dict.DictDao;
 import com.spark.platform.adminbiz.service.dict.DictService;
-import org.apache.commons.lang3.StringUtils;
+import com.spark.platform.common.base.support.WrapperSupport;
 import org.springframework.stereotype.Service;
 
 
@@ -24,15 +24,9 @@ public class DictServiceImpl extends ServiceImpl<DictDao, Dict> implements DictS
     public IPage findPage(Dict dict, Page page) {
         QueryWrapper wrapper = new QueryWrapper<Dict>();
         wrapper.orderByDesc("modify_date");
-        if (null != dict) {
-            if (StringUtils.isNotBlank(dict.getName())) {
-                wrapper.like("name", dict.getName());
-            }
-            if (StringUtils.isNotBlank(dict.getType())) {
-                wrapper.eq("type", dict.getType());
-            }
-        }
-        return super.page(page);
+        WrapperSupport.putParamsLike(wrapper,dict,"name");
+        WrapperSupport.putParamsEqual(wrapper,dict,"type");
+        return super.page(page,wrapper);
     }
 
 }

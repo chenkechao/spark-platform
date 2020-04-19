@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.spark.platform.adminapi.entity.log.LogApi;
 import com.spark.platform.adminbiz.dao.log.ApiLogDao;
 import com.spark.platform.adminbiz.service.log.LogApiService;
+import com.spark.platform.common.base.support.WrapperSupport;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +26,7 @@ public class LogApiServiceImpl extends ServiceImpl<ApiLogDao, LogApi> implements
     public IPage findPage(LogApi apiLog, Page page) {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.orderByDesc("create_time");
+        WrapperSupport.putParamsLike(wrapper,apiLog,"username");
         return super.page(page,wrapper);
     }
 }

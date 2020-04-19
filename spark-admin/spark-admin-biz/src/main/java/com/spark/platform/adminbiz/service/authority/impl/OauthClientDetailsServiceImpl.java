@@ -1,5 +1,6 @@
 package com.spark.platform.adminbiz.service.authority.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -7,7 +8,7 @@ import com.spark.platform.adminbiz.service.authority.OauthClientDetailsService;
 import com.spark.platform.common.base.constants.GlobalsConstants;
 import com.spark.platform.adminapi.entity.authority.OauthClientDetails;
 import com.spark.platform.adminbiz.dao.authority.OauthClientDetailsDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.spark.platform.common.base.support.WrapperSupport;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,8 @@ public class OauthClientDetailsServiceImpl extends ServiceImpl<OauthClientDetail
 
     @Override
     public IPage findPage(OauthClientDetails oauthClientDetails, Page page) {
-        return super.page(page);
+        QueryWrapper wrapper = new QueryWrapper<OauthClientDetails>();
+        WrapperSupport.putParamsEqual(wrapper,oauthClientDetails,"clientId");
+        return super.page(page,wrapper);
     }
 }

@@ -16,6 +16,7 @@ import com.spark.platform.adminbiz.service.file.FileInfoService;
 import com.spark.platform.common.base.constants.BizConstants;
 import com.spark.platform.common.base.constants.GlobalsConstants;
 import com.spark.platform.common.base.exception.BusinessException;
+import com.spark.platform.common.base.support.WrapperSupport;
 import com.spark.platform.common.config.properties.SparkProperties;
 import com.spark.platform.common.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -126,21 +127,9 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoDao, FileInfo> impl
 
     @Override
     public IPage findPage(Page page, FileInfo fileInfo) {
-        QueryWrapper wrapper = new QueryWrapper<FileInfoDTO>();
-        if (null != fileInfo) {
-            if (StringUtils.isNotBlank(fileInfo.getFileName())) {
-                wrapper.like("file_name", fileInfo.getFileName());
-            }
-            if (StringUtils.isNotBlank(fileInfo.getFileType())) {
-                wrapper.like("file_type", fileInfo.getFileType());
-            }
-            if (StringUtils.isNotBlank(fileInfo.getBizId())) {
-                wrapper.eq("biz_id", fileInfo.getBizId());
-            }
-            if (StringUtils.isNotBlank(fileInfo.getBizType())) {
-                wrapper.eq("biz_type", fileInfo.getBizType());
-            }
-        }
+        QueryWrapper wrapper = new QueryWrapper<FileInfo>();
+        WrapperSupport.putParamsLike(wrapper,fileInfo,"fileName","fileType");
+        WrapperSupport.putParamsEqual(wrapper,fileInfo,"bizId","bizType");
         return super.page(page, wrapper);
     }
 
